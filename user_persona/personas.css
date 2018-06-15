@@ -24,6 +24,10 @@ nav a {
     padding: 0.4em;
 }
 
+nav a:last-child{
+    border-right: 1px solid #000;
+}
+
 nav a:hover {
     background: #000;
     color: #fff;
