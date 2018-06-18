@@ -1,0 +1,15 @@
+{
+  "name": "cracker-rank-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "cracker-rank"
+  ],
+  "author": "JSAN",
+  "license": "MIT"
+}
