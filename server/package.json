@@ -4,12 +4,17 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node server.js"
   },
   "keywords": [
     "cracker-rank"
   ],
   "author": "JSAN",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "D": "^1.0.0",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
 }
