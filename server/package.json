@@ -11,5 +11,9 @@
     "cracker-rank"
   ],
   "author": "JSAN",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.1.5"
+  }
 }
