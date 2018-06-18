@@ -1,16 +1,18 @@
 const path = require('path');
 
 module.exports = {
+    mode: 'development',
     entry: path.resolve(__dirname, 'src') + '/react-app/index.js',
     output: {
         path: path.resolve(__dirname) + '/public/assets',
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/react-app/'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                indclude: path.resolve(__dirname,'src'),
+                include: path.resolve(__dirname, 'src'),
                 loader: 'babel-loader',
                 query: {
                     presets: ['react']
@@ -22,4 +24,4 @@ module.exports = {
             }
         ]
     }
-}
+};
