@@ -1,12 +1,13 @@
 {
-  "name": "cracker-rank-client",
+  "name": "cracker-rank",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "./server/server.js",
   "scripts": {
     "test": "mocha",
-    "start": "npm run build",
-    "build": "webpack -d && webpack-dev-server --content-base src/ --inline --hot --port 3000"
+    "start": "node ./server/server.js",
+    "build": "webpack -d && webpack-dev-server --content-base client/src/ --inline --hot --port 3000",
+    "lint": "eslint ./server ./client/src ./client/test"
   },
   "keywords": [
     "cracker-rank"
@@ -14,8 +15,8 @@
   "author": "JSAN",
   "license": "MIT",
   "dependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.2.0",
+    "express": "^4.16.3",
+    "mongoose": "^5.1.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },
@@ -23,7 +24,11 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "babel-preset-react": "^6.24.1",
+    "chai": "^4.1.2",
     "css-loader": "^0.28.11",
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.9.1",
+    "mocha": "^5.2.0",
     "style-loader": "^0.21.0",
     "webpack": "^4.12.0",
     "webpack-cli": "^3.0.8",
