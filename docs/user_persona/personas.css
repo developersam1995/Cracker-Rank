@@ -33,6 +33,12 @@ nav a:hover {
     color: #fff;
 }
 
+.business-user {
+    float: left;
+    margin: 10px;
+    width: 50%;
+}
+
 header h1{
     text-align: center;
 }
