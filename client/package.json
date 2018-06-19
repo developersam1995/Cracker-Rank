@@ -14,6 +14,8 @@
   "author": "JSAN",
   "license": "MIT",
   "dependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"
   },
