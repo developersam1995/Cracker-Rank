@@ -13,7 +13,6 @@
   "author": "JSAN",
   "license": "MIT",
   "dependencies": {
-    "D": "^1.0.0",
     "chai": "^4.1.2",
     "mocha": "^5.2.0"
   }
