@@ -15,10 +15,14 @@
   "author": "JSAN",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^1.2.2",
+    "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "mongoose": "^5.1.5",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
