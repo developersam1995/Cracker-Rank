@@ -1,0 +1,16 @@
+.LangGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 4em;
+    margin: 40px;
+}
+
+.skills {
+    background: #e0dbdb;
+    padding-bottom: 10px;
+}
+
+.skills h2 {
+    color: #696666;
+    margin-left: 40px;
+}

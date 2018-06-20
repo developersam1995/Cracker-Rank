@@ -1,0 +1,60 @@
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    padding: 20px;
+}
+
+.container .banner {
+    font-size: 20px;
+    padding: 20px;
+}
+
+.form-container {
+    right: 80px;
+    position: absolute;
+    background: #917b7b;
+    padding: 20px;
+    width: fit-content;
+}
+
+.form-container input, a {
+    display: grid;
+    margin: 20px auto;
+    width: auto;
+}
+
+.form-container input {
+    font-size: 1em;
+    justify-content: center;
+    padding: 10px;
+}
+
+.form-container a {
+    font-size: 1em;
+    text-align: right;
+    right: 0;
+    color: #fff;
+    text-decoration: none;
+}
+
+.form-container a:hover {
+    color: rgb(0, 0, 0);
+}
+
+.form-container input[type="submit"] {
+    font-size: 1.2em;
+    justify-content: center;
+    background: red;
+    border: 1px solid #917b7b;
+    background: #fff;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgb(160, 150, 150);
+}
+
+.form-container input[type="submit"]:hover {
+    background: #917b7b;
+    color: #fff;
+    border: 1px solid #fff;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgb(160, 150, 150);
+}

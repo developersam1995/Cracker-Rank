@@ -1,0 +1,24 @@
+.Editor {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 1fr;
+    word-break: break-all;
+    
+}
+
+.Editor .code {
+    margin: 20px;
+    border: 1px solid;
+    word-break: break-all;
+    box-shadow: 1px 2px 3px rgb(128, 118, 118);
+}
+
+.Editor .code textarea {
+    position: inherit;
+    width: 90%;
+    height: 80%;
+    padding: 10px;
+    border: none;
+    outline: none;
+    resize: none;
+}

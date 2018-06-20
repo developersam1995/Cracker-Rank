@@ -1,0 +1,35 @@
+.Card {
+    padding: 20px;
+    width: auto;
+    background: #fff;
+    box-shadow: 2px 3px 4px 1px rgb(190, 135, 135);
+}
+
+.Card .category {
+    font-size: .9em;
+}
+
+.Card .title {
+    margin-top: 0px;
+    font-size: 1.5em;
+}
+
+.Card button {
+    padding: 20px;
+    background: #1ba94c;
+    color: #fff;
+    font-size: 1em;
+    border: none;
+    box-shadow: 2px 2px 3px 1px #a5dbb8;
+    cursor: pointer;
+}
+
+.Card .myProgress {
+    background-color: #ddd;
+    margin: 20px 0;
+  }
+  
+.Card .myBar {
+    height: 10px;
+    background-color: #4CAF50;
+  }

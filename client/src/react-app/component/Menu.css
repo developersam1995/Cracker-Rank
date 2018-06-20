@@ -1,0 +1,16 @@
+.Menu {
+    padding: 20px;
+    background: #5e5555;
+    color: #fff;
+    font-size: 1.2em;
+    vertical-align: middle;
+    /* box-shadow: 2px 3px 4px rgb(219, 143, 143); */
+}
+
+.user-icon {
+    margin-top: auto;
+    margin-right: 32px;
+    position:absolute;
+    right: 0;
+    cursor: pointer;
+}

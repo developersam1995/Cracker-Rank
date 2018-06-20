@@ -1,0 +1,12 @@
+.PageTitle {
+    padding: 10px 20px;
+    background: #fff;
+    margin: 0px;
+    box-shadow: 2px 1px 3px rgb(196, 160, 160);   
+}
+
+.PageTitle .title {
+    font-size: 1.1em;
+    font-weight: bold;
+    letter-spacing: 1px;
+}

@@ -1,0 +1,45 @@
+.QuestionContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    background: #F3F3F3;
+}
+
+.Question  {
+    margin: 20px;
+    padding: 10px;
+    /* border: 1px solid; */
+    word-break: break-all;
+    box-shadow: 1px 3px 4px  rgb(128, 118, 118);
+    color: #4E5E67;
+    font-size: 14px;
+    line-height: 2;
+    background: #fff;
+}
+
+
+pre {
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    word-break: normal;
+    white-space: pre-wrap;
+}
+
+.title {
+    font-weight: bold;
+    font-family: Verdana, sans-serif;
+    color: #000;
+}
+
+.about {
+    margin: 20px;
+    padding: 10px;
+    line-height: 2em;
+    font-size: 14px;
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-right: 20px;
+}
