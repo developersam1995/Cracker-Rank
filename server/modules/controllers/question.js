@@ -26,14 +26,43 @@ const getall = () => {
 };
 
 const insert = (params) => {
+  console.log(params);
+
+  const question = new questionModel({
+    title: params.title,
+    problem: params.problem,
+    inputFormat: params.inputFormat,
+    outputFormat: params.outputFormat,
+    note: params.note,
+    sampleTestcase: [{
+      input: params.sampleTestcaseInput,
+      output: params.sampleTestcaseOutput
+    }],
+    mainTestcase: [{
+      input: params.mainTestcaseInput,
+      output: params.mainTestcaseOutput
+    }],
+    explanation: params.explanation,
+    difficulty: params.difficulty,
+    maxScore: params.maxScore,
+    author: params.author
+  });
+
   return new Promise((resolve, reject)=>{
-    questionModel.insertMany(params, (err, result)=>{
-      if(err) {
-        reject(err);
+    question.save(error=>{
+      if(error) {
+        reject(error);
       } else {
-        resolve(result);
+        resolve('Inserted Successfully.');
       }
     });
+    // questionModel.insertMany(params, (err, result)=>{
+    //   if(err) {
+    //     reject(err);
+    //   } else {
+    //     resolve(result);
+    //   }
+    // });
   });
 };
 
