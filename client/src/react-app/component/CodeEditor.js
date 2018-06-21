@@ -33,8 +33,12 @@ class CodeEditor extends Component {
 
   evalAndUpdate() {
     let ø = Object.create(null);
+    let testCase = this.props.testCases[0];
+    let expectedOutput = Number(testCase.output);
+    let inputs = testCase.input.split(' ').map((ele)=>Number(ele));
     eval.call(ø,this.editor.getValue());
-    let result = this.props.evaluator(evaluate, null, 'sam');
+    if(evaluate)
+      var result = this.props.evaluator(evaluate, inputs, expectedOutput);
     this.props.updateResult(result.success);  
   }
 

@@ -11,38 +11,9 @@ class Editor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      question: {
-        'id': '1',
-        'title': 'Pattern draw',
-        'problem': `Consider a staircase of size n = 4:
-                         #
-                        ##
-                       ###
-                      ####
-
-Observe that its base and height are both equal to n, and the image is drawn using # symbols and spaces. The last line is not preceded by any spaces.
-Write a program that prints a staircase of size n.`,
-        'inputFormat': 'A single integer, n , denoting the size of the staircase.',
-        'outputFormat': 'Print a staircase of size n using # symbols and spaces.',
-        'note': 'The last line must have 0 spaces in it.',
-        'sampleInput': [
-          {
-            input: 6,
-            output: `
-                           #
-                          ##
-                         ###
-                        ####
-                       #####
-                      ######`
-          }],
-        'explanation': 'The staircase is right-aligned, composed of # symbols and spaces, and has a height and width of n=6.',
-        'difficulty': 'easy',
-        'maxScore': 10,
-        'author': 'Jubin'
-      },
+      question: null,
       result: {
-        didPass: 'passed'
+        didPass: null
       }
     };
     this.updateResult = this.updateResult.bind(this);
@@ -69,13 +40,22 @@ Write a program that prints a staircase of size n.`,
     return { success: false };
   }
 
+  componentDidMount() {
+    console.log('running');
+    fetch('http://localhost:4001/api/v1/question?query=5b2aacdeefafc623b89ca3f7')
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ question: json });
+      });
+  }
+
   updateResult(val) {
     if (val) {
-      this.setState({ result: {didPass: 'Passed'}});
+      this.setState({ result: { didPass: 'Passed' } });
     }
     else {
       console.log('running');
-      this.setState({ result: {didPass: 'Failed'} });
+      this.setState({ result: { didPass: 'Failed' } });
     }
   }
 
@@ -88,6 +68,7 @@ Write a program that prints a staircase of size n.`,
   // }
 
   render() {
+    if (!this.state.question) return <div>Loading</div>;
     const { question } = this.state;
     return (
       <React.Fragment>
@@ -95,7 +76,8 @@ Write a program that prints a staircase of size n.`,
         <Question question={question} />
         <div className='Editor'>
           <div className='code'>
-            <CodeEditor evaluator={this.eval} updateResult={this.updateResult}/>
+            <CodeEditor evaluator={this.eval} updateResult={this.updateResult}
+              testCases={this.state.question.mainTestcase} />
           </div>
         </div>
         <ResultCard result={this.state.result.didPass} />
