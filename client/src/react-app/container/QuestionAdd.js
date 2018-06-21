@@ -9,7 +9,7 @@ class Question extends React.Component {
       <div>
         <Menu />
         <PageTitle title="Add Question" />
-        <form method="GET" action="/question" className="QuestionAddForm">
+        <form method="POST" action="http://localhost:4001/api/v1/question" className="QuestionAddForm">
           <label>Title</label>
           <textarea name="title" rows="1" className="form-data"></textarea>
           <label>Problem</label>

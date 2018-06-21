@@ -1,6 +1,6 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Login from './container/Login';
 import Home from './container/Home';
 import Question from './container/QuestionAdd';
@@ -12,14 +12,11 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/home" component={Home} />
-            <Route path="/question" component={Question} />
-            <Route path="/editor" component={Editor} />
-          </Switch>
+          <Route path="/" exact component={Login} />
+          <Route path="/home" component={Home} />
+          <Route path="/question" component={Question} />
+          <Route path="/editor" component={Editor} />
         </div>
-
       </Router>
     );
   }

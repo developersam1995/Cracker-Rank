@@ -23,5 +23,8 @@ module.exports = {
         loader: 'style-loader!css-loader'
       }
     ]
+  },
+  devServer: {
+    histroyApiFallback: true
   }
 };
