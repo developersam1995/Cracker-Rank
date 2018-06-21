@@ -1,0 +1,37 @@
+.QuestionItem {
+    padding: 20px;
+    background: #fff;
+    margin: 0 20px;
+    border-bottom: 1px solid rgb(133, 126, 126);
+    font-size: 1.2em;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+.QuestionItem:hover {
+    background: #f0ebeb;
+}
+
+.QuestionItem p {
+    vertical-align: middle;
+}
+
+.QuestionItem a {
+    text-decoration: none;
+    color: rgb(56, 54, 54);
+}
+
+.QuestionItem .info {
+    font-size: .8em;
+    color: rgb(170, 162, 162);
+}
+
+.QuestionItem .info span{
+    font-size: .8em;
+    color: rgb(62, 145, 51);
+}
+
+.QuestionItem .info span:nth-last-child(1){
+    font-weight: 500;
+    color: rgb(145, 89, 51);
+}
