@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
-// mongoose.connect('mongodb://crackerrank:cracker@123rank@ds261570.mlab.com:61570/crackerrank');
-mongoose.connect('mongodb://localhost:27017/crackerrank');
+const id = 'crackerrank'; //contact with admin for id and password
+const password = 'crackerrank123';
+mongoose.connect(`mongodb://${id}:${password}@ds261570.mlab.com:61570/crackerrank`);
+// mongoose.connect('mongodb://localhost:27017/crackerrank');
 
 mongoose.connection.on('open', ()=> {
   // eslint-disable-next-line

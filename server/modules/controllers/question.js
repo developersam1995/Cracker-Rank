@@ -1,16 +1,39 @@
 const questionModel = require('../model/question');
 const express = require('express');
 
-const get = () => {
+const get = (params) => {
   return new Promise((resolve, reject) => {
-    resolve('done');
-    // reject('err');
+    questionModel.findById({_id: params}, (err, result)=>{
+      if(err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const getall = () => {
+  return new Promise((resolve, reject) => {
+    questionModel.find({}, (err, result)=>{
+      if(err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
   });
 };
 
 const insert = (params) => {
   return new Promise((resolve, reject)=>{
-    resolve('inserted', params);
+    questionModel.insertMany(params, (err, result)=>{
+      if(err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
   });
 };
 
@@ -23,5 +46,6 @@ const update = () => {
 module.exports = {
   insert, 
   get,
+  getall,
   update
 };
