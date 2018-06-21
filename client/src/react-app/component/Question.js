@@ -23,15 +23,15 @@ const Question = (props) => {
 
           <p className='title'>Sample Testcase</p>
 
-          {question.sampleInput.map(testcase => {
+          {question.sampleInput.map((testcase,idx) => {
             return (
-              <div>
+              <div key={idx}>
                 <p className='title'>Input </p>
                 <p>{testcase.input}</p>
                 <p className='title'>Output</p>
                 <pre>{testcase.output}</pre>
               </div>
-            )
+            );
           })}
 
           <p className='title'>Explanation</p>

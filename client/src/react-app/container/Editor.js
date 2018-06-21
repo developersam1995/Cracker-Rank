@@ -3,6 +3,8 @@ import './Editor.css';
 
 import Menu from '../component/Menu';
 import Question from '../component/Question';
+import CodeEditor from '../component/CodeEditor';
+import ResultCard from '../component/ResultCard';
 
 class Editor extends React.Component {
 
@@ -38,8 +40,43 @@ Write a program that prints a staircase of size n.`,
         'difficulty': 'easy',
         'maxScore': 10,
         'author': 'Jubin'
+      },
+      result: {
+        didPass: 'passed'
       }
     };
+    this.updateResult = this.updateResult.bind(this);
+  }
+
+  eval(testFn, args, expectedOutput) {
+    let result;
+    let ø = Object.create(null);
+    try {
+      result = testFn.apply(ø, args);
+    }
+    catch (err) {
+      return { error: err, success: false };
+    }
+    // if (Array.isArray(expectedOutput)) {
+    //   let areEqual = compareArrays(expectedOutput, result, doesOrderMatter);
+    //   if (areEqual) return { success: true };
+    // }
+
+    if (result === expectedOutput) {
+      return { success: true };
+    }
+
+    return { success: false };
+  }
+
+  updateResult(val) {
+    if (val) {
+      this.setState({ result: {didPass: 'Passed'}});
+    }
+    else {
+      console.log('running');
+      this.setState({ result: {didPass: 'Failed'} });
+    }
   }
 
   // componentDidMount() {
@@ -58,11 +95,10 @@ Write a program that prints a staircase of size n.`,
         <Question question={question} />
         <div className='Editor'>
           <div className='code'>
-            <textarea>
-              #Write your code here
-            </textarea>
+            <CodeEditor evaluator={this.eval} updateResult={this.updateResult}/>
           </div>
         </div>
+        <ResultCard result={this.state.result.didPass} />
       </React.Fragment>
     );
   }
