@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha",
     "start": "node ./server/server.js",
-    "build": "webpack -d && webpack-dev-server --content-base client/src/ --inline --hot --port 3000",
+    "build": "webpack -d && webpack-dev-server --content-base client/src/ --inline --hot --port 3000 --history-api-fallback",
     "lint": "eslint ./server ./client/src ./client/test"
   },
   "keywords": [
