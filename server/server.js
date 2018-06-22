@@ -2,13 +2,15 @@ const express = require('express');
 const questionRouter = require('./modules/router/question');
 const connection = require('./connection/index');
 const bodyParser = require('body-parser');
+const cors=require('cors');
 const app = express();
 const IP = 'localhost';
 const PORT = 4001;
 
+
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-
+app.use(cors());
 app.use('/api/v1/question', questionRouter);
 
 // eslint-disable-next-line no-console
@@ -17,6 +19,10 @@ app.use('/api/v1/question', questionRouter);
 app.get('/api/v1/', (req, res) => {
   res.send('Welcome to CrackerRank API');
 });
+// app.use('/data',questionRouter);
+// app.get('/data', (req, res) => {
+//   res.send('hello');
+// });
 
 app.get('/', (req, res) => {
   res.redirect('/api/v1/');
