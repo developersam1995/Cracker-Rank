@@ -44,7 +44,7 @@ class CodeEditor extends Component {
     //   let areEqual = compareArrays(expectedOutput, result, doesOrderMatter);
     //   if (areEqual) return { success: true };
     // }
-    console.log(result,expectedOutput);
+
     if (result === expectedOutput) {
       return { success: true };
     }
@@ -54,7 +54,12 @@ class CodeEditor extends Component {
 
   update() {
     let ø = Object.create(null);
-    eval.call(ø, this.editor.getValue());
+    try {
+      eval.call(ø, this.editor.getValue());
+    } catch (e) {
+      this.props.updateResult(['Syntax Error']);
+      return false;
+    }
     let definedFn = eval(this.props.fnName);
     if (!definedFn) this.props.updateResult([false]);
     else {
@@ -72,9 +77,9 @@ class CodeEditor extends Component {
   render() {
     let functionName = `function ${this.props.fnName} () {\n\n}`;
     return (
-      <div>
+      <div className='code-editor'>
         <textarea ref={this.myRef} defaultValue={functionName} />
-        <button onClick={this.update.bind(this)}>Submit</button>
+        <button onClick={this.update.bind(this)} className='submit-button'>Submit</button>
       </div>
     );
   }

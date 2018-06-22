@@ -45,8 +45,8 @@ class Editor extends React.Component {
               testCases={this.state.question.testCases} 
               fnName={this.state.question.functionName}/>
           </div>
+          <ResultCard results={this.state.results}/>
         </div>
-        <ResultCard results={this.state.results}/>
       </React.Fragment>
     );
   }
