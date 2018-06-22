@@ -3,6 +3,7 @@ import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import Card from '../component/Card';
 import './Home.css';
+import QuestionItem from '../component/QuestionItem';
 
 class Home extends React.Component {
   constructor(props) {

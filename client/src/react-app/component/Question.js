@@ -31,7 +31,7 @@ const Question = (props) => {
                 <p className='title'>Output</p>
                 <pre>{testcase.output}</pre>
               </div>
-            )
+            );
           })}
 
           <p className='title'>Explanation</p>

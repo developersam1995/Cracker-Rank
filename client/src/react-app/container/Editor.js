@@ -8,6 +8,7 @@ class Editor extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(props);
     this.state = {
       question: {
         'id': '1',
