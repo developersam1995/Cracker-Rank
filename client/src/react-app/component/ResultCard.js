@@ -1,11 +1,16 @@
 import React from 'react';
 
-const Card = (props) => {
+const ResultCard = (props) => {
+  console.log(props.results);
   return(
     <div className='Card'>
-      <p>{props.result}</p>
+      {props.results.map((result,idx)=>{
+        if(!result) return <li key={idx}>Failed</li>;
+        return <li key={idx}>Passed</li>;
+      })
+      }
     </div>
   );
 };
 
-export default Card;
+export default ResultCard;

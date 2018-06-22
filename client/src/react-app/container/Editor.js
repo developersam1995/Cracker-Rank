@@ -1,6 +1,5 @@
 import React from 'react';
 import './Editor.css';
-
 import Menu from '../component/Menu';
 import Question from '../component/Question';
 import CodeEditor from '../component/CodeEditor';
@@ -12,76 +11,42 @@ class Editor extends React.Component {
     super(props);
     this.state = {
       question: null,
-      result: {
-        didPass: null
-      }
+      results:[]
     };
     this.updateResult = this.updateResult.bind(this);
   }
 
-  eval(testFn, args, expectedOutput) {
-    let result;
-    let ø = Object.create(null);
-    try {
-      result = testFn.apply(ø, args);
-    }
-    catch (err) {
-      return { error: err, success: false };
-    }
-    // if (Array.isArray(expectedOutput)) {
-    //   let areEqual = compareArrays(expectedOutput, result, doesOrderMatter);
-    //   if (areEqual) return { success: true };
-    // }
-
-    if (result === expectedOutput) {
-      return { success: true };
-    }
-
-    return { success: false };
-  }
-
   componentDidMount() {
-    console.log('running');
-    fetch('http://localhost:4001/api/v1/question?query=5b2aacdeefafc623b89ca3f7')
+    fetch('http://localhost:4001/api/v1/question?query=random')
       .then((res) => res.json())
       .then((json) => {
         this.setState({ question: json });
       });
   }
 
-  updateResult(val) {
-    if (val) {
-      this.setState({ result: { didPass: 'Passed' } });
-    }
-    else {
-      console.log('running');
-      this.setState({ result: { didPass: 'Failed' } });
-    }
+  updateResult(results) {
+    this.setState({ results: results });
   }
 
-  // componentDidMount() {
-  //     fetchAPI('https://private-a6bb7-crackerrank2.apiary-mock.com/question').then(response => {
-  //         console.log(response)
-  //     }).catch(error => {
-  //         console.log(error);
-  //     })
-  // }
-
   render() {
-    if (!this.state.question) return <div>Loading</div>;
+    if (!this.state.question) return <div style={{
+      background: '#eee',
+      padding: '20px',
+      margin: '20px'
+    }}>Loading</div>;
     const { question } = this.state;
-    console.log(this.state.question);
     return (
       <React.Fragment>
         <Menu />
         <Question question={question} />
         <div className='Editor'>
           <div className='code'>
-            <CodeEditor evaluator={this.eval} updateResult={this.updateResult}
-              testCases={this.state.question.mainTestcase} />
+            <CodeEditor updateResult={this.updateResult}
+              testCases={this.state.question.testCases} 
+              fnName={this.state.question.functionName}/>
           </div>
         </div>
-        <ResultCard result={this.state.result.didPass} />
+        <ResultCard results={this.state.results}/>
       </React.Fragment>
     );
   }

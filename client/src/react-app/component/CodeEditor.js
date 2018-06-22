@@ -27,28 +27,55 @@ class CodeEditor extends Component {
       theme: 'neo'
 
     });
-
     return this.editor;
   }
 
-  evalAndUpdate() {
+  eval(testFn, args, expectedOutput) {
+    let result;
     let ø = Object.create(null);
-    let testCase = this.props.testCases[0];
-    let expectedOutput = Number(testCase.output);
-    let inputs = testCase.input;
-    eval.call(ø,this.editor.getValue());
-    if(evaluate)
-      var result = this.props.evaluator(evaluate, inputs, expectedOutput);
-    this.props.updateResult(result.success);
+    try {
+      result = testFn.apply(ø, args);
+    }
+    catch (err) {
+      return { error: err, success: false };
+    }
+
+    // if (Array.isArray(expectedOutput)) {
+    //   let areEqual = compareArrays(expectedOutput, result, doesOrderMatter);
+    //   if (areEqual) return { success: true };
+    // }
+    console.log(result,expectedOutput);
+    if (result === expectedOutput) {
+      return { success: true };
+    }
+
+    return { success: false };
+  }
+
+  update() {
+    let ø = Object.create(null);
+    eval.call(ø, this.editor.getValue());
+    let definedFn = eval(this.props.fnName);
+    if (!definedFn) this.props.updateResult([false]);
+    else {
+      let testCases = this.props.testCases;
+      let results = testCases.map(testCase => {
+        let expectedOutput = testCase.output;
+        let inputs = testCase.input;
+        let result = this.eval(definedFn, inputs, expectedOutput);
+        return result.success;
+      });
+      this.props.updateResult(results);
+    }
   }
 
   render() {
+    let functionName = `function ${this.props.fnName} () {\n\n}`;
     return (
       <div>
-        <textarea ref={this.myRef} />
-        <button onClick={this.evalAndUpdate.bind(this)}>Submit</button>
+        <textarea ref={this.myRef} defaultValue={functionName} />
+        <button onClick={this.update.bind(this)}>Submit</button>
       </div>
-
     );
   }
 }
