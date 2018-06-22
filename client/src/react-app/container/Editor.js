@@ -70,6 +70,7 @@ class Editor extends React.Component {
   render() {
     if (!this.state.question) return <div>Loading</div>;
     const { question } = this.state;
+    console.log(this.state.question);
     return (
       <React.Fragment>
         <Menu />

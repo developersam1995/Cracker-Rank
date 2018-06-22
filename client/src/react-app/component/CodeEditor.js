@@ -35,11 +35,11 @@ class CodeEditor extends Component {
     let ø = Object.create(null);
     let testCase = this.props.testCases[0];
     let expectedOutput = Number(testCase.output);
-    let inputs = testCase.input.split(' ').map((ele)=>Number(ele));
+    let inputs = testCase.input;
     eval.call(ø,this.editor.getValue());
     if(evaluate)
       var result = this.props.evaluator(evaluate, inputs, expectedOutput);
-    this.props.updateResult(result.success);  
+    this.props.updateResult(result.success);
   }
 
   render() {
