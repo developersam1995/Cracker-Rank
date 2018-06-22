@@ -1,0 +1,31 @@
+.AddTest {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 3em;
+    padding: 3em;
+}
+
+.Form-Field {
+    width: 90%;
+    padding: 10px;
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.Form-Label {
+    font-size: 1.2em;
+}
+
+.AddTest Form {
+    grid-gap: 3em;
+}
+
+.AddTest Form textarea {
+    scroll-behavior: smooth;
+    resize: none;
+}
+
+.BOX {
+    box-shadow: 1px 2px 3px #000;
+    padding: 3em;
+}

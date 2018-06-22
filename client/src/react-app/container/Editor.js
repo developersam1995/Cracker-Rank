@@ -5,7 +5,6 @@ import Menu from '../component/Menu';
 import Question from '../component/Question';
 
 class Editor extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -51,6 +50,7 @@ Write a program that prints a staircase of size n.`,
   // }
 
   render() {
+    console.log(this.props);
     const { question } = this.state;
     return (
       <React.Fragment>

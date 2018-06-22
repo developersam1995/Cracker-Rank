@@ -1,0 +1,32 @@
+.QuestionItem {
+    display: grid;
+    grid-template-columns: 2fr .5fr;
+    margin: 0px;
+    padding: 0 4px;
+    border-bottom: 1px solid #c4bbbb;
+}
+
+.QuestionItem p {
+    font-size: 1.5em;
+    word-break: break-all;
+    line-break: normal;
+}
+
+.QuestionItem p:nth-last-child(1) {
+    justify-self: end;
+}
+
+.btn {
+    font-size: 1em;
+    background-color: #ffffff;
+    border: none;
+    box-shadow: 1px 2px 3px rgb(189, 183, 183);
+    padding: 3px 20px;
+    cursor: pointer;
+    border-radius: 80%;
+}
+
+.btn:hover {
+    color: #fff;
+    background-color: #e4dcdc;
+}
