@@ -59,7 +59,7 @@ const insert = (params) => {
       if (err) {
         reject(err);
       } else {
-        resolve(result);
+        resolve('Inserted Successfully.');
       }
     });
   });

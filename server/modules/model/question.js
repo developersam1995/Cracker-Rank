@@ -7,11 +7,11 @@ const QuestionSchema = mongoose.Schema({
   inputFormat: String,
   outputFormat: String,
   note: String,
-  sampleTestcase: Object,
-  mainTestcase: Object,
+  sampleTestcase: [Array],
+  mainTestcase: [Array],
   explanation: String,
   difficulty: String,
-  maxScore: Number,
+  maxScore: parseInt(Number),
   author: String
 });
 
