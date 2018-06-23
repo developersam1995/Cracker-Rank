@@ -75,7 +75,8 @@ class CodeEditor extends Component {
   }
 
   render() {
-    let functionName = `function ${this.props.fnName} () {\n\n}`;
+    let params = this.props.fnParams.join(', ');
+    let functionName = `function ${this.props.fnName} (${params}) {\n\n}`;
     return (
       <div className='code-editor'>
         <textarea ref={this.myRef} defaultValue={functionName} />
