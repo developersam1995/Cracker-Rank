@@ -2,18 +2,26 @@ import React from 'react';
 import './ResultsCard.css';
 
 const ResultCard = (props) => {
-  console.log(props.results);
+  const { results } = props;
   let testResults;
-  if (props.results[0] == 'Syntax Error') 
+  let numberPassed = results.reduce(((n, ele) => {
+    return n + ele;
+  }), 0);
+  if (results[0] == 'Syntax Error')
     testResults = [<li key='0' className='test-results'>Syntax Error</li>];
+  else if (!results.length) testResults = [<li key='0' className='test-results'>Test Results</li>];
   else {
-    testResults = props.results.map((result, idx) => {
-      if (!result) return <li key={idx} className='test-results'>Test case {idx+1} : Failed</li>;
-      return <li key={idx} className='test-results'>Test case {idx+1} : Passed</li>;
+    testResults = results.map((result, idx) => {
+      if (!result)
+        return <li key={idx} className='test-results'>Test case {idx + 1} : Failed</li>;
+      return <li key={idx} className='test-results'>Test case {idx + 1} : Passed</li>;
     });
+    testResults.push(<li key='res' className='test-results'>
+      {numberPassed} test case(s) passed, <br /> 
+      out of {results.length} test cases</li>);
   }
   return (
-    <ul className='Card results-card'>
+    <ul className='results-card'>
       {testResults}
     </ul>
   );
