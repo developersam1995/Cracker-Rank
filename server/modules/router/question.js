@@ -40,7 +40,7 @@ router.get('/', (req, res) => {
         res.status(202).send(result[Math.floor(Math.random() * result.length)]);
       }
     });
-  }else if (query != null) {
+  } else if (query != null) {
     question.get(req.query.query).then((result, err) => {
       if (err) {
         res.status(404).send(err);

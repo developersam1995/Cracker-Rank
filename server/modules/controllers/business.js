@@ -1,9 +1,9 @@
 const questionModel = require('../model/question');
-const UserModel = require('../model/user');
+const BusinessModel = require('../model/business');
 
 const get = (params) => {
   return new Promise((resolve, reject) => {
-    UserModel.findById({ _id: params }, (err, result) => {
+    BusinessModel.findById({ _id: params }, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -13,9 +13,9 @@ const get = (params) => {
   });
 };
 
-const getAll = () => {
+const getAll = (params) => {
   return new Promise((resolve, reject) => {
-    UserModel.find({}, (err, result) => {
+    BusinessModel.find({}, (err, result) => {
       if (err) {
         reject(err);
       } else {
@@ -26,19 +26,16 @@ const getAll = () => {
 };
 
 const insert = (params) => {
-  console.log(params)
   return new Promise((resolve, reject)=>{
-    UserModel.insertMany(params, (err, result)=>{
+    BusinessModel.insertMany(params, (err, result)=>{
       if(err) {
         reject(err);
-      } else {  
+      } else {
         resolve(result);
       }
     });
   });
 }
-
-
 
 module.exports = {
   insert,

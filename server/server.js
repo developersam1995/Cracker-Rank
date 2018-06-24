@@ -1,5 +1,9 @@
 const express = require('express');
+
 const questionRouter = require('./modules/router/question');
+const userRouter = require('./modules/router/user');
+const businessRouter = require('./modules/router/business');
+
 const connection = require('./connection/index');
 const bodyParser = require('body-parser');
 const cors=require('cors');
@@ -8,21 +12,25 @@ const IP = 'localhost';
 const PORT = 4001;
 
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
+
 app.use('/api/v1/question', questionRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/business', businessRouter);
 
 // eslint-disable-next-line no-console
 // console.log(app);
 
+app.post('/api/v1/login', (req, res) => {
+  console.log(req.body)
+  res.status(200).send({status: 'logon '});
+});
+
 app.get('/api/v1/', (req, res) => {
   res.send('Welcome to CrackerRank API');
 });
-// app.use('/data',questionRouter);
-// app.get('/data', (req, res) => {
-//   res.send('hello');
-// });
 
 app.get('/', (req, res) => {
   res.redirect('/api/v1/');
