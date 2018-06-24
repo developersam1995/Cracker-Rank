@@ -15,8 +15,10 @@ module.exports = {
         include: path.resolve(__dirname, 'client') + '/src',
         loader: 'babel-loader',
         query: {
-          presets: ['react']
-        }
+          presets: ['latest','react'],
+          plugins: ['transform-object-rest-spread']
+        },
+        
       },
       {
         test: /\.css$/,
