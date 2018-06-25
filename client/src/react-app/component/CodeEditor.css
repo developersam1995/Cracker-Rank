@@ -1,0 +1,19 @@
+
+.CodeEditor {
+  margin: 20px;
+  padding: 10px;
+  background: #f3f3f3;
+  word-break: break-all;
+  box-shadow: 1px 3px 4px  rgb(128, 118, 118);
+  color: #4E5E67;
+  font-size: 14px;
+  line-height: 2;
+}
+
+.submit-button {
+  float: right;
+  margin: 10px;
+  width: 100px;
+  height: 30px;
+  background: #f3f3f3;
+}

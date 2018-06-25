@@ -17,6 +17,7 @@
   "dependencies": {
     "@material-ui/core": "^1.2.2",
     "body-parser": "^1.18.3",
+    "codemirror": "^5.39.0",
     "express": "^4.16.3",
     "mongoose": "^5.1.5",
     "react": "^16.4.1",
