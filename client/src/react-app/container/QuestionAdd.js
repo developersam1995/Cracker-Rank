@@ -4,12 +4,97 @@ import PageTitle from '../component/PageTitle';
 import './QuestionAdd.css';
 
 class Question extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: '',
+      problemDescription: '',
+      exampleInput: '',
+      exampleOutput: '',
+      testCases: [],
+      functionName: '',
+      paramNames: []
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.validateAndSubmit = this.validateAndSubmit.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({[event.target.name]: event.target.value},
+      () => {
+        console.log(this.state);
+      });
+  }
+
+  validateAndSubmit(event) {
+    event.preventDefault();
+
+    //validate
+
+    const question = {
+      title: this.state.title,
+      problemDescription: this.state.problemDescription
+    };
+
+    // fetch('url-to-post',{
+    //   method: 'POST',
+    //   headers: {
+    //     ' content-type': 'application/json'
+    //   },
+    //   body: JSON.stringify(question)
+    // })
+    //   .then(res=> console.log(res)); 
+  }
+
   render() {
     return (
       <div>
         <Menu />
         <PageTitle title="Add Question" />
-        <form method="POST" action="http://localhost:4001/api/v1/question" className="QuestionAddForm">
+
+        <form onSubmit={this.validateAndSubmit}>
+
+          <div>
+            <label>Title: </label> <br />
+            <input type="text" name="title" value={this.state.title}
+              onChange={this.onChange} />
+          </div>
+          <br/>
+
+          <div>
+            <label>Problem Description: </label> <br />
+            <textarea name="problemDescription" value={this.state.problemDescription}
+              onChange={this.onChange} />
+          </div>
+          <br />
+
+          <div>
+            <label>Example Inputs: </label> <br />
+            <input type="text" name="exampleInput" value={this.state.exampleInput}
+              onChange={this.onChange} />
+          </div>
+          <br/>
+
+          <div>
+            <label>Example output: </label> <br />
+            <input type="text" name="exampleOutput" value={this.state.exampleOutput}
+              onChange={this.onChange} />
+          </div>
+          <br/>
+
+          <div>
+            <label>Function name: </label> <br />
+            <input type="text" name="functionName" value={this.state.functionName}
+              onChange={this.onChange} />
+          </div>
+          <br/>
+
+          
+
+          <button type="submit">Submit</button>
+        </form>
+        {/* <form method="POST" action="http://localhost:4001/api/v1/question" className="QuestionAddForm">
           <label>Title</label>
           <textarea name="title" rows="1" className="form-data"></textarea>
           <label>Problem</label>
@@ -54,7 +139,7 @@ class Question extends React.Component {
           </select>
 
           <input type="submit" value="Submit" name="submit" className="button" />
-        </form>
+        </form> */}
       </div>
     );
   }
