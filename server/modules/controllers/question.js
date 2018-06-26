@@ -24,6 +24,24 @@ const getall = () => {
     });
   });
 };
+const getquestions = () => {
+  return new Promise((resolve, reject) => {
+    questionModel.aggregate([{
+      $group: {
+        _id: { _id: '$_id', title: '$title' }
+      }
+    }, {
+      $project: {
+        _id: 0,
+        id: '$_id._id',
+        title: '$_id.title'
+      }
+    }], (err, result) => {
+      resolve(result);
+    });
+
+  });
+};
 
 const insert = (params) => {
   return new Promise((resolve, reject)=>{
@@ -47,5 +65,6 @@ module.exports = {
   insert, 
   get,
   getall,
-  update
+  update,
+  getquestions
 };

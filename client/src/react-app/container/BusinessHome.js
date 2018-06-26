@@ -3,31 +3,24 @@ import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import HistoryCard from '../component/HistoryCard';
 import './BusinessHome.css';
+import { Link } from 'react-router-dom';
 
 class BusinessHome extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      history: [
-        {
-          date: '20-jun-2018',
-          title: 'Python developer hiring',
-          questions: 3,
-          totalCandidate: 150
-        }, {
-          date: '29-jun-2018',
-          title: 'Java developer hiring',
-          questions: 4,
-          totalCandidate: 150
-        }, {
-          date: '10-july-2018',
-          title: 'FullStack developer hiring',
-          questions: 2,
-          totalCandidate: 150
-        }
-      ]
+      history: []
     };
+  }
+  componentDidMount() {
+    fetch('http://localhost:4001/api/v1/test')
+      .then(function (response) {
+        return response.json();
+      })
+      .then(parsedJSON => {
+        this.setState({ history: parsedJSON });
+      });
   }
 
   render() {
@@ -55,7 +48,7 @@ class BusinessHome extends React.Component {
             {histroyList}
           </div>
           <div className="SideBar">
-            <button>Add a test</button>
+            <button> <Link to="/test"> Add a test</Link></button>
           </div>
         </div>
       </React.Fragment>

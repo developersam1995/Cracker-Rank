@@ -6,7 +6,7 @@ const QuestionItem = (props) => {
   return (
     <div className="QuestionItem">
       <p>{question.title}</p>
-      <p><button className="btn">+</button></p>
+      <p><button onClick={props.method.bind(this,props.question.question.id)}className="btn">+</button></p>
     </div>
   );
 };

@@ -5,6 +5,8 @@ import Login from './container/Login';
 import Home from './container/Home';
 import Question from './container/QuestionAdd';
 import Editor from './container/Editor';
+import AddTest from './container/AddTest';
+import BusinessHome from './container/BusinessHome';
 
 // eslint-disable-next-line no-unused-vars
 class App extends React.Component {
@@ -16,6 +18,8 @@ class App extends React.Component {
           <Route path="/home" component={Home} />
           <Route path="/question" component={Question} />
           <Route path="/editor" component={Editor} />
+          <Route path="/business" component={BusinessHome} />
+          <Route path="/test" component={AddTest} />
         </div>
       </Router>
     );
