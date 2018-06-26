@@ -7,7 +7,8 @@ const BusinessSchema = mongoose.Schema({
   Name: String,
   mobile: Number,
   companyName: String,
-  address: String
+  address: String,
+  type: String,
 });
 
 module.exports = mongoose.model('business', BusinessSchema);

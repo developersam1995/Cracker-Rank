@@ -20,7 +20,7 @@ class Practice extends React.Component {
   setQuestionID(id) {
     //get the selected question id
     //TODO:
-    
+
     this.setState({
       questionID: id
     });
