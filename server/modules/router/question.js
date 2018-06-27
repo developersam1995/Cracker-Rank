@@ -3,7 +3,6 @@ const router = express.Router();
 const question = require('../controllers/question');
 
 router.post('/', (req, res) => {
-  console.log(req.body);
   question.insert(req.body).then((result, err) => {
     if (err) {
       res.status(503).send(err);
@@ -18,6 +17,15 @@ router.get('/', (req, res) => {
   let promise;
   if (query === 'all') {
     question.getall(req.query.query).then((result, err) => {
+      if (err) {
+        res.status(404).send(err);
+      } else {
+        res.status(202).send(result);
+      }
+    });
+  }
+  else if (query === 'problems') {
+    question.data(req.query.query).then((result, err) => {
       if (err) {
         res.status(404).send(err);
       } else {
