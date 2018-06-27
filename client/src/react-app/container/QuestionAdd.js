@@ -18,10 +18,16 @@ class Question extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.validateAndSubmit = this.validateAndSubmit.bind(this);
+    this.uploadFile = this.uploadFile.bind(this);
   }
 
   onChange(event) {
-    this.setState({[event.target.name]: event.target.value});
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  uploadFile(event) {
+    let files = event.target.files;
+    console.log(files);
   }
 
   validateAndSubmit(event) {
@@ -61,44 +67,51 @@ class Question extends React.Component {
           <div>
             <label>Title: </label> <br />
             <input type="text" name="title" value={this.state.title}
-              onChange={this.onChange} required/>
+              onChange={this.onChange} required />
           </div>
-          <br/>
+          <br />
 
           <div>
             <label>Problem Description: </label> <br />
             <textarea name="problemDescription" value={this.state.problemDescription}
-              onChange={this.onChange} required/>
+              onChange={this.onChange} required />
           </div>
           <br />
 
           <div>
             <label>Example Inputs: </label> <br />
             <input type="text" name="exampleInput" value={this.state.exampleInput}
-              onChange={this.onChange} required/>
+              onChange={this.onChange} required />
           </div>
-          <br/>
+          <br />
 
           <div>
             <label>Example output: </label> <br />
             <input type="text" name="exampleOutput" value={this.state.exampleOutput}
-              onChange={this.onChange} required/>
+              onChange={this.onChange} required />
           </div>
-          <br/>
+          <br />
 
           <div>
             <label>Function name: </label> <br />
             <input type="text" name="functionName" value={this.state.functionName}
-              onChange={this.onChange} required/>
+              onChange={this.onChange} required />
           </div>
-          <br/>
+          <br />
 
-           <div>
+          <div>
             <label>Function parameter names(comma separated): </label> <br />
             <input type="text" name="paramNames" value={this.state.paramNames}
-              onChange={this.onChange} required/>
+              onChange={this.onChange} required />
           </div>
-          <br/>
+          <br />
+
+          <div>
+            <label>Upload test cases file: </label> <br />
+            <input type="file" name="testCases"
+              onChange={this.uploadFile} required />
+          </div>
+          <br />
 
           <button type="submit">Submit</button>
         </form>
