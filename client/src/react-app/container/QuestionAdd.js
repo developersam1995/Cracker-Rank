@@ -3,6 +3,8 @@ import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import './QuestionAdd.css';
 
+const fetch = window.fetch.bind(window);
+
 class Question extends React.Component {
   constructor(props) {
     super(props);
@@ -26,8 +28,12 @@ class Question extends React.Component {
   }
 
   uploadFile(event) {
-    let files = event.target.files;
-    console.log(files);
+    let file = event.target.files[0];
+    let fr = new FileReader();
+    fr.onload = () => {
+      this.setState({ testCases: JSON.parse(fr.result) });
+    };
+    fr.readAsText(file);
   }
 
   validateAndSubmit(event) {
@@ -41,19 +47,26 @@ class Question extends React.Component {
       exampleInput: this.state.exampleInput,
       exampleOutput: this.state.exampleOutput,
       functionName: this.state.functionName,
-      paramNames: this.state.paramNames.split(',')
+      paramNames: this.state.paramNames.split(','),
+      testCases: this.state.testCases
     };
 
-    console.log(question);
+    console.log(JSON.stringify(question));
 
-    // fetch('url-to-post',{
-    //   method: 'POST',
-    //   headers: {
-    //     ' content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(question)
-    // })
-    //   .then(res=> console.log(res)); 
+    fetch('http://localhost:4001/api/v1/question', {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        ' content-type': 'application/json'
+      },
+      body: JSON.stringify({ question: 'question' })
+    }).then(res => {
+      return res.json();
+    }).then(parsedJSON => {
+      console.log(parsedJSON);
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
   render() {
