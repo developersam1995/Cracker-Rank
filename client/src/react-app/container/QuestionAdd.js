@@ -124,7 +124,7 @@ class Question extends React.Component {
           <br />
 
           <div>
-            <label>Function parameter names(comma separated): </label> <br />
+            <label>Function parameter names (comma separated): </label> <br />
             <input type="text" name="paramNames" value={this.state.paramNames}
               onChange={this.onChange} required />
           </div>
@@ -137,7 +137,7 @@ class Question extends React.Component {
           </div>
           <br />
 
-          <button type="submit">Submit</button>
+          <button type="submit" className="submit-button">Submit</button>
         </form>
       </div>
     );
