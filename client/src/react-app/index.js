@@ -20,6 +20,7 @@ class App extends React.Component {
           <Route path="/question" component={Question} />
           <Route path="/editor" component={Editor} />
           <Route path="/business" component={BusinessHome} />
+	        <Route path="/businessTest" component={businessTest} />
           <Route path="/test" component={AddTest} />
           <Route path="/practice" component={Practice} />
         </div>
