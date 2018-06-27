@@ -8,7 +8,7 @@ const IP = 'localhost';
 const PORT = 4001;
 
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use('/api/v1/question', questionRouter);
