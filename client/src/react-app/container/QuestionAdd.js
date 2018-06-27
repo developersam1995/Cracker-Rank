@@ -11,7 +11,7 @@ class Question extends React.Component {
     this.state = {
       title: '',
       problemDescription: '',
-      exampleInput: '',
+      exampleInputs: '',
       exampleOutput: '',
       testCases: [],
       functionName: '',
@@ -40,11 +40,20 @@ class Question extends React.Component {
     event.preventDefault();
 
     //validate
+    const initState = {
+      title: '',
+      problemDescription: '',
+      exampleInputs: '',
+      exampleOutput: '',
+      testCases: [],
+      functionName: '',
+      paramNames: ''
+    };
 
     const question = {
       title: this.state.title,
       problemDescription: this.state.problemDescription,
-      exampleInput: this.state.exampleInput,
+      exampleInputs: this.state.exampleInputs,
       exampleOutput: this.state.exampleOutput,
       functionName: this.state.functionName,
       paramNames: this.state.paramNames.split(','),
@@ -57,13 +66,15 @@ class Question extends React.Component {
       method: 'POST',
       mode: 'cors',
       headers: {
-        ' content-type': 'application/json'
+        'content-type': 'application/json'
       },
-      body: JSON.stringify({ question: 'question' })
+      body: JSON.stringify(question)
     }).then(res => {
-      return res.json();
-    }).then(parsedJSON => {
-      console.log(parsedJSON);
+      if(res.status == 201){
+        this.setState(initState);
+        alert('Created');
+      }
+      else alert('Error');
     }).catch(err => {
       console.log(err);
     });
@@ -93,7 +104,7 @@ class Question extends React.Component {
 
           <div>
             <label>Example Inputs: </label> <br />
-            <input type="text" name="exampleInput" value={this.state.exampleInput}
+            <input type="text" name="exampleInputs" value={this.state.exampleInputs}
               onChange={this.onChange} required />
           </div>
           <br />
