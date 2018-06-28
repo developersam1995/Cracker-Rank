@@ -26,8 +26,8 @@ const validate = (params) => {
           return resolve({ status: 200, message: 'Please enter valid credential' });
         }
       }
-    })
-  })
-}
+    });
+  });
+};
 
 module.exports = { validate };
