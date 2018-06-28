@@ -22,6 +22,8 @@ export default () => {
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
           <Route exact path="/editor" component={Editor} />
+          <Route exact path="/business" component={BusinessHome} />
+          <Route exact path="/test" component={AddTest} />
           <Route exact path="/signup/user" component={RegisterUser} />
           <Route exact path="/signup/business" component={RegisterBusiness} />
           <Route exact path="/*" component={NotFound}/>
