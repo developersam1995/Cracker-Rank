@@ -3,13 +3,24 @@ const router = express.Router();
 const test = require('../controllers/test');
 
 router.get('/', (req, res) => {
-  test.showTest().then((result, err) => {
-    if (err) {
-      res.status(503).send(err);
-    } else {
-      res.status(201).send(result);
-    }
-  });
+  let id = req.query.id;
+  if(id){
+    test.getTest(id).then((result,err)=>{
+      if(err){
+        res.status(503).send(err);
+      }else{
+        res.status(201).send(result);
+      }
+    });
+  }else{
+    test.showTest().then((result, err) => {
+      if (err) {
+        res.status(503).send(err);
+      } else {
+        res.status(201).send(result);
+      }
+    });
+  }
 });
 
 router.post('/', (req, res) => {

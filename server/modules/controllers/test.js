@@ -1,6 +1,7 @@
 const questionModel = require('../model/question');
 const addTest = require('../model/business-test');
 const express = require('express');
+var ObjectId = require('mongodb').ObjectID;
 
 const settest = (params) => {
   return new Promise((resolve, reject) => {
@@ -14,6 +15,31 @@ const settest = (params) => {
 
   });
 };
+
+const getTest = (params) =>{
+  return new Promise(function(resolve,reject){
+    addTest.aggregate([   
+      {
+        $project:{
+          _id:1,
+          questionID:1
+        }
+      },
+      {
+        $match:{
+          _id:ObjectId(params)
+        }
+      }
+    ],function(error,data){
+      if(error){
+        reject(error);
+      }else{
+        resolve(data);
+      }
+    });
+  });
+};
+
 const showTest = () => {
   return new Promise((resolve, reject) => {
     addTest.aggregate([{
@@ -44,8 +70,8 @@ const showTest = () => {
 module.exports = {
 
   settest,
-  showTest
-
+  showTest,
+  getTest
 };
 
 
