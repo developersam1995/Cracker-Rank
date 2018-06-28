@@ -14,7 +14,7 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
   let query = req.query.query;
-
+  let promise;
   if (query === 'all') {
     question.getall(req.query.query).then((result, err) => {
       if (err) {
@@ -32,12 +32,21 @@ router.get('/', (req, res) => {
         res.status(202).send(result);
       }
     });
-  }  else if (query === 'random') {
+  } else if (query === 'random') {
     question.getall(req.query.query).then((result, err) => {
       if (err) {
         res.status(404).send(err);
       } else {
         res.status(202).send(result[Math.floor(Math.random() * result.length)]);
+      }
+    });
+  }
+  else if (query === 'questionlist') {
+    question.getquestions(req.query.query).then((result, err) => {
+      if (err) {
+        res.status(404).send(err);
+      } else {
+        res.status(202).send(result);
       }
     });
   } else if (query != null) {

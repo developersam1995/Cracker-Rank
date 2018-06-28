@@ -7,6 +7,10 @@ const cookieSession = require('cookie-session');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const cors = require('cors');
+
+// const appRouter = require('./modules/router/index');
+const businessRouter = require('./modules/router/business');
+const testRouter = require('./modules/router/test');
 const app = express();
 const IP = 'localhost';
 const PORT = 4001;
@@ -115,7 +119,12 @@ function isLoggedIn(req, res, next) {
   }
   res.send({ msg: 'not loggedin' });
 }
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
+app.use('/api/v1/question', questionRouter);
+app.use('/api/v1/test', testRouter);
 // eslint-disable-next-line no-console
 // console.log(app);
 

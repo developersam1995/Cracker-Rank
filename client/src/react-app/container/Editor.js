@@ -6,7 +6,6 @@ import CodeEditor from '../component/CodeEditor';
 import ResultCard from '../component/ResultCard';
 
 class Editor extends React.Component {
-
   constructor(props) {
     super(props);
     console.log(props);
