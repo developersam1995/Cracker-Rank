@@ -1,10 +1,13 @@
 import React from 'react';
 import './Login.css';
 import Menu from '../component/Menu';
+import Home from '../container/Home';
+import Business from '../container/BusinessHome';
 import PageTitle from '../component/PageTitle';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
 import { SocialIcon } from 'react-social-icons';
 import Alert from '../component/Alert';
+import BusinessHome from '../container/BusinessHome';
 
 
 class Login extends React.Component {
@@ -16,7 +19,8 @@ class Login extends React.Component {
         username: '',
         password: ''
       },
-      alertMessage: ''
+      alertMessage: '',
+      userType: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -74,9 +78,8 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-
+    let statusCode;
     if (this.isValid()) {
-      console.log(this.state.login);
       fetch('http://localhost:4001/api/v1/login', {
         method: 'POST',
         body: JSON.stringify(this.state.login),
@@ -84,9 +87,15 @@ class Login extends React.Component {
           'Content-Type': 'application/json'
         }
       }).then(response => {
+        statusCode = response.status;
         return response.json();
       }).then(parsedJSON => {
-        console.log('parsedjson: ', parsedJSON);
+        console.log(parsedJSON);
+        if (statusCode === 200) {
+
+          this.setState({ userType: parsedJSON.user.type });
+
+        }
       });
     }
   }
@@ -139,6 +148,14 @@ class Login extends React.Component {
     let alertSuccess = null;
     if (this.state.alertMessage) {
       alertSuccess = <Alert message={this.state.alertMessage} />;
+    }
+
+    if(this.state.userType === 'developer') {
+      return <Home />;
+    }
+
+    if(this.state.userType === 'business') {
+      return <BusinessHome />;
     }
 
     return (

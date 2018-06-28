@@ -11,7 +11,7 @@ class RegisterBusiness extends React.Component {
 
     this.state = {
       company: {
-        email: '',
+        username: '',
         password: '',
         confirmPassword: '',
         name: '',
@@ -39,22 +39,22 @@ class RegisterBusiness extends React.Component {
     });
   };
 
-  validateEmail(email) {
+  validateEmail(username) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    return re.test(String(username).toLowerCase());
   }
 
   isValid() {
     let errorMsg = '';
     const { company } = this.state;
 
-    if (company.email === '') {
+    if (company.username === '') {
       errorMsg += 'Please provide your email\n';
       this.setState({
         alertMessage: errorMsg
       });
       return false;
-    } else if (!this.validateEmail(company.email)) {
+    } else if (!this.validateEmail(company.username)) {
       errorMsg += 'Please provide your valid email\n';
       this.setState({
         alertMessage: errorMsg
@@ -129,7 +129,6 @@ class RegisterBusiness extends React.Component {
   }
 
   handleSubmit(event) {
-
     if (this.isValid()) {
       fetch('http://localhost:4001/api/v1/register', {
         method: 'POST',
@@ -138,22 +137,37 @@ class RegisterBusiness extends React.Component {
           'Content-Type': 'application/json'
         }
       }).then(response => {
-        return response.json();
-      }).then(parsedJSON => {
-        this.setState({
-          company: {
-            email: '',
-            password: '',
-            confirmPassword: '',
-            name: '',
-            mobile: '',
-            companyName: '',
-            address: ''
-          },
-          companyRegisterd: true,
-          alertMessage: 'Successfully Registered'
-        });
+
+        const statusCode = response.status;
+
+        response.json().then((parsedJSON => {
+          console.log(statusCode);
+          console.log(parsedJSON);
+          if (statusCode === 200) {
+            this.setState({
+              userRegisterd: false,
+              alertMessage: parsedJSON.msg
+            });
+          }
+
+          if (statusCode === 201) {
+            this.setState({
+              company: {
+                username: '',
+                password: '',
+                confirmPassword: '',
+                name: '',
+                mobile: '',
+                companyName: '',
+                address: ''
+              },
+              companyRegisterd: true,
+              alertMessage: 'Successfully Registered'
+            });
+          }
+        }));
       }).catch(error => {
+        console.log('error ', error);
         this.setState({
           alertMessage: error
         });
@@ -167,9 +181,9 @@ class RegisterBusiness extends React.Component {
         <input
           className="Form-Input"
           type="text"
-          name="email"
+          name="username"
           placeholder="Email"
-          value={this.state.company.email}
+          value={this.state.company.username}
           onChange={(event) => this.handleChange(event)} />
 
         <input
