@@ -37,7 +37,7 @@ class Editor extends React.Component {
     const { question } = this.state;
     return (
       <React.Fragment>
-        <Menu />
+        {/* <Menu /> */}
         <Question question={question} />
         <div className='Editor'>
           <div className='code'>

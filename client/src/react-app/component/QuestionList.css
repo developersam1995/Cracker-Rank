@@ -1,0 +1,12 @@
+.Question-List{
+    margin: 10px;
+}
+
+.Question-List-Header{
+    font-weight: 600;
+}
+
+.Question-List-li{
+    display: block;
+    padding-bottom: 30px;
+}
