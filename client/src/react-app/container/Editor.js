@@ -28,11 +28,13 @@ class Editor extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?query='+this.props.questionId)
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({ question: json });
-      });
+    if(this.props.questionId!=='undefined'){
+      fetch('http://localhost:4001/api/v1/question?query='+this.props.questionId)
+        .then((res) => res.json())
+        .then((json) => {
+          this.setState({ question: json });
+        });
+    }
   }
 
   updateResult(results) {
