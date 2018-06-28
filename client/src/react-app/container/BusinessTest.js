@@ -46,14 +46,16 @@ class BusinessTest extends React.Component{
 
 }
 
-const mapStateToProps=(state)=>{
-  return{
-    businessTestId:state.businessTestId
-  };
-};
+// const mapStateToProps=(state)=>{
+//   return{
+//     businessTestId:state.businessTestId
+//   };
+// };
 
-const mapStateToDispatch=(dispatch)=>{
-  return bindActionCreators(actionCreators,dispatch);
-};
+// const mapStateToDispatch=(dispatch)=>{
+//   return bindActionCreators(actionCreators,dispatch);
+// };
 
-export default connect(mapStateToProps,mapStateToDispatch)(BusinessTest);
+// export default connect(mapStateToProps,mapStateToDispatch)(BusinessTest);
+
+export default BusinessTest;

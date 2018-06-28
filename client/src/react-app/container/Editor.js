@@ -5,6 +5,10 @@ import Question from '../component/Question';
 import CodeEditor from '../component/CodeEditor';
 import ResultCard from '../component/ResultCard';
 
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/actionCreators';
+
 class Editor extends React.Component {
   constructor(props) {
     super(props);
@@ -16,8 +20,16 @@ class Editor extends React.Component {
     this.updateResult = this.updateResult.bind(this);
   }
 
+  componentWillReceiveProps(nextProps){
+    fetch('http://localhost:4001/api/v1/question?query='+nextProps.questionId)
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ question: json });
+      });
+  }
+
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?query=random')
+    fetch('http://localhost:4001/api/v1/question?query='+this.props.questionId)
       .then((res) => res.json())
       .then((json) => {
         this.setState({ question: json });
@@ -53,4 +65,15 @@ class Editor extends React.Component {
   }
 }
 
-export default Editor;
+const mapStateToProps=(state)=>{
+  console.log('editer',state);
+  return{
+    questionId:state.linkEditer.questionId
+  };
+};
+
+const mapStateToDispatch=(dispatch)=>{
+  return bindActionCreators(actionCreators,dispatch);
+};
+
+export default connect(mapStateToProps,mapStateToDispatch)(Editor);

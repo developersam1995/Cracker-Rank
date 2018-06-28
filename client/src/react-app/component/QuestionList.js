@@ -1,12 +1,16 @@
 import React from 'react';
 
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import * as actionCreators from '../actions/actionCreators';
+
 import './QuestionList.css';
 
 
 class QuestionList extends React.Component{
   constructor(props){
     super(props);
-    console.log(props);
     this.state={
       questionIds:[]
     };
@@ -32,22 +36,6 @@ class QuestionList extends React.Component{
     //}
   }
 
-  // componentDidMount(){
-  //   console.log('question list com did mount',this.props.questionIds);
-  //   if(this.props.questionIds){
-  //     let questionIds=this.props.questionIds;
-
-  //     let arrQuestions=new Array(questionIds.length);
-  //     questionIds.forEach((val,index)=>{
-  //       arrQuestions[index]=this.getQuestionDetails(val);
-  //     });
-
-  //     Promise.all(arrQuestions).then((questions)=>{
-  //       this.setState({questions:questions});
-  //     });
-  //   }
-  // }
-
   getQuestionDetails(questionId){
     console.log('ques',questionId);
     return new Promise(function(resolve,reject){
@@ -71,7 +59,7 @@ class QuestionList extends React.Component{
         <ul className='Question-List-ul'>
           {
             this.state.questionIds.map((val,index)=>{
-              return (<li className='Question-List-li' key={index} >question {index+1} </li>);
+              return (<li className='Question-List-li' key={index} onClick={() => {this.props.linkWithEditor(val)}}>question {index+1} </li>);
             })
           }
         </ul>
@@ -87,4 +75,15 @@ class QuestionList extends React.Component{
   }
 };
 
-export default QuestionList;
+const mapStateToProps = (state) =>{
+  console.log('ques state',state);
+  return{
+    questionId:state.linkEditer.questionId
+  };
+};
+
+const mapStateToDispatch = (dispatch)=>{
+  return bindActionCreators(actionCreators,dispatch);
+};
+
+export default connect(mapStateToProps,mapStateToDispatch)(QuestionList);

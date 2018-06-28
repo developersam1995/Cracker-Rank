@@ -7,7 +7,7 @@ export function addQuestion(question){
   };
 }
   
-export function linkPracticeWithEditor(questionId){
+export function linkWithEditor(questionId){
   return{
     type:'LINK_EDITOR',
     questionId

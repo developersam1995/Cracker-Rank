@@ -1,10 +1,10 @@
 function getBusinessTest(state=[],action){
   switch(action.type){
   case 'ADD-BUSINESS_TEST':
-    state = Object.assign({},state,{businessTestId:action.businessTestId});
-    break;
+    return Object.assign({},state,{businessTestId:action.businessTestId});
+  default: 
+    return state;
   }
-  return state;
 }
 
 export default getBusinessTest;
