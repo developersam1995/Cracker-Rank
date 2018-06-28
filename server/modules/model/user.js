@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
+// const passportLocalMongoose = require('passport-local-mongoose');
 
-const UserSchema = mongoose.Schema({
-  id: Object,
-  name: String,
-  firstname: String,
-  lastname: String,
+const UserSchema = new mongoose.Schema({
+  // id: Object,
   username: String,
-  email: String,
-  phone: Number,
-  avatar: String
+  password: String,
+  name: String,
+  mobile: Number,
+  companyName: String,
+  address: String,
+  type: String,
+  userProfileRec: mongoose.Schema.Types.Mixed,
+  userProfileDev: mongoose.Schema.Types.Mixed
 });
+
+// UserSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('user', UserSchema);

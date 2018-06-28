@@ -12,6 +12,7 @@ const get = (params) => {
     });
   });
 };
+
 const data = () => {
   return new Promise((resolve, reject) => {
     questionModel.aggregate([{
@@ -59,7 +60,7 @@ const insert = (params) => {
       if (err) {
         reject(err);
       } else {
-        resolve('Inserted Successfully.');
+        resolve(result);
       }
     });
   });

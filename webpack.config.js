@@ -1,5 +1,4 @@
 const path = require('path');
-
 module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, 'client') + '/src/react-app/index.js',
@@ -15,8 +14,10 @@ module.exports = {
         include: path.resolve(__dirname, 'client') + '/src',
         loader: 'babel-loader',
         query: {
-          presets: ['react']
-        }
+          presets: ['latest','react'],
+          plugins: ['transform-object-rest-spread']
+        },
+        
       },
       {
         test: /\.css$/,
