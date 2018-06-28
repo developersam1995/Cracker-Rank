@@ -163,7 +163,7 @@ class RegisterBusiness extends React.Component {
 
   render() {
     const registrationForm =
-      <div>
+      <React.Fragment>
         <input
           className="Form-Input"
           type="text"
@@ -227,7 +227,7 @@ class RegisterBusiness extends React.Component {
           <p>OR</p>
           Already have an account <Link to="/">Login</Link>
         </div>
-      </div>;
+      </React.Fragment>;
 
     let alertSuccess = null;
     if (this.state.alertMessage) {

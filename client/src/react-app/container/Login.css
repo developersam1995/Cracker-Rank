@@ -1,5 +1,10 @@
 .LoginForm {
-    text-align: -webkit-center;
+    display: grid;
+    justify-items: center;
+}
+
+.LoginForm p {
+    text-align: center;
 }
 
 .CustomLink {
