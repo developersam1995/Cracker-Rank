@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as actionCreators from '../actions/actionCreators';
 
 import Menu from '../component/Menu';
 import Question from '../component/Question';
 import QuestionList from '../component/QuestionList';
 import './Editor.css';
 import './BusinessTest.css';
-import * as actionCreators from '../actions/actionCreators';
 import Editor from './Editor';
 
 class BusinessTest extends React.Component{
@@ -15,8 +15,7 @@ class BusinessTest extends React.Component{
   constructor(){
     super();
     this.state={
-      questionIds:[],
-      currentQuestion:{}
+      questionIds:[]
     };
   }
 
@@ -26,18 +25,18 @@ class BusinessTest extends React.Component{
       .then((res)=>res.json())
       .then((data)=>{
         this.setState({questionIds:data[0].questionID});
+        this.props.linkWithEditor(data[0].questionID[0]);
       });
   }
 
   render(){
-    //console.log('render...',this.state.questionIds);
     return(
       <Fragment>
         <Menu timer='00:20:00'/>
         <div className='Business-Test'>
           <QuestionList questionIds={this.state.questionIds}/>
           <div>
-            <Editor questionID={this.state.currentQuestion}/>
+            <Editor/>
           </div>
         </div>
       </Fragment>
@@ -46,16 +45,15 @@ class BusinessTest extends React.Component{
 
 }
 
-// const mapStateToProps=(state)=>{
-//   return{
-//     businessTestId:state.businessTestId
-//   };
-// };
+const mapStateToProps=(state)=>{
+  return{
+    //businessTestId:state.businessTestId
+    questionId:state.linkEditer.questionId
+  };
+};
 
-// const mapStateToDispatch=(dispatch)=>{
-//   return bindActionCreators(actionCreators,dispatch);
-// };
+const mapStateToDispatch=(dispatch)=>{
+  return bindActionCreators(actionCreators,dispatch);
+};
 
-// export default connect(mapStateToProps,mapStateToDispatch)(BusinessTest);
-
-export default BusinessTest;
+export default connect(mapStateToProps,mapStateToDispatch)(BusinessTest);

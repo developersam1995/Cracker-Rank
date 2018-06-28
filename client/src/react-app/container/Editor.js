@@ -12,7 +12,6 @@ import * as actionCreators from '../actions/actionCreators';
 class Editor extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       question: null,
       results:[]
@@ -66,7 +65,6 @@ class Editor extends React.Component {
 }
 
 const mapStateToProps=(state)=>{
-  console.log('editer',state);
   return{
     questionId:state.linkEditer.questionId
   };
