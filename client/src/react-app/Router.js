@@ -9,6 +9,8 @@ import RegisterUser from './container/RegisterUser';
 import RegisterBusiness from './container/RegisterBusiness';
 import NotFound from './container/NotFound';
 import Practice from './container/Practice';
+import BusinessHome from './container/BusinessHome';
+import AddTest from './container/AddTest';
 
 export default () => {
   return (

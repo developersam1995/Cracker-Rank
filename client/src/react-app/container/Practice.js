@@ -4,14 +4,19 @@ import PageTitle from '../component/PageTitle';
 import './Practice.css';
 import QuestionItem from '../component/QuestionItem';
 import Editor from './Editor';
+import { Redirect } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/actionCreators';
+
 
 class Practice extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionID: null,
-      questions: null
-
+      questions: null,
+      questionId:null
     };
 
     this.setQuestionID = this.setQuestionID.bind(this);
@@ -21,11 +26,11 @@ class Practice extends React.Component {
     //get the selected question id
     //TODO:
 
+    this.props.linkPracticeWithEditor(id);
     this.setState({
-      questionID: id
+      questionId:id
     });
   };
-
 
   componentDidMount() {
     fetch('http://localhost:4001/api/v1/question?query=problems').then((response) => {
@@ -37,7 +42,9 @@ class Practice extends React.Component {
 
 
   render() {
-
+    if(this.state.questionId){
+      return <Redirect to='/editor' />;
+    }      
     const { questions } = this.state;
     let questionItems = null;
     if (questions != null) {
@@ -71,4 +78,15 @@ class Practice extends React.Component {
   }
 }
 
-export default Practice;
+function mapStateToProps(state) {
+  return {
+    questionId: state.questionId
+  };
+}
+
+function mapStateToDispatch(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
+}
+
+export default connect(mapStateToProps, mapStateToDispatch)(Practice);
+//export default Practice;

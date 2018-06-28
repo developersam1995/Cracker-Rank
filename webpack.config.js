@@ -17,6 +17,7 @@ module.exports = {
           presets: ['latest','react'],
           plugins: ['transform-object-rest-spread']
         },
+        
       },
       {
         test: /\.css$/,
