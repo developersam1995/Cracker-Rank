@@ -10,5 +10,9 @@ module.exports = {
 
   session: {
     cookieKey: 'crackerrankkey'
+  },
+
+  password: {
+    privateKey: '@984%23ThisADemo'
   }
 };

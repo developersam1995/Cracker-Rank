@@ -5,7 +5,6 @@ const register = require('../controllers/register');
 router.post('/', (req, res) => {
   register.insert(req.body)
     .then((result) => {
-      console.log(result);
       res.status(result.status).json({ msg: result.message });
     }).catch(err => {
       res.status(503).json({ msg: err });
