@@ -1,15 +1,17 @@
 const mongoose = require('mongoose');
 
 const TestSchema = mongoose.Schema({
-  company_id: Object,
+  companyId: Object,
+  questionsId: [String],
+  duration: Number,
   title: String,
   description: String,
   startDate: String,
   endDate: String,
-  duration: Number,
-  questionID: Array,
-  avatar: String
+  candidates: [{
+    id: Object,
+    result: [Number]
+  }]
 });
-
 
 module.exports = mongoose.model('test', TestSchema);

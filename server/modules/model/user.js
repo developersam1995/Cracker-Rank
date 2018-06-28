@@ -10,8 +10,13 @@ const UserSchema = new mongoose.Schema({
   companyName: String,
   address: String,
   type: String,
-  userProfileRec: mongoose.Schema.Types.Mixed,
-  userProfileDev: mongoose.Schema.Types.Mixed
+  userProfileRec: {
+    tests: [String] 
+  },
+  userProfileDev: {
+    practicedQuestions: [String],
+    tests: [String]
+  }
 });
 
 // UserSchema.plugin(passportLocalMongoose);
