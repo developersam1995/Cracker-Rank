@@ -12,7 +12,7 @@ class RegisterUser extends React.Component {
     this.state = {
       user: {
         name: '',
-        email: '',
+        username: '',
         mobile: '',
         password: '',
         confirmPassword: '',
@@ -40,9 +40,9 @@ class RegisterUser extends React.Component {
     });
   };
 
-  validateEmail(email) {
+  validateEmail(username) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
+    return re.test(String(username).toLowerCase());
   }
 
   isValid() {
@@ -57,13 +57,13 @@ class RegisterUser extends React.Component {
       return false;
     }
 
-    if (user.email === '') {
+    if (user.username === '') {
       errorMsg += 'Please provide your email\n';
       this.setState({
         alertMessage: errorMsg
       });
       return false;
-    } else if (!this.validateEmail(user.email)) {
+    } else if (!this.validateEmail(user.username)) {
       errorMsg += 'Please provide your valid email\n';
       this.setState({
         alertMessage: errorMsg
@@ -143,7 +143,7 @@ class RegisterUser extends React.Component {
             this.setState({
               user: {
                 name: '',
-                email: '',
+                username: '',
                 mobile: '',
                 password: '',
                 confirmPassword: ''
@@ -175,9 +175,9 @@ class RegisterUser extends React.Component {
       <input
         className="Form-Input"
         type="text"
-        name="email"
+        name="username"
         placeholder="Email"
-        value={this.state.user.email}
+        value={this.state.user.username}
         onChange={(event) => this.handleChange(event)} />
 
       <input

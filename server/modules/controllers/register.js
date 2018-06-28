@@ -51,29 +51,33 @@ const getAll = () => {
 // };
 
 const insert = (params) => {
+  console.log(params);
+
   return new Promise((resolve, reject) => {
-    UserModel.findOne({ email: params.email }, (err, user) => {
+    UserModel.findOne({ username: params.username }, (err, user) => {
       if (err) {
-        return reject({status: 500, message: 'Unable to connect.'});
+        reject({status: 500, message: 'Unable to connect.'});
       } else {
         if (user) {
-          return resolve({status:200, message: 'Email is already taken.'});
+          resolve({status:200, message: 'Email is already taken.'});
         } else {          
           if(params.type == 'developer') {
             UserModel.insertMany({
               name: params.name,
-              email: params.email,
+              username: params.username,
               mobile: params.mobile,
               password: encryption.encryptPassword(params.password),
               type: params.type
             }).then( (err, user) => {
-              return resolve({status: 201, message: 'Successfully Registered.'});
+              resolve({status: 201, message: 'Successfully Registered.'});
+            }).catch(err=>{
+              console.log(err);
             });
           }
         }
       }
-    })
-  })
+    });
+  });
 };
 
 module.exports = {

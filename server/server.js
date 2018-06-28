@@ -24,11 +24,11 @@ mongoose.connect(keys.mongodb.dbURI, () => {
   console.log('connected to database');
 });
 
-app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(session({secret: 'test', saveUninitialized: true, resave: true}));
+app.use(cors());
+// app.use(cookieParser());
+// app.use(session({secret: 'test', saveUninitialized: true, resave: true}));
 
 
 // app.use(cookieSession({
@@ -103,7 +103,7 @@ app.use('/api/v1/login', loginRouter);
 // app.post('/api/v1/login'
 //   , passport.authenticate('local')
 //   , (req, res) => {
-//     console.log(req, "-----req");
+//     console.log(req, '-----req');
 //     console.log('res ======== ', res);
 //     // res.send({msg: 'process'});
 //   });

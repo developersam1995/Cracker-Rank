@@ -52,7 +52,7 @@ class Login extends React.Component {
       });
       return false;
     } else if (!this.validateEmail(login.username)) {
-      errorMsg = 'Please provide your valid email\n';
+      errorMsg = 'Please provide your valid username\n';
       this.setState({
         alertMessage: errorMsg
       });
@@ -74,7 +74,9 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
+
     if (this.isValid()) {
+      console.log(this.state.login);
       fetch('http://localhost:4001/api/v1/login', {
         method: 'POST',
         body: JSON.stringify(this.state.login),
@@ -129,7 +131,7 @@ class Login extends React.Component {
       </div>
       <div>
         <p>OR</p>
-        <Link to='/signup/login'>New Account?</Link>
+        <Link to='/signup/user'>New Account?</Link>
       </div>
 
     </React.Fragment>;
