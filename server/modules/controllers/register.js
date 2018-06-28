@@ -1,4 +1,3 @@
-const BusinessModel = require('../model/business');
 const UserModel = require('../model/user');
 const encryption = require('../../config/Enctyption');
 

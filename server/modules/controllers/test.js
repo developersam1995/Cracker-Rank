@@ -1,5 +1,5 @@
 const questionModel = require('../model/question');
-const addTest = require('../model/business-test');
+const addTest = require('../model/test');
 const express = require('express');
 
 const settest = (params) => {
