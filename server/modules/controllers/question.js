@@ -1,100 +1,50 @@
-const questionModel = require('../model/question');
-const express = require('express');
+const QuestionModel = require('../model/question');
 
-const get = (params) => {
-  return new Promise((resolve, reject) => {
-    questionModel.findById({ _id: params }, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-
-const data = () => {
-  return new Promise((resolve, reject) => {
-    questionModel.aggregate([{
-      $group:{
-        _id:{_id:'$_id',title:'$title',maxScore:'$maxScore',difficulty:'$difficulty'}
-        
-       
-        
-      }
-
-    },{
-      $project:{
-        _id:0,
-        id:'$_id._id',
-        title:'$_id.title',
-        difficulty:'$_id.difficulty',
-        maxScore:'$_id.maxScore'
-        
-      }
-    }],(err,result)=>{
-      resolve(result);
-
-    });
-  
-  });
-};
-
-const getall = () => {
-  return new Promise((resolve, reject) => {
-    questionModel.find({}, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-const getquestions = () => {
-  return new Promise((resolve, reject) => {
-    questionModel.aggregate([{
-      $group: {
-        _id: { _id: '$_id', title: '$title' }
-      }
-    }, {
-      $project: {
-        _id: 0,
-        id: '$_id._id',
-        title: '$_id.title'
-      }
-    }], (err, result) => {
-      resolve(result);
-    });
-
-  });
-};
-
-
-
-const insert = (params) => {
-  return new Promise((resolve, reject) => {
-    questionModel.insertMany(params, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-
-const update = () => {
-  return new Promise((resolve, reject) => {
-    resolve('updated');
-  });
-};
 
 module.exports = {
-  insert,
-  get,
-  getall,
-  update,
-  getquestions,
-  data
-};
+  
+  insert: async (req, res, next) => {
+    const question = req.body;
+    
+    const newQuestion = new QuestionModel({
+      title: question.title,
+      problemDescription: question.problemDescription,
+      exampleInputs: question.exampleInputs,
+      exampleOutput: question.exampleOutput,
+      testCases:question.testCases,
+      functionName: question.functionName,
+      paramNames: question.paramNames
+    })
+    
+    await newQuestion.save();
+    
+    // Respond with status
+    res.status(200).json({ status: "Successfully Created" });
+  },
+  
+  get: async (req, res, next) => {
+    const { id } = req.query;
+    
+    let questions = null;
+    if(id === 'all') {
+      questions = await QuestionModel.find()
+    } else if(id === 'random') {
+      questions = await QuestionModel.find();
+      questions = questions[Math.floor(Math.random() * questions.length)]
+    } else {
+      const ObjectID = require('mongoose').Types.ObjectId;
+      if(ObjectID.isValid(id)) {
+        questions = await QuestionModel.findById(id);
+      } else {
+        return res.status(404).json({message: 'Not found'})
+      }
+    }
+    
+    if(questions) {
+      res.status(200).json(questions);
+    } else {
+      res.status(404).json({message: 'Not found'})
+    }
+    
+  }
+}

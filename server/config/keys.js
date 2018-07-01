@@ -4,15 +4,17 @@ module.exports = {
     clientSecret: 'TmZVvftpYNq6OMq8XkQ8RqnA'
   },
 
-  mongodb: {
-    dbURI: 'mongodb://crackerrank:crackerrank123@ds261570.mlab.com:61570/crackerrank'
+  mongoURI: 'mongodb://crackerrank:crackerrank123@ds261570.mlab.com:61570/crackerrank',
+  
+  JWT_SECRET : 'crackerrank',
+
+  server: {
+    ip: 'localhost',
+    port: 4001
   },
 
-  session: {
-    cookieKey: 'crackerrankkey'
-  },
-
-  password: {
-    privateKey: '@984%23ThisADemo'
+  client: {
+    ip: 'localhost',
+    port: 3000
   }
 };
