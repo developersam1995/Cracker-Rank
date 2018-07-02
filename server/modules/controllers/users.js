@@ -56,7 +56,7 @@ module.exports = {
     await newUser.save();
     
     // Respond with status
-    res.status(200).json({ status: 'Successfully Created' });
+    res.status(201).json({ status: 'Successfully Created' });
   },
   
   signIn: async (req, res, next) => {

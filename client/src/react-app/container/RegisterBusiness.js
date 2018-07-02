@@ -4,6 +4,7 @@ import Alert from '../component/Alert';
 import './RegisterBusiness.css';
 import { Link } from 'react-router-dom';
 import PageTitle from '../component/PageTitle';
+import { Z_DEFAULT_STRATEGY } from 'zlib';
 
 class RegisterBusiness extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class RegisterBusiness extends React.Component {
 
     this.state = {
       company: {
-        username: '',
+        email: '',
         password: '',
         confirmPassword: '',
         name: '',
@@ -39,22 +40,22 @@ class RegisterBusiness extends React.Component {
     });
   };
 
-  validateEmail(username) {
+  validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(username).toLowerCase());
+    return re.test(String(email).toLowerCase());
   }
 
   isValid() {
     let errorMsg = '';
     const { company } = this.state;
 
-    if (company.username === '') {
+    if (company.email === '') {
       errorMsg += 'Please provide your email\n';
       this.setState({
         alertMessage: errorMsg
       });
       return false;
-    } else if (!this.validateEmail(company.username)) {
+    } else if (!this.validateEmail(company.email)) {
       errorMsg += 'Please provide your valid email\n';
       this.setState({
         alertMessage: errorMsg
@@ -130,9 +131,12 @@ class RegisterBusiness extends React.Component {
 
   handleSubmit(event) {
     if (this.isValid()) {
-      fetch('http://localhost:4001/api/v1/register', {
+      const company = this.state.company;
+      delete company.confirmPassword;
+      console.log(company);
+      fetch('http://localhost:4001/api/v1/users/signup', {
         method: 'POST',
-        body: JSON.stringify(this.state.company),
+        body: JSON.stringify(company),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -143,17 +147,26 @@ class RegisterBusiness extends React.Component {
         response.json().then((parsedJSON => {
           console.log(statusCode);
           console.log(parsedJSON);
-          if (statusCode === 200) {
+          if (statusCode === 403) {
             this.setState({
-              userRegisterd: false,
-              alertMessage: parsedJSON.msg
+              company: {
+                email: '',
+                password: '',
+                confirmPassword: '',
+                name: '',
+                mobile: '',
+                companyName: '',
+                address: ''
+              },
+              companyRegisterd: false,
+              alertMessage: parsedJSON.error
             });
           }
 
           if (statusCode === 201) {
             this.setState({
               company: {
-                username: '',
+                email: '',
                 password: '',
                 confirmPassword: '',
                 name: '',
@@ -181,9 +194,9 @@ class RegisterBusiness extends React.Component {
         <input
           className="Form-Input"
           type="text"
-          name="username"
+          name="email"
           placeholder="Email"
-          value={this.state.company.username}
+          value={this.state.company.email}
           onChange={(event) => this.handleChange(event)} />
 
         <input

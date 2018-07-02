@@ -16,7 +16,7 @@ class Login extends React.Component {
 
     this.state = {
       login: {
-        username: '',
+        email: '',
         password: ''
       },
       alertMessage: '',
@@ -40,23 +40,23 @@ class Login extends React.Component {
     });
   }
 
-  validateEmail(username) {
+  validateEmail(email) {
     let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(username).toLowerCase());
+    return re.test(String(email).toLowerCase());
   }
 
   isValid() {
     let errorMsg = '';
     const { login } = this.state;
 
-    if (login.username === '') {
-      errorMsg = 'Please provide your username\n';
+    if (login.email === '') {
+      errorMsg = 'Please provide your email\n';
       this.setState({
         alertMessage: errorMsg
       });
       return false;
-    } else if (!this.validateEmail(login.username)) {
-      errorMsg = 'Please provide your valid username\n';
+    } else if (!this.validateEmail(login.email)) {
+      errorMsg = 'Please provide your valid email\n';
       this.setState({
         alertMessage: errorMsg
       });
@@ -80,7 +80,7 @@ class Login extends React.Component {
   handleSubmit() {
     let statusCode;
     if (this.isValid()) {
-      fetch('http://localhost:4001/api/v1/login', {
+      fetch('http://localhost:4001/api/v1/users/signin', {
         method: 'POST',
         body: JSON.stringify(this.state.login),
         headers: {
@@ -88,13 +88,15 @@ class Login extends React.Component {
         }
       }).then(response => {
         statusCode = response.status;
+        if (statusCode == 401) {
+          return this.setState({ alertMessage: 'Invalid email or password' });
+        }
         return response.json();
       }).then(parsedJSON => {
-        console.log(parsedJSON);
         if (statusCode === 200) {
-
+          localStorage.setItem('ptok',parsedJSON.token);
+          localStorage.setItem('type',parsedJSON.user.type);
           this.setState({ userType: parsedJSON.user.type });
-
         }
       });
     }
@@ -106,9 +108,9 @@ class Login extends React.Component {
       <input
         className='Form-Input'
         type='text'
-        name='username'
+        name='email'
         placeholder='Email'
-        value={this.state.login.username}
+        value={this.state.login.email}
         onChange={(event) => this.handleChange(event)} />
 
       <input
@@ -140,7 +142,8 @@ class Login extends React.Component {
       </div>
       <div>
         <p>OR</p>
-        <Link to='/signup/user'>New Account?</Link>
+        <Link to='/signup/user'>New Acoount(Developer)?</Link>
+        <Link to='/signup/business'>New Account(Recruiter)?</Link>
       </div>
 
     </React.Fragment>;
@@ -150,11 +153,11 @@ class Login extends React.Component {
       alertSuccess = <Alert message={this.state.alertMessage} />;
     }
 
-    if(this.state.userType === 'developer') {
+    if (this.state.userType === 'developer') {
       return <Home />;
     }
 
-    if(this.state.userType === 'business') {
+    if (this.state.userType === 'business') {
       return <BusinessHome />;
     }
 
