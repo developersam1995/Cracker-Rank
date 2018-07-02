@@ -14,12 +14,12 @@ module.exports = {
       testCases:question.testCases,
       functionName: question.functionName,
       paramNames: question.paramNames
-    })
+    });
     
     await newQuestion.save();
     
     // Respond with status
-    res.status(200).json({ status: "Successfully Created" });
+    res.status(200).json({ status: 'Successfully Created' });
   },
   
   get: async (req, res, next) => {
@@ -27,24 +27,24 @@ module.exports = {
     
     let questions = null;
     if(id === 'all') {
-      questions = await QuestionModel.find()
+      questions = await QuestionModel.find();
     } else if(id === 'random') {
       questions = await QuestionModel.find();
-      questions = questions[Math.floor(Math.random() * questions.length)]
+      questions = questions[Math.floor(Math.random() * questions.length)];
     } else {
       const ObjectID = require('mongoose').Types.ObjectId;
       if(ObjectID.isValid(id)) {
         questions = await QuestionModel.findById(id);
       } else {
-        return res.status(404).json({message: 'Not found'})
+        return res.status(404).json({message: 'Not found'});
       }
     }
     
     if(questions) {
       res.status(200).json(questions);
     } else {
-      res.status(404).json({message: 'Not found'})
+      res.status(404).json({message: 'Not found'});
     }
     
   }
-}
+};
