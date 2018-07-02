@@ -48,7 +48,8 @@ module.exports = {
         name: user.name,
         mobile: user.mobile,
         companyName: user.companyName,
-        address: user.address
+        address: user.address,
+        type: user.type
       });  
     }    
     
@@ -79,7 +80,13 @@ module.exports = {
     res.status(200).json({ token });
   },
   
-  secret: async (req, res, next) => {
-    res.json({ secret: 'secret resource' });
-  }
+  getProfile: async (req, res, next) => {
+    if (req.user.type == 'developer') {
+      return res.json(req.user.userProfileDev);
+    }
+    if(req.user.type == 'business') {
+      return res.json(req.user.userProfileRec);
+    }
+    res.status(404).json( {error:'users not found'} );
+  }, 
 };

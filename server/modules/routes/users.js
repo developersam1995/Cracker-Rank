@@ -9,7 +9,13 @@ const passportGoogle = passport.authenticate('googleToken', { session: false });
 const UsersController = require('../controllers/users');
 
 router.route('/signup').post(validateBody(schemas.userSchema), UsersController.signUp);
+
 router.route('/signin').post(validateBody(schemas.localLoginSchema), passportLocal, UsersController.signIn);
+
+router.route('/profile')
+  .get(passportJWT,UsersController.getProfile);
+//   .put(passportJWT,UsersController.updateProfile);
+
 router.route('/oauth/google').post(passportGoogle, passport.authenticate('googleToken', { session: false }));
 
 module.exports = router;
