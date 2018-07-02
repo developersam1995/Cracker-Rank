@@ -66,7 +66,7 @@ passport.use(new LocalStrategy({
     done(error, false);
   }
   
-}))
+}));
 
 //GOOGLE OAUTH STRATEGY
 passport.use('googleToken', new GooglePlusTokenStrategy({
@@ -75,7 +75,7 @@ passport.use('googleToken', new GooglePlusTokenStrategy({
 }, async (accessToken, refreshToken, profile, done) => {
   try {
     console.log(accessToken, refreshToken, profile);
-    const existingUser = await User.findOne({ "google.id": profile.id });
+    const existingUser = await User.findOne({ 'google.id': profile.id });
     if (existingUser) {
       return done(null, existingUser);
     }

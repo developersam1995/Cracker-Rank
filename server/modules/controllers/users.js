@@ -19,7 +19,7 @@ module.exports = {
     const foundUser = await UserModel.findOne({ 'local.email': user.email });
     
     if (foundUser) {
-      return res.status(403).json({ error: 'Email is already taken' })
+      return res.status(403).json({ error: 'Email is already taken' });
     }
     
     //create a new user
@@ -55,7 +55,7 @@ module.exports = {
     await newUser.save();
     
     // Respond with status
-    res.status(200).json({ status: "Successfully Created" });
+    res.status(200).json({ status: 'Successfully Created' });
   },
   
   signIn: async (req, res, next) => {
@@ -82,4 +82,4 @@ module.exports = {
   secret: async (req, res, next) => {
     res.json({ secret: 'secret resource' });
   }
-}
+};
