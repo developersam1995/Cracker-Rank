@@ -92,16 +92,23 @@ module.exports = {
 
   updateProfile: async (req, res, next) => {
     if (req.user.type == 'developer') {
-      let preacticeQn = req.body.practicedQn;
-      let test = req.body.test;
+      if(req.body.practicedQn) {
+        //query add
+      }
+      else if(req,body.test) {
+        //query add
+      }
+      else {
+        return res.status(422).send('Invalid request');
+      }
     }
     if(req.user.type == 'business') {
-      UserModel.updateOne(
-        {id:req.user.id},
-      );
-      let testId = req.body.test;
-      let userId = req.user.id;
-      return res.json(req.user.userProfileRec);
+      if(req,body.test) {
+        //query add
+      }
+      else {
+        return res.status(422).send('Invalid request');
+      }
     }
     res.status(404).json( {error:'user not found'} );
   }
