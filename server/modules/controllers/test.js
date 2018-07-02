@@ -15,12 +15,12 @@ module.exports = {
       description: test.description,
       startDate: test.startDate,
       endDate: test.endDate
-    })
+    });
     
     await newTest.save();
     
     // Respond with status
-    res.status(200).json({ status: "Successfully Created" });
+    res.status(200).json({ status: 'Successfully Created' });
   },
   
   get: async (req, res, next) => {
@@ -28,21 +28,21 @@ module.exports = {
     
     let tests = null;
     if(id === 'all') {
-      tests = await TestModel.find()
+      tests = await TestModel.find();
     } else {
       const ObjectID = require('mongoose').Types.ObjectId;
       if(ObjectID.isValid(id)) {
         tests = await TestModel.findById(id);
       } else {
-        return res.status(404).json({message: 'Not found'})
+        return res.status(404).json({message: 'Not found'});
       }
     }
 
     if(tests) {
       res.status(200).json(tests);
     } else {
-      res.status(404).json({message: 'Not found'})
+      res.status(404).json({message: 'Not found'});
     }
     
   }
-}
+};
