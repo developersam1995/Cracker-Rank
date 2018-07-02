@@ -13,8 +13,8 @@ router.route('/signup').post(validateBody(schemas.userSchema), UsersController.s
 router.route('/signin').post(validateBody(schemas.localLoginSchema), passportLocal, UsersController.signIn);
 
 router.route('/profile')
-  .get(passportJWT,UsersController.getProfile);
-//   .put(passportJWT,UsersController.updateProfile);
+  .get(passportJWT,UsersController.getProfile)
+  .put(passportJWT,UsersController.updateProfile);
 
 router.route('/oauth/google').post(passportGoogle, passport.authenticate('googleToken', { session: false }));
 
