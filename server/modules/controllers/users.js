@@ -93,18 +93,24 @@ module.exports = {
   updateProfile: async (req, res, next) => {
     if (req.user.type == 'developer') {
       if(req.body.practicedQn) {
-        //query add
+        let update = await UserModel.updateOne({_id:req.user.id},
+          {$addToSet:{'userProfileDev.practicedQuestions':req.body.practicedQn}});    
+        return res.status(202).send({message:'successfully updated'});    
       }
-      else if(req,body.test) {
-        //query add
+      else if(req.body.test) {
+        let update = await UserModel.updateOne({_id:req.user.id},
+          {$addToSet:{'userProfileDev.tests':req.body.test}}); 
+        return res.status(202).send({message:'successfully updated'});         
       }
       else {
         return res.status(422).send('Invalid request');
       }
     }
     if(req.user.type == 'business') {
-      if(req,body.test) {
-        //query add
+      if(req.body.test) {
+        let update = await UserModel.updateOne({_id:req.user.id},
+          {$addToSet:{'userProfileRec.tests':req.body.test}});   
+        return res.status(202).send({message:'successfully updated'});    
       }
       else {
         return res.status(422).send('Invalid request');
