@@ -21,10 +21,10 @@ class User extends React.Component{
   }
 
   componentDidMount(){
-    fetch('http://localhost:4001/api/v1/profile',{
-      method:'POST',
+    fetch('http://localhost:4001/api/v1/users',{
+      method:'GET',
       headers:{
-        Authorization:this.props.token
+        Authorization:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjcmFja2VycmFuayIsInN1YiI6IjViM2EwY2NjMzZkZDA3MmI5OGQyNjE4NyIsImlhdCI6MTUzMDUzMzgyOTYxOSwiZXhwIjoxNTMwNjIwMjI5NjE5fQ.XqKXE9BlT8grkME17wmnxt0YXXvy2aaUtGr8cmGPXqY'//this.props.token
       }
     })
       .then((res)=>res.json())
@@ -56,8 +56,8 @@ class User extends React.Component{
 
 const mapStateToProps = (state) =>{
   return{
-    token:state.storeToken.token,
-    userId:state.user.userId
+    // token:state.storeToken.token,
+    // userId:state.user.userId
   };
 };
 
