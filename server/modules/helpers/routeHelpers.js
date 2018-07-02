@@ -21,7 +21,9 @@ module.exports = {
       password: Joi.string().required(),
       name: Joi.string().required(),
       mobile: Joi.number().required(),
-      type: Joi.string().required()
+      type: Joi.string().required(),
+      companyName: Joi.string(),
+      address: Joi.string()
     }),
 
     userBusinessSchema: Joi.object().keys({
