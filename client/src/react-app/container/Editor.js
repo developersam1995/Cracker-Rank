@@ -5,23 +5,29 @@ import Question from '../component/Question';
 import CodeEditor from '../component/CodeEditor';
 import ResultCard from '../component/ResultCard';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreator from '../actions/actionCreators';
 
 class Editor extends React.Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       question: null,
-      results:[]
+      results: []
     };
     this.updateResult = this.updateResult.bind(this);
   }
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?query='+this.props.questionId)
+    console.log('props', this.props.questionId);
+
+    fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
+      method: 'get',
+      headers: {
+        'Authorization': localStorage.getItem('ptok')
+      }
+    })
       .then((res) => res.json())
       .then((json) => {
         this.setState({ question: json });
@@ -46,28 +52,28 @@ class Editor extends React.Component {
         <div className='Editor'>
           <div className='code'>
             <CodeEditor updateResult={this.updateResult}
-              testCases={this.state.question.testCases} 
+              testCases={this.state.question.testCases}
               fnName={this.state.question.functionName}
               fnParams={this.state.question.paramNames} />
           </div>
-          <ResultCard results={this.state.results}/>
+          <ResultCard results={this.state.results} />
         </div>
       </React.Fragment>
     );
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-    questionId:state.linkEditer.questionId
+    questionId: state.linkEditer.questionId
   };
 };
 
-function mapStateToDispatch(dispatch){
-  return bindActionCreators(actionCreator,dispatch);
+function mapStateToDispatch(dispatch) {
+  return bindActionCreators(actionCreator, dispatch);
 };
 
-export default connect(mapStateToProps,mapStateToDispatch)(Editor);
+export default connect(mapStateToProps, mapStateToDispatch)(Editor);
 
 
 
@@ -130,7 +136,7 @@ export default connect(mapStateToProps,mapStateToDispatch)(Editor);
 //   // }
 //   constructor(props){
 //     super(props);
-    
+
 
 //     this.state={
 //       question:{}
@@ -179,9 +185,9 @@ export default connect(mapStateToProps,mapStateToDispatch)(Editor);
 //             </textarea>
 // =======
 //     if(this.state.question){
-      
+
 //       const question = this.state.question;
-      
+
 //       return (
 //         <React.Fragment>
 //           <Menu />
@@ -189,7 +195,7 @@ export default connect(mapStateToProps,mapStateToDispatch)(Editor);
 //           <div className='Editor'>
 //             <div className='code'>
 //               <textarea defaultValue="#Write your code here">
-              
+
 //               </textarea>
 //             </div>
 // >>>>>>> redux-imp-question-list
