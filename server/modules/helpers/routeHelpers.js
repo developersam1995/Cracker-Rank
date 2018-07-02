@@ -42,7 +42,6 @@ module.exports = {
     }),
 
     testSchema: Joi.object().keys({
-      companyId: Joi.string().required(),
       questionsId: Joi.array().required(),
       duration: Joi.number().required(),
       title: Joi.string().required(),

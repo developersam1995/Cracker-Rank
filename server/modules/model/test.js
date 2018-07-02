@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const TestSchema = mongoose.Schema({
-  companyId: Object,
+  companyId: String,
   questionsId: [String],
   duration: Number,
   title: String,
@@ -9,7 +9,7 @@ const TestSchema = mongoose.Schema({
   startDate: String,
   endDate: String,
   candidates: [{
-    id: Object,
+    id: String,
     result: [Number]
   }]
 });

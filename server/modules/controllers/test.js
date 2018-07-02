@@ -3,46 +3,57 @@ const TestModel = require('../model/test');
 
 
 module.exports = {
-  
+
   insert: async (req, res, next) => {
-    const test = req.body;
-    
-    const newTest = new TestModel({
-      companyId: test.companyId,
-      questionsId: test.questionsId,
-      duration: test.duration,
-      title: test.title,
-      description: test.description,
-      startDate: test.startDate,
-      endDate: test.endDate
-    });
-    
-    await newTest.save();
-    
-    // Respond with status
-    res.status(200).json({ status: 'Successfully Created' });
+    if (req.user.type == 'business') {
+      const test = req.body;
+      const newTest = new TestModel({
+        companyId: req.user.id,
+        questionsId: test.questionsId,
+        duration: test.duration,
+        title: test.title,
+        description: test.description,
+        startDate: test.startDate,
+        endDate: test.endDate
+      });
+
+      let result = await newTest.save();
+
+      // Respond with status
+      return res.status(200).json({ status: 'Successfully Created', id:result.id });
+    }
+    if (req.user.type == 'developer') {
+      const results = req.body.results;
+      const testId = req.body.testId;
+      const result = {id:req.user.id, result:results};
+      let update = await TestModel.updateOne({_id:testId},
+        {$push:{'candidates':result}}); 
+      return res.status(200).json({status: 'submitted'});
+    }
+    res.status(400).send('unauthorized');
   },
-  
+
   get: async (req, res, next) => {
     const { id } = req.query;
-    
+    console.log(id);
+
     let tests = null;
-    if(id === 'all') {
+    if (id === 'all') {
       tests = await TestModel.find();
     } else {
       const ObjectID = require('mongoose').Types.ObjectId;
-      if(ObjectID.isValid(id)) {
+      if (ObjectID.isValid(id)) {
         tests = await TestModel.findById(id);
       } else {
-        return res.status(404).json({message: 'Not found'});
+        return res.status(404).json({ message: 'Not found' });
       }
     }
 
-    if(tests) {
+    if (tests) {
       res.status(200).json(tests);
     } else {
-      res.status(404).json({message: 'Not found'});
+      res.status(404).json({ message: 'Not found' });
     }
-    
+
   }
 };
