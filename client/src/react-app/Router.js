@@ -11,6 +11,7 @@ import NotFound from './container/NotFound';
 import Practice from './container/Practice';
 import BusinessHome from './container/BusinessHome';
 import AddTest from './container/AddTest';
+import User from './container/User';
 
 export default () => {
   return (
@@ -18,7 +19,7 @@ export default () => {
       <React.Fragment>
         <Switch>
           <Route exact path="/" component={Login} />
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/user" component={User} />
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
           <Route exact path="/editor" component={Editor} />

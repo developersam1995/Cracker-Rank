@@ -9,6 +9,9 @@ import { SocialIcon } from 'react-social-icons';
 import Alert from '../component/Alert';
 import BusinessHome from '../container/BusinessHome';
 
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/actionCreators';
 
 class Login extends React.Component {
   constructor(props) {
@@ -96,6 +99,7 @@ class Login extends React.Component {
         if (statusCode === 200) {
           localStorage.setItem('ptok',parsedJSON.token);
           localStorage.setItem('type',parsedJSON.user.type);
+          this.props.setTocken(parsedJSON.token,parsedJSON.user.type);
           this.setState({ userType: parsedJSON.user.type });
         }
       });
@@ -174,4 +178,8 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+function mapStateToDispatch(dispatch){
+  return bindActionCreators(actionCreators,dispatch);
+}
+
+export default connect(null,mapStateToDispatch)(Login);
