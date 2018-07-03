@@ -2,10 +2,10 @@ import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
 import linkEditer from './linkEditer';
-import storeToken from './storeToken';
+import getToken from './getToken';
 
 
-const combinedReducer=combineReducers({linkEditer,storeToken,routing:routerReducer});
+const combinedReducer=combineReducers({linkEditer,getToken,routing:routerReducer});
 
 export default combinedReducer;
 
