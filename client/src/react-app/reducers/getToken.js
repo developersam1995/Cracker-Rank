@@ -1,5 +1,5 @@
 function getToken(state=[],action){
-  if(localStorage.getItem('ptok')){
+  if(localStorage.getItem('ptok') && localStorage.getItem('ptok')!=''){
     let curToken = localStorage.getItem('ptok');
     return Object.assign({},state,{token:curToken});
   }else{

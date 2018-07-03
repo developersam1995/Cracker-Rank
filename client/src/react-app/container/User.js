@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import {Redirect} from 'react-router-dom';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
@@ -41,6 +42,9 @@ class User extends React.Component{
   }
 
   render(){
+    if(this.props.token=='unauthorized'){
+      return <Redirect to='/'/>
+    }
     return(
       <Fragment>
         <Menu/>
