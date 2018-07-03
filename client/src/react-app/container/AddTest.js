@@ -18,7 +18,7 @@ class AddTest extends React.Component {
         startDate: date,
         endDate: date,
         duration: '',
-        questionID: []
+        questionsId: []
       }
     };
     this.handleChange = this.handleChange.bind(this);
@@ -39,6 +39,7 @@ class AddTest extends React.Component {
   }
 
   getQuestion(questionId, questiontitle) {
+    console.log(questionId)
     let data = questiontitle;
     let qID = questionId;
     if (!this.QuestionsArry.includes(data)) {
@@ -47,29 +48,36 @@ class AddTest extends React.Component {
     }
     this.setState({ addedQuestions: this.QuestionsArry });
     let test = { ...this.state.test };
-    test.questionID = this.addedQuestionID;
+    test. questionsId = this.addedQuestionID;
     this.setState({ test });
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(JSON.stringify(this.state.test))
     fetch('http://localhost:4001/api/v1/test', {
+      headers: {
+        'content-type':'application/json',
+        'Authorization': localStorage.getItem('ptok')
+      },
       method: 'POST',
       body: JSON.stringify(this.state.test),
-      headers: {
-        'Content-Type': 'application/json',
-        'charset': 'utf-8'
-      }
-    }).then(result => {
-      return result.json();
+     
+    }).then(response => {
+      return response.json();
     }).then(parsedJSON => {
+      console.log(parsedJSON);
     }).catch(err => {
       return (err);
     });
   };
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?query=questionlist')
+    fetch('http://localhost:4001/api/v1/question?id=all',{   method: 'get',
+    headers: {
+      'Authorization': localStorage.getItem('ptok')
+    }
+  })
       .then(function (response) {
         return response.json();
       })
@@ -82,9 +90,10 @@ class AddTest extends React.Component {
     let questionListUI = null;
     if (questions) {
       questionListUI = questions.map((question, index) => {
+      
         return <div key={index} className="QuestionItem">
           <p>{question.title}</p>
-          <p><button onClick={this.getQuestion.bind(this, question.id, question.title)} className="btn">+</button></p>
+          <p><button onClick={this.getQuestion.bind(this, question._id, question.title)} className="btn">+</button></p>
         </div>;
       });
       if (this.state.addedQuestions) {

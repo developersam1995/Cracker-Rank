@@ -15,6 +15,7 @@ mongoose.connect(keys.mongoURI, () => {
 app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
@@ -36,3 +37,4 @@ app.listen(keys.server.port, (err) => {
     console.log(`Server is running on http://${keys.server.ip}:${keys.server.port}`);
   }
 });
+

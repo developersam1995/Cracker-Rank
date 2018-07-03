@@ -7,9 +7,11 @@ module.exports = {
   insert: async (req, res, next) => {
     if (req.user.type == 'business') {
       const test = req.body;
+      console.log(req.body);
+     
       const newTest = new TestModel({
         companyId: req.user.id,
-        questionsId: test.questionsId,
+        questionsId: test.questionId,
         duration: test.duration,
         title: test.title,
         description: test.description,
@@ -23,7 +25,9 @@ module.exports = {
       return res.status(200).json({ status: 'Successfully Created', id:result.id });
     }
     if (req.user.type == 'developer') {
+      
       const results = req.body.results;
+      console.log(results);
       const testId = req.body.testId;
       const result = {id:req.user.id, result:results};
       let update = await TestModel.updateOne({_id:testId},
@@ -34,7 +38,8 @@ module.exports = {
   },
 
   get: async (req, res, next) => {
-    const { id } = req.query;
+    console.log(req);
+    const  id  = req.query;
     console.log(id);
 
     let tests = null;

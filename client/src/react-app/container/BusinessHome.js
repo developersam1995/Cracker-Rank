@@ -14,11 +14,18 @@ class BusinessHome extends React.Component {
     };
   }
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/test')
+    fetch('http://localhost:4001/api/v1/test?id=all',
+    {   method: 'get',
+    headers: {
+      'content-type':'application/json',
+      'Authorization': localStorage.getItem('ptok')
+    }
+  }) 
       .then(function (response) {
         return response.json();
       })
       .then(parsedJSON => {
+        console.log(parsedJSON);
         this.setState({ history: parsedJSON });
       });
   }
