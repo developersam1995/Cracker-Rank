@@ -14,10 +14,9 @@ class BusinessHome extends React.Component {
     };
   }
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/test?id=all',
-    {   method: 'get',
+    fetch('http://localhost:4001/api/v1/users/profile',
+    {   method: 'GET',
     headers: {
-      'content-type':'application/json',
       'Authorization': localStorage.getItem('ptok')
     }
   }) 
@@ -25,8 +24,8 @@ class BusinessHome extends React.Component {
         return response.json();
       })
       .then(parsedJSON => {
-        console.log(parsedJSON);
-        this.setState({ history: parsedJSON });
+        console.log('json data',parsedJSON);
+        // this.setState({ history: parsedJSON });
       });
   }
 

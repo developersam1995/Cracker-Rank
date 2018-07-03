@@ -8,7 +8,7 @@ module.exports = {
   insert: async (req, res, next) => {
     if (req.user.type == 'business') {
       const test = req.body;
-      console.log(req.body);
+      console.log(req.body.questionid);
      
       const newTest = new TestModel({
         companyId: req.user.id,
@@ -30,7 +30,7 @@ module.exports = {
     if (req.user.type == 'developer') {
       
       const results = req.body.results;
-      console.log(results);
+      console.log('geting response',results);
       const testId = req.body.testId;
       const result = {id:req.user.id, result:results};
       let update = await TestModel.updateOne({_id:testId},
@@ -41,10 +41,10 @@ module.exports = {
   },
 
   get: async (req, res, next) => {
-    console.log(req);
-    const  id  = req.query;
-    console.log(id);
-
+  
+    const  id  = req.query.id;
+  
+console.log('datas',req.query.id)
     let tests = null;
     if (id === 'all') {
       tests = await TestModel.find();

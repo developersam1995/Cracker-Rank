@@ -18,7 +18,7 @@ class AddTest extends React.Component {
         startDate: date,
         endDate: date,
         duration: '',
-        questionsId: []
+        questionId: []
       }
     };
     this.handleChange = this.handleChange.bind(this);
@@ -39,7 +39,7 @@ class AddTest extends React.Component {
   }
 
   getQuestion(questionId, questiontitle) {
-    console.log(questionId)
+
     let data = questiontitle;
     let qID = questionId;
     if (!this.QuestionsArry.includes(data)) {
@@ -48,21 +48,22 @@ class AddTest extends React.Component {
     }
     this.setState({ addedQuestions: this.QuestionsArry });
     let test = { ...this.state.test };
-    test. questionsId = this.addedQuestionID;
+    test.questionId = this.addedQuestionID;
     this.setState({ test });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(JSON.stringify(this.state.test))
     fetch('http://localhost:4001/api/v1/test', {
       headers: {
-        'content-type':'application/json',
-        'Authorization': localStorage.getItem('ptok')
+
+        'Authorization': localStorage.getItem('ptok'),
+        'Content-Type': 'application/json'
+
       },
       method: 'POST',
       body: JSON.stringify(this.state.test),
-     
+
     }).then(response => {
       return response.json();
     }).then(parsedJSON => {
@@ -73,11 +74,12 @@ class AddTest extends React.Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?id=all',{   method: 'get',
-    headers: {
-      'Authorization': localStorage.getItem('ptok')
-    }
-  })
+    fetch('http://localhost:4001/api/v1/question?id=all', {
+      method: 'GET',
+      headers: {
+        'Authorization': localStorage.getItem('ptok')
+      }
+    })
       .then(function (response) {
         return response.json();
       })
@@ -90,7 +92,7 @@ class AddTest extends React.Component {
     let questionListUI = null;
     if (questions) {
       questionListUI = questions.map((question, index) => {
-      
+
         return <div key={index} className="QuestionItem">
           <p>{question.title}</p>
           <p><button onClick={this.getQuestion.bind(this, question._id, question.title)} className="btn">+</button></p>
@@ -107,8 +109,8 @@ class AddTest extends React.Component {
 
     return (
       <React.Fragment>
-        <Menu/>
-        <PageTitle title="Add Test"/>
+        <Menu />
+        <PageTitle title="Add Test" />
         < div className="AddTest" >
           <div className="Form BOX">
             <div>
