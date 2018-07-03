@@ -23,19 +23,15 @@ class UserPracticeList extends React.Component{
     return(
       <div className = 'User-Practice-List'>
         <div className='User-Practice-List-Header'>
-          <span>All Questions List</span>
+          <span>Questions Practiced</span>
         </div>
         <br/>
         <div className='User-Practice-List-divmain'>
           {
             this.state.practicedList.map((val,index)=>{
-              if(val.Practiced===true){
+              if(val.practiced===true){
                 return (
                   <div key={index} className='User-Practice-List-div done'>{val.title}</div>
-                );
-              }else{
-                return (
-                  <div key={index} className='User-Practice-List-div'>{val.title}</div>
                 );
               }
             })
