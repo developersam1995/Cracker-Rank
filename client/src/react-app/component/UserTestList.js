@@ -38,10 +38,10 @@ class UserTestList extends React.Component{
                   <div key={index} className='User-Test-Details done'>
                     <div className='User-Test-Det-Title'><span>Test Title:</span></div><span>{val.title}</span>
                     <div className='User-Test-Det-Title'><span>Description:</span></div><span>{val.description}</span>
-                    {/* <div className='User-Test-Det-Title'><span>Score:</span></div><span>{val.candidates[0].result[0]}</span> */}
+                    <div className='User-Test-Det-Title'><span>Score:</span></div><span>{val.candidates[0].result[0]}</span>
                     <div className='User-Test-Det-Title'><span>Date:</span></div><span>{val.startDate}(Start date) - {val.endDate}(End date)</span>
-                    {/* <div className='User-Test-Det-Title'><span>Test by:</span></div><span>{val.company_details[0].name}</span>
-                    <div className='User-Test-Det-Title'><span>Address:</span></div><span>{val.company_details[0].address}</span> */}
+                    <div className='User-Test-Det-Title'><span>Test by:</span></div><span>{val.company_details[0].name}</span>
+                    <div className='User-Test-Det-Title'><span>Address:</span></div><span>{val.company_details[0].address}</span>
                   </div>
                 );
               }
