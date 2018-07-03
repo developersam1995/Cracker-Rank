@@ -9,7 +9,7 @@ module.exports = {
     if (req.user.type == 'business') {
       const test = req.body;
       const newTest = new TestModel({
-        companyId: req.user.id,
+        companyId: {$oid:req.user.id},
         questionsId: test.questionsId,
         duration: test.duration,
         title: test.title,
@@ -19,19 +19,19 @@ module.exports = {
       });
 
       let result = await newTest.save();
-      let update = await UserModel.updateOne({_id:req.user.id},
-        {$addToSet:{'userProfileRec.tests':result.id}}); 
+      let update = await UserModel.updateOne({ _id: req.user.id },
+        { $addToSet: { 'userProfileRec.tests': result.id } });
 
       // Respond with status
-      return res.status(200).json({ status: 'Successfully Created', id:result.id });
+      return res.status(200).json({ status: 'Successfully Created', id: result.id });
     }
     if (req.user.type == 'developer') {
       const results = req.body.results;
       const testId = req.body.testId;
-      const result = {id:req.user.id, result:results};
-      let update = await TestModel.updateOne({_id:testId},
-        {$push:{'candidates':result}}); 
-      return res.status(200).json({status: 'submitted'});
+      const result = { id: req.user.id, result: results };
+      let update = await TestModel.updateOne({ _id: testId },
+        { $push: { 'candidates': result } });
+      return res.status(200).json({ status: 'submitted' });
     }
     res.status(400).send('unauthorized');
   },
@@ -58,5 +58,22 @@ module.exports = {
       res.status(404).json({ message: 'Not found' });
     }
 
+  },
+
+  register: async (req, res) => {
+    let userId = req.user.id;
+    let testId = req.params.testId;
+    if (req.user.type == 'developer') {
+      let registerdResult = await TestModel.updateOne({ _id: testId },
+        { $addToSet: { registeredCandidates: userId } });
+
+      if(registerdResult.nModified){
+        return res.status(200).json({message:'registered'});        
+      }
+      else{
+        return res.status(400).json({message:'already registered or invalid test'});        
+      }
+    }
+    res.status(404).json({ message: 'You cannot register' });
   }
 };
