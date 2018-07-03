@@ -16,6 +16,10 @@
     grid-gap: 20px;
 }
 
+.TestGrid div {
+    color: #454f57;
+}
+
 .Background {
     background-color: rgb(165, 187, 207);
 }
