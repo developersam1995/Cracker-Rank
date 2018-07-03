@@ -11,7 +11,6 @@ import BusinessHome from '../container/BusinessHome';
 
 class Login extends React.Component {
   constructor(props) {
-    localStorage.setItem('ptok','');
     super(props);
 
     this.state = {
