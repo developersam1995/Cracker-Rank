@@ -11,6 +11,7 @@ import NotFound from './container/NotFound';
 import Practice from './container/Practice';
 import BusinessHome from './container/BusinessHome';
 import AddTest from './container/AddTest';
+import User from './container/User';
 
 export default () => {
   return (

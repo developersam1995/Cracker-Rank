@@ -9,7 +9,6 @@ import { SocialIcon } from 'react-social-icons';
 import Alert from '../component/Alert';
 import BusinessHome from '../container/BusinessHome';
 
-
 class Login extends React.Component {
   constructor(props) {
     super(props);
