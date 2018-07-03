@@ -12,6 +12,9 @@ router.route('/signup').post(validateBody(schemas.userSchema), UsersController.s
 
 router.route('/signin').post(validateBody(schemas.localLoginSchema), passportLocal, UsersController.signIn);
 
+router.route('/')
+  .get(passportJWT,UsersController.getUserDet);
+
 router.route('/profile')
   .get(passportJWT,UsersController.getProfile)
   .put(passportJWT,UsersController.updateProfile);
