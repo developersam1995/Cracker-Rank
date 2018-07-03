@@ -183,20 +183,6 @@ module.exports = {
           }
         },
         {
-          //for hiding the previous test datas which are not taken by developer user
-          $project: {
-            companyId: 1,
-            title: 1,
-            description: 1,
-            startDate: 1,
-            endDate: 1,
-            company_details: 1,
-            test_taken: 1,
-            candidates: 1,
-            'test_taken': { $eq:['$test_taken', true]}
-          }
-        },
-        {
           $match: {
             test_taken: true
           }
