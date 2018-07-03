@@ -153,6 +153,8 @@ module.exports = {
       mm = (mm < 10 ? '0' + mm : mm);
 
       let todaysDate = strDate.getFullYear() + '-' + mm + '-' + dd;
+      
+
       //To Get Test List
       TestModel.aggregate([
         {
@@ -166,6 +168,7 @@ module.exports = {
         {
           $project: {
             title: 1,
+            companyId:1,
             description: 1,
             startDate: 1,
             endDate: 1,

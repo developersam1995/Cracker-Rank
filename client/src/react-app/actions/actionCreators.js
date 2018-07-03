@@ -5,5 +5,5 @@ export function linkPracticeWithEditor(questionId){
     questionId
   };
 }
-  
+
   

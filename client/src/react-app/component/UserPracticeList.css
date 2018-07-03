@@ -1,0 +1,28 @@
+.User-Practice-List{
+    padding: 20px;
+}
+
+.User-Practice-List-Header{
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+.User-Practice-List-divmain{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.User-Practice-List-div{
+    margin:5px;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 2px 3px 4px #a89d9d;
+}
+
+.Question-Practiced-Done-Header{
+    padding-left: 5px;
+}
+
+.done {
+    background-color: #7bf39f;
+}

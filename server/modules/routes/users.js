@@ -21,4 +21,7 @@ router.route('/profile')
 
 router.route('/oauth/google').post(passportGoogle, passport.authenticate('googleToken', { session: false }));
 
+router.route('/')
+  .get(passportJWT,UsersController.getUserDet);
+
 module.exports = router;

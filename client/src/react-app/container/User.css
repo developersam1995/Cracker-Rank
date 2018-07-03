@@ -1,0 +1,11 @@
+.User{
+    display:grid;
+    grid-template-columns: 15% 41% 41%;
+    min-height: 90vh;
+    
+    background-color: #e0e2e5;
+}
+
+.Done{
+    width:30px;
+}
