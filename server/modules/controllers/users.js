@@ -172,7 +172,7 @@ module.exports = {
             company_details: 1,
             candidates: {
               $filter: {
-                input: "$candidates",
+                input: '$candidates',
                 as: 'candidates',
                 cond: { $eq: ['$$candidates.id',userId] }
               }

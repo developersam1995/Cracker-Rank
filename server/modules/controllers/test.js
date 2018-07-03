@@ -1,5 +1,6 @@
 const QuestionModel = require('../model/question');
 const TestModel = require('../model/test');
+const UserModel = require('../model/users');
 
 
 module.exports = {
@@ -18,6 +19,8 @@ module.exports = {
       });
 
       let result = await newTest.save();
+      let update = await UserModel.updateOne({_id:req.user.id},
+        {$addToSet:{'userProfileRec.tests':result.id}}); 
 
       // Respond with status
       return res.status(200).json({ status: 'Successfully Created', id:result.id });
