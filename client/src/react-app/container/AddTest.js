@@ -54,6 +54,7 @@ class AddTest extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(JSON.stringify(this.state.test));
     fetch('http://localhost:4001/api/v1/test', {
       headers: {
 

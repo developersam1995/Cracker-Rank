@@ -14,18 +14,19 @@ class BusinessHome extends React.Component {
     };
   }
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/users/profile',
-    {   method: 'GET',
-    headers: {
-      'Authorization': localStorage.getItem('ptok')
-    }
-  }) 
+    fetch('http://localhost:4001/api/v1/users/',
+      {
+        method: 'GET',
+        headers: {
+          'Authorization': localStorage.getItem('ptok')
+        }
+      })
       .then(function (response) {
         return response.json();
       })
       .then(parsedJSON => {
-        console.log('json data',parsedJSON);
-        // this.setState({ history: parsedJSON });
+        console.log('json data', parsedJSON);
+        this.setState({ history: parsedJSON });
       });
   }
 
@@ -33,6 +34,7 @@ class BusinessHome extends React.Component {
 
     let histroyList = null;
     if (this.state.history) {
+      console.log(this.state.history);
       histroyList = this.state.history.map((history, index) => {
         return <HistoryCard key={index} history={history} />;
       });

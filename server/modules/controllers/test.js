@@ -8,13 +8,13 @@ module.exports = {
   insert: async (req, res, next) => {
     if (req.user.type == 'business') {
       const test = req.body;
-      console.log(req.body.questionid);
-     
+      console.log(req.body.questionId);
+
       const newTest = new TestModel({
         // companyId: req.user.id,
         questionsId: test.questionId,
-        companyId: {$oid:req.user.id},
-        questionsId: test.questionsId,
+        companyId: { $oid: req.user.id },
+        questionsId: test.questionId,
         duration: test.duration,
         title: test.title,
         description: test.description,
@@ -30,9 +30,9 @@ module.exports = {
       return res.status(200).json({ status: 'Successfully Created', id: result.id });
     }
     if (req.user.type == 'developer') {
-      
+
       const results = req.body.results;
-      console.log('geting response',results);
+      console.log('geting response', results);
       const testId = req.body.testId;
       const result = { id: req.user.id, result: results };
       let update = await TestModel.updateOne({ _id: testId },
@@ -43,10 +43,10 @@ module.exports = {
   },
 
   get: async (req, res, next) => {
-  
-    const  id  = req.query.id;
-  
-console.log('datas',req.query.id)
+
+    const id = req.query.id;
+
+    console.log('datas', req.query.id);
     let tests = null;
     if (id === 'all') {
       tests = await TestModel.find();
@@ -56,14 +56,14 @@ console.log('datas',req.query.id)
         tests = await TestModel.findById(id);
       } else {
         return res.status(404).json({ message: 'Not found' });
-      }
-    }
+      };
+    };
 
     if (tests) {
       res.status(200).json(tests);
     } else {
       res.status(404).json({ message: 'Not found' });
-    }
+    };
 
   },
 
@@ -74,12 +74,12 @@ console.log('datas',req.query.id)
       let registerdResult = await TestModel.updateOne({ _id: testId },
         { $addToSet: { registeredCandidates: userId } });
 
-      if(registerdResult.nModified){
-        return res.status(200).json({message:'registered'});        
+      if (registerdResult.nModified) {
+        return res.status(200).json({ message: 'registered' });
       }
-      else{
-        return res.status(400).json({message:'already registered or invalid test'});        
-      }
+      else {
+        return res.status(400).json({ message: 'already registered or invalid test' });
+      };
     }
     res.status(404).json({ message: 'You cannot register' });
   }

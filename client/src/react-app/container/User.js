@@ -19,7 +19,7 @@ class User extends React.Component{
       practiceQuestionList:{},
       allTestList:{} //with Developer User test took data appended 
     };
-  }
+  };
 
   componentDidMount(){
     fetch('http://localhost:4001/api/v1/users',{
@@ -37,13 +37,13 @@ class User extends React.Component{
         });
       })
       .catch((error)=>{
-        console.log(error);
+        
       });
-  }
+  };
 
   render(){
     if(this.props.token=='unauthorized'){
-      return <Redirect to='/'/>
+      return <Redirect to='/'/>;
     }
     return(
       <Fragment>

@@ -5,7 +5,6 @@ import './Practice.css';
 import QuestionItem from '../component/QuestionItem';
 import Editor from './Editor';
 import { Redirect } from 'react-router-dom';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/actionCreators';
@@ -16,7 +15,7 @@ class Practice extends React.Component {
     super(props);
     this.state = {
       questions: null,
-      questionId:null
+      questionId: null
     };
 
     this.setQuestionID = this.setQuestionID.bind(this);
@@ -28,16 +27,17 @@ class Practice extends React.Component {
 
     this.props.linkPracticeWithEditor(id);
     this.setState({
-      questionId:_id
+      questionId: _id
     });
   };
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?id=all',{   method: 'get',
-    headers: {
-      'Authorization': localStorage.getItem('ptok')
+    fetch('http://localhost:4001/api/v1/question?id=all', {
+      method: 'get',
+      headers: {
+        'Authorization': localStorage.getItem('ptok')
+      }
     }
-  }
     ).then((response) => {
       return response.json();
     }).then((data) => {
@@ -47,9 +47,9 @@ class Practice extends React.Component {
 
 
   render() {
-    if(this.state.questionId){
+    if (this.state.questionId) {
       return <Redirect to='/editor' />;
-    }      
+    }
     const { questions } = this.state;
     let questionItems = null;
     if (questions != null) {
