@@ -54,9 +54,11 @@ class Editor extends React.Component {
             <CodeEditor updateResult={this.updateResult}
               testCases={this.state.question.testCases}
               fnName={this.state.question.functionName}
-              fnParams={this.state.question.paramNames} />
+              fnParams={this.state.question.paramNames}
+            />
           </div>
-          <ResultCard results={this.state.results} />
+          <ResultCard results={this.state.results}
+            qId={this.state.question._id} />
         </div>
       </React.Fragment>
     );
