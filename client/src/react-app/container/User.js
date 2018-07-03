@@ -1,71 +1,110 @@
 import React, { Fragment } from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import * as actionCreators from '../actions/actionCreators'; 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/actionCreators';
 
 import './User.css';
 import Menu from '../component/Menu';
-import UserDet from '../component/UserDet';
-import UserPracticeList from '../component/UserPracticeList';
-import UserTestList from '../component/UserTestList';
 
-class User extends React.Component{
-  constructor(props){
+class User extends React.Component {
+  constructor(props) {
     super(props);
-    this.state={
-      userDetails:{},
-      practiceQuestionList:{},
-      allTestList:{} //with Developer User test took data appended 
+    this.state = {
+      userDetails: {},
+      practicedQuestions: [],
+      attemptedTest: [] //with Developer User test took parsedJSON appended 
     };
   }
 
-  componentDidMount(){
-    fetch('http://localhost:4001/api/v1/users',{
-      method:'GET',
-      headers:{
-        Authorization:this.props.token //value from redux
+  componentDidMount() {
+    fetch('http://localhost:4001/api/v1/users', {
+      method: 'GET',
+      headers: {
+        Authorization: this.props.token //value from redux
       }
     })
-      .then((res)=>res.json())
-      .then((data)=>{
+      .then((res) => res.json())
+      .then((parsedJSON) => {
+
         this.setState({
-          userDetails:data.userDetails[0],
-          practiceQuestionList:data.PracticeQuestionList,
-          allTestList:data.allTestList
+          userDetails: parsedJSON.userDetails[0],
+          practicedQuestions: parsedJSON.PracticeQuestionList,
+          attemptedTest: parsedJSON.allTestList
         });
       })
-      .catch((error)=>{
+      .catch((error) => {
         console.log(error);
       });
   }
 
-  render(){
-    if(this.props.token=='unauthorized'){
-      return <Redirect to='/'/>
+  render() {
+    if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'developer') {
+      return <Redirect to='/' />;
     }
-    return(
+
+    const { userDetails, practicedQuestions, attemptedTest } = this.state;
+
+    let testUI = 'Not Yet Attempted';
+    if (attemptedTest) {
+
+      testUI = attemptedTest.map((test, index) => {
+        return (
+          <div key={index} className="Card">
+            <p className="Title">{test.title}</p>
+            <p className="Description">{test.description}</p>
+            <p className="Description">{test.startDate} to {test.endDate}</p>
+          </div>
+        );
+      });
+    }
+
+    let practicedQuestionsUI = 'Not Yet Attempted';
+    if (practicedQuestions) {
+      practicedQuestionsUI = practicedQuestions.map((question, index) => {
+        return (<div className="Card" key={index}>{question.title}</div>);
+      });
+    }
+
+    return (
       <Fragment>
-        <Menu/>
-        <div className='User'>
-          <UserDet details={this.state.userDetails}/>
-          <UserPracticeList practicedDet={this.state.practiceQuestionList}/>
-          <UserTestList testDet={this.state.allTestList}/>
-        </div>
+
+        <Menu />
+        <section className="Card Profile">
+          <h1><u>Profile</u></h1>
+          <h1>{userDetails.name}</h1>
+          <h3>Role: {userDetails.type}</h3>
+          <h3>Mobile: {userDetails.mobile}</h3>
+          <h3>Email: </h3>
+        </section>
+
+        <section className="Profile">
+          <h1><u>Attempted Questions</u></h1>
+          <div className="TestGrid">
+            {practicedQuestionsUI}
+          </div>
+        </section>;
+
+        <section className="Profile">
+          <h1><u>Attempted Test</u></h1>
+          <div className="TestGrid">
+            {testUI}
+          </div>
+        </section>;
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = (state) =>{
-  return{
-    token:state.getToken.token
+const mapStateToProps = (state) => {
+  return {
+    token: state.getToken.token
   };
 };
 
-const mapStateToDispatch = (dispatch) =>{
-  return bindActionCreators(actionCreators,dispatch);
+const mapStateToDispatch = (dispatch) => {
+  return bindActionCreators(actionCreators, dispatch);
 };
 
-export default connect(mapStateToProps,mapStateToDispatch)(User);
+export default connect(mapStateToProps, mapStateToDispatch)(User);

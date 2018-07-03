@@ -20,6 +20,7 @@ export default () => {
         <Switch>
           <Route exact path="/Login" component={Login} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/profile" component={User} />
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
           <Route exact path="/editor" component={Editor} />

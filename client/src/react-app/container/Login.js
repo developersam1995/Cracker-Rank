@@ -142,7 +142,7 @@ class Login extends React.Component {
     }
 
     if (this.state.userType === 'developer' || localStorage.getItem('type') === 'developer') {
-      return <Redirect to='/business' />;
+      return <Redirect to='/profile' />;
     }
 
     if (this.state.userType === 'business' || localStorage.getItem('type') === 'business') {

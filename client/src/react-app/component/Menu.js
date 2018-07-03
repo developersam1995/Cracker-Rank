@@ -15,7 +15,7 @@ class Menu extends React.Component {
           <Link to="/practice" className="Link">Practice</Link>
         </span>
         <span>
-          {localStorage.getItem('name')}
+          <Link to="/profile" className="Link">{localStorage.getItem('name')}</Link>
         </span>
       </div>
     );
