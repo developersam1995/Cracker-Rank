@@ -155,12 +155,27 @@ module.exports = {
       //To Get Test List
       TestModel.aggregate([
         {
+          $lookup:{
+            from:'users',
+            localField:'companyId',
+            foreignField:'_id',
+            as:'company_details'
+          }
+        },
+        {
           $project:{
-            companyId:1,
             title:1,
             description:1,
             startDate:1,
             endDate:1,
+            company_details:1,
+            candidates:{
+              $filter:{
+                input:"$candidates",
+                as:'candidates',
+                cond:{$eq:['$$candidates._id',ObjectId(userId)]}
+              }
+            },
             'test_taken':{
               $in:['$_id',testIds]
             }
@@ -174,26 +189,20 @@ module.exports = {
             description:1,
             startDate:1,
             endDate:1,
+            company_details:1,
             test_taken:1,
-            'previous':{$or:[{$eq:['$test_taken',true]},{$gte:['$startDate',todaysDate]}]}
+            candidates:1,
+            'not_previous_tests':{$or:[{$eq:['$test_taken',true]},{$gte:['$startDate',todaysDate]}]}
           }
         },
         {
           $match:{
-            previous:true
+            not_previous_tests:true
           }
         },
         {
           $sort:{
             startDate:1
-          }
-        },
-        {
-          $lookup:{
-            from:'users',
-            localField:'companyId',
-            foreignField:'_id',
-            as:'company_details'
           }
         }
       ],(err,testDet)=>{
