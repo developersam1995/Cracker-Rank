@@ -1,6 +1,9 @@
 const JWT = require('jsonwebtoken');
 const { JWT_SECRET } = require('../../config/keys');
 const UserModel = require('../model/users');
+const QuestionModel = require('../model/question');
+const TestModel = require('../model/test');
+const ObjectId = require('mongodb').ObjectId;
 
 
 signToken = user => {
@@ -117,5 +120,124 @@ module.exports = {
       }
     }
     res.status(404).json( {error:'user not found'} );
+  },
+  getUserDet: async (req, res, next) => {
+    let userId = req.user.id;
+    UserModel.aggregate([
+      {
+        $match: {
+          _id: ObjectId(userId)
+        }
+      },
+      {
+        $project: {
+          email: 1,
+          name: 1,
+          mobile: 1,
+          address: 1,
+          type: 1,
+          userProfileRec: 1,
+          userProfileDev: 1
+        }
+      }
+    ], (err, userDet) => {
+      if (err) {
+        res.send(err);
+      }
+
+      let testIds = userDet[0].userProfileDev.tests.map((val) => ObjectId(val));
+      let practicedQuestionsIds = userDet[0].userProfileDev.practicedQuestions.map((val) => ObjectId(val));
+
+      let strDate = new Date(), dd, mm = strDate.getMonth() + 1;
+      dd = (strDate.getDate() < 10 ? '0' + strDate.getDate() : strDate.getDate());
+      mm = (mm < 10 ? '0' + mm : mm);
+
+      let todaysDate = strDate.getFullYear() + '-' + mm + '-' + dd;
+      //To Get Test List
+      TestModel.aggregate([
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'companyId',
+            foreignField: '_id',
+            as: 'company_details'
+          }
+        },
+        {
+          $project: {
+            title: 1,
+            description: 1,
+            startDate: 1,
+            endDate: 1,
+            company_details: 1,
+            candidates: {
+              $filter: {
+                input: "$candidates",
+                as: 'candidates',
+                cond: { $eq: ['$$candidates.id',userId] }
+              }
+            },
+            'test_taken': {
+              $in: ['$_id', testIds]
+            }
+          }
+        },
+        {
+          //for hiding the previous test datas which are not taken by developer user
+          $project: {
+            companyId: 1,
+            title: 1,
+            description: 1,
+            startDate: 1,
+            endDate: 1,
+            company_details: 1,
+            test_taken: 1,
+            candidates: 1,
+            'test_taken': { $eq:['$test_taken', true]}
+          }
+        },
+        {
+          $match: {
+            test_taken: true
+          }
+        },
+        {
+          $sort: {
+            startDate: 1
+          }
+        }
+      ], (err, testDet) => {
+        if (err) {
+          res.send(err);
+        }
+        //To Get User Practiced Question List
+        QuestionModel.aggregate([
+          {
+            $project: {
+              title: 1,
+              'practiced': {
+                $in: ['$_id', practicedQuestionsIds]
+              }
+            }
+          },
+          {
+            $match:{
+              practiced:true
+            }
+          }
+        ], (err, PracticeQuestionList) => {
+
+          if (err) {
+            res.send(err);
+          } else {
+            res.status(201).send({
+              userDetails: userDet,
+              allTestList: testDet, //with Developer User test took data appended 
+              PracticeQuestionList: PracticeQuestionList //with Developer User practice took data appended 
+            });
+          }
+        });
+      });
+    });
   }
 };
