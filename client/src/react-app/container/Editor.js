@@ -20,7 +20,7 @@ class Editor extends React.Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props.questionId);
+    console.log(this.props);
 
     fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
       method: 'get',

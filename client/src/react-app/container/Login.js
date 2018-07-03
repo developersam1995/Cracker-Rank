@@ -94,8 +94,9 @@ class Login extends React.Component {
         return response.json();
       }).then(parsedJSON => {
         if (statusCode === 200) {
-          localStorage.setItem('ptok',parsedJSON.token);
-          localStorage.setItem('type',parsedJSON.user.type);
+          localStorage.setItem('ptok', parsedJSON.token);
+          localStorage.setItem('type', parsedJSON.user.type);
+          localStorage.setItem('name', parsedJSON.user.name);
           this.setState({ userType: parsedJSON.user.type });
         }
       });
@@ -122,9 +123,8 @@ class Login extends React.Component {
         onChange={(event) => this.handleChange(event)} />
 
       <button
-        className='Form-Submit'
         onClick={this.handleSubmit}>Submit</button>
-
+      <p>OR</p>
       <div>
         <BrowserRouter >
           <Link to="/auth/login">
@@ -134,18 +134,7 @@ class Login extends React.Component {
               &nbsp;Continue with Google</button>
           </Link>
         </BrowserRouter>
-        <button
-          className='btn-facebook ripple'>
-          <SocialIcon network="facebook" color="#fff" style={{ height: 30, width: 30 }} />
-          &nbsp;Continue with Facebook</button>
-
       </div>
-      <div>
-        <p>OR</p>
-        <Link to='/signup/user'>New Acoount(Developer)?</Link>
-        <Link to='/signup/business'>New Account(Recruiter)?</Link>
-      </div>
-
     </React.Fragment>;
 
     let alertSuccess = null;
@@ -153,11 +142,11 @@ class Login extends React.Component {
       alertSuccess = <Alert message={this.state.alertMessage} />;
     }
 
-    if (this.state.userType === 'developer') {
-      return <Home />;
+    if (this.state.userType === 'developer' || localStorage.getItem('type') === 'developer') {
+      return <Redirect to='/business' />;
     }
 
-    if (this.state.userType === 'business') {
+    if (this.state.userType === 'business' || localStorage.getItem('type') === 'business') {
       return <BusinessHome />;
     }
 
@@ -168,6 +157,13 @@ class Login extends React.Component {
         {alertSuccess}
         <div className='LoginForm'>
           {loginForm}
+        </div>
+        <hr />
+        <p className="P-Join">Join Now</p>
+        <div className="Grid-Center">
+          <div><Link className="Link" to='/signup/user'><button>Signup as Developer</button></Link></div>
+          <div>
+            <Link className="Link" to='/signup/business'><button>Signup as Recruiter</button></Link></div>
         </div>
       </React.Fragment>
     );

@@ -214,11 +214,10 @@ class RegisterUser extends React.Component {
         onChange={(event) => this.handleChange(event)} />
 
       <button
-        className="Form-Submit"
         onClick={this.handleSubmit}>Submit</button>
       <div>
         <p>OR</p>
-        Already have an account <Link to="/">Login</Link>
+        Already have an account <Link to="/login">Login</Link>
       </div>
     </React.Fragment>;
 

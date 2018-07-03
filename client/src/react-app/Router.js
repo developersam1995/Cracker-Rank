@@ -17,8 +17,8 @@ export default () => {
     <BrowserRouter>
       <React.Fragment>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/home" component={Home} />
+          <Route exact path="/Login" component={Login} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
           <Route exact path="/editor" component={Editor} />
