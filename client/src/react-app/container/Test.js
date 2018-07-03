@@ -41,9 +41,43 @@ class Test extends React.Component{
     return(
       <Fragment>
         <Menu/>
-        <div className='Test'>
-
-        
+        <div className='Test-Main'>
+          <div className='Test'>
+            <div className='Test-Header'> Test Details</div>
+            <div className='Test-Detail'>
+              <div><span className='Test-Title'>Title:</span><span>{this.state.testDet.title}</span></div>
+              <div><span className='Test-Title'>Description:</span><span>{this.state.testDet.description}</span></div>
+              <div><span className='Test-Title'>Duration:</span><span>{this.state.testDet.duration}</span></div>
+              <div><span className='Test-Title'>Date:</span><span>{this.state.testDet.startDate}(start date)-{this.state.testDet.endDate}(end date)</span></div>
+            </div>
+          </div>
+          <div className='Test'>
+            <div className='Test-Header'>Questions In Test</div>
+            {
+              this.state.questions.map((val,index)=>{
+                return(
+                  <div className='Test-Detail' key={index}>
+                    <div><span className='Test-Title'>Title:</span><span>{val.title}</span></div>
+                    <div><span className='Test-Title'>Problem Description:</span><span>{val.problemDescription}</span></div>
+                    <div><span className='Test-Title'>Difficulty:</span><span>{val.difficulty}</span></div>
+                  </div>
+                );
+              })
+            }
+          </div>
+          <div className='Test'>
+            <div className='Test-Header'>Candidate Details</div>
+            {
+              this.state.candidates.map((val,index)=>{
+                return (
+                  <div className='Test-Detail' key={index}>
+                    <div><span className='Test-Title'>Name:</span><span>{val.name}</span></div>
+                    <div><span className='Test-Title'>Mobile:</span><span>{val.mobile}</span></div>
+                  </div>
+                );
+              })
+            }
+          </div>
         </div>
       </Fragment>
     );
