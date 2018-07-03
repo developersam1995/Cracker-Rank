@@ -14,16 +14,6 @@
     font-size: 1.5em;
 }
 
-.Card button {
-    padding: 20px;
-    background: #1ba94c;
-    color: #fff;
-    font-size: 1em;
-    border: none;
-    box-shadow: 2px 2px 3px 1px #a5dbb8;
-    cursor: pointer;
-}
-
 .Card .myProgress {
     background-color: #ddd;
     margin: 20px 0;

@@ -20,7 +20,7 @@ class Editor extends React.Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props.questionId);
+    console.log(this.props);
 
     fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
       method: 'get',
@@ -54,9 +54,11 @@ class Editor extends React.Component {
             <CodeEditor updateResult={this.updateResult}
               testCases={this.state.question.testCases}
               fnName={this.state.question.functionName}
-              fnParams={this.state.question.paramNames} />
+              fnParams={this.state.question.paramNames}
+            />
           </div>
-          <ResultCard results={this.state.results} />
+          <ResultCard results={this.state.results}
+            qId={this.state.question._id} />
         </div>
       </React.Fragment>
     );
