@@ -13,6 +13,7 @@ import BusinessHome from './container/BusinessHome';
 import AddTest from './container/AddTest';
 import User from './container/User';
 import Test from './container/Test';
+import Hiring from './container/Hiring';
 
 export default () => {
   return (
@@ -21,6 +22,7 @@ export default () => {
         <Switch>
           <Route exact path="/Login" component={Login} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/hiring" component={Hiring}/>
           <Route exact path="/profile" component={User} />
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />

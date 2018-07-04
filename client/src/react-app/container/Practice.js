@@ -3,13 +3,11 @@ import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import './Practice.css';
 import QuestionItem from '../component/QuestionItem';
-import Editor from './Editor';
 import { Redirect } from 'react-router-dom';
-import Home from '../container/Home';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/actionCreators';
-import Login from './Login';
+import ReactLoading from 'react-loading';
 
 
 class Practice extends React.Component {
@@ -18,7 +16,8 @@ class Practice extends React.Component {
     this.state = {
       questions: null,
       questionId: null,
-      isLoggedIn: null
+      isLoggedIn: null,
+      isLoaded: false
     };
     this.setQuestionID = this.setQuestionID.bind(this);
   }
@@ -45,7 +44,7 @@ class Practice extends React.Component {
     }).then((response) => {
       return response.json();
     }).then(data => {
-      this.setState({ questions: data });
+      this.setState({ questions: data, isLoaded: true});
     }).catch(error => {
       console.log('error', error);
     });
@@ -77,10 +76,21 @@ class Practice extends React.Component {
         </div>
       </div>;
 
+let content = null;
+  
+  if(this.state.isLoaded) {
+    content = <React.Fragment>  <Menu />
+    {displayUI}
+    </React.Fragment>
+  } else {
+    content = 
+    <div className="Loading">
+    <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+    </div>
+  }
     return (
       <React.Fragment>
-        <Menu />
-        {displayUI}
+      {content}
       </React.Fragment>
     );
   }
