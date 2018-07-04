@@ -20,7 +20,7 @@ router.route('/profile')
   .put(passportJWT,UsersController.updateProfile);
 
 router.route('/google').get( passport.authenticate('google', { 
-  scope:['profile','email']
+  scope:['profile']
 }));
 
 router.route('/google/redirect').get(passport.authenticate('google'),(req,res)=>{

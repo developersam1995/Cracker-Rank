@@ -8,7 +8,7 @@ import Question from '../component/Question';
 import QuestionList from '../component/QuestionList';
 import './Editor.css';
 import './TakeTest.css';
-import Editor from './Editor';
+import EditorTest from './EditorTest';
 import PageTitle from '../component/PageTitle';
 
 class TakeTest extends React.Component{
@@ -22,15 +22,13 @@ class TakeTest extends React.Component{
 
   componentDidMount(){
     //let TakeTestId=this.props.test
-    console.log('take test',this.props.testId);
-    fetch('http://localhost:4001/api/v1/test?id='+this.props.testId,{ //5b3b889364672758e70d36bb
+    fetch('http://localhost:4001/api/v1/test?id='+this.props.testId,{ 
       headers:{
         Authorization:this.props.token
       }
     })
       .then((res)=>res.json())
       .then((data)=>{
-        console.log('take test data',data);
         this.setState({questionIds:data.questionsId});
         this.props.linkWithEditor(data.questionsId[0]);
       });
@@ -41,11 +39,10 @@ class TakeTest extends React.Component{
       return(
         <Fragment>
           <Menu/>
-          <PageTitle title="Mountblue"/>
           <div className='Take-Test'>
             <QuestionList questionIds={this.state.questionIds}/>
             <div>
-              <Editor/>
+              <EditorTest/>
             </div>
           </div>
         </Fragment>
@@ -65,7 +62,6 @@ class TakeTest extends React.Component{
 }
 
 const mapStateToProps=(state)=>{
-  console.log('take ',state);
   return{
     testId:state.getTest.testId,
     //questionId:state.linkEditer.questionId,

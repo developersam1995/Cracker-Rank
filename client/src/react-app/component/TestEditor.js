@@ -1,16 +1,14 @@
 import React from 'react';
-import './Editor.css';
-import Menu from '../component/Menu';
-import Question from '../component/Question';
-import CodeEditor from '../component/CodeEditor';
-import ResultCard from '../component/ResultCard';
+import './TestEditor.css';
+import Question from './Question';
+import CodeEditor from './CodeEditor';
+import ResultCard from './ResultCard';
 import ReactLoading from 'react-loading';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as actionCreators from '../actions/actionCreators';
+import * as actionCreator from '../actions/actionCreators';
 
-class Editor extends React.Component {
+class TestEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,9 +19,10 @@ class Editor extends React.Component {
     this.updateResult = this.updateResult.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    fetch('http://localhost:4001/api/v1/question?id=' + nextProps.questionId, {
+  componentDidMount() {
+    console.log(this.props);
+
+    fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
       method: 'get',
       headers: {
         'Authorization': localStorage.getItem('ptok')
@@ -33,21 +32,6 @@ class Editor extends React.Component {
       .then((json) => {
         this.setState({ question: json, isLoaded: true });
       });
-  }
-
-  componentDidMount() {
-    if (this.props.questionId !== 'undefined') {
-      fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
-        method: 'get',
-        headers: {
-          'Authorization': localStorage.getItem('ptok')
-        }
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          this.setState({ question: json, isLoaded: true });
-        });
-    }
   }
 
   updateResult(results) {
@@ -60,9 +44,8 @@ class Editor extends React.Component {
     let content = null;
     if (this.state.isLoaded) {
       content = <React.Fragment>
-        <Menu />
         <Question question={question} />
-        <div className='Editor'>
+        <div className='TestEditor'>
           <div className='code'>
             <CodeEditor updateResult={this.updateResult}
               testCases={this.state.question.testCases}
@@ -95,7 +78,7 @@ function mapStateToProps(state) {
 };
 
 function mapStateToDispatch(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(actionCreator, dispatch);
 };
 
-export default connect(mapStateToProps, mapStateToDispatch)(Editor);
+export default connect(mapStateToProps, mapStateToDispatch)(TestEditor);

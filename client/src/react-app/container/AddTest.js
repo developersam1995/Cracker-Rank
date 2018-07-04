@@ -73,12 +73,11 @@ class AddTest extends React.Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: localStorage.getItem('ptok') //value from redux
+        Authorization: localStorage.getItem('ptok')
       }
+    }).then(function (response) {
+      return response.json();
     })
-      .then(function (response) {
-        return response.json();
-      })
       .then(parsedJSON => {
         this.setState({ questions: parsedJSON });
       });
@@ -104,8 +103,8 @@ class AddTest extends React.Component {
 
     return (
       <React.Fragment>
-        <Menu/>
-        <PageTitle title="Add Test"/>
+        <Menu />
+        <PageTitle title="Add Test" />
         < div className="AddTest" >
           <div className="Form BOX">
             <div>
