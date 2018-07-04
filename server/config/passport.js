@@ -1,7 +1,7 @@
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-const GooglePlusTokenStrategy = require('passport-google-oauth20').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const keys = require('./keys');
 const User = require('../modules/model/users');
@@ -68,7 +68,7 @@ passport.use(new LocalStrategy({
 }));
 
 //GOOGLE OAUTH STRATEGY
-passport.use('google', new GooglePlusTokenStrategy({
+passport.use('google', new GoogleStrategy({
   clientID: keys.google.clientID,
   clientSecret: keys.google.clientSecret,
   callbackURL: 'api/v1/users/google/redirect'

@@ -24,7 +24,7 @@ class User extends React.Component {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: this.props.token //value from redux
+        Authorization: localStorage.getItem('ptok')
       }
     }).then((res) => res.json())
       .then((parsedJSON) => {
