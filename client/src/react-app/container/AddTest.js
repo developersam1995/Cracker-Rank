@@ -4,12 +4,13 @@ import QuestionItem from '../component/QuestionItem';
 import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import Alert from '../component/Alert';
-
+import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
 class AddTest extends React.Component {
   constructor(props) {
     super(props);
     let date = new Date().toJSON().slice(0, 10);
     this.state = {
+      redirect: null,
       test: {
         company_id: '1',
         title: '',
@@ -56,7 +57,7 @@ class AddTest extends React.Component {
 
       this.QuestionsArry.splice(indexName, 1);
       this.addedQuestionID.splice(indexId, 1);
-      
+
     }
     this.setState({ addedQuestions: this.QuestionsArry });
     let test = { ...this.state.test };
@@ -73,6 +74,7 @@ class AddTest extends React.Component {
         [name]: value
       }
     });
+
   }
 
   handleSubmit(e) {
@@ -88,7 +90,7 @@ class AddTest extends React.Component {
       }).then(response => {
         return response.json();
       }).then(parsedJSON => {
-        console.log(parsedJSON);
+        alert('your test has been assigned');
       }).catch(err => {
         return (err);
       });
@@ -154,6 +156,9 @@ class AddTest extends React.Component {
   }
 
   render() {
+    if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'business') {
+      return <Redirect to='/' />;
+    }
     const { questions } = this.state;
     let questionListUI = null;
     if (questions) {
@@ -187,7 +192,9 @@ class AddTest extends React.Component {
     return (
       <React.Fragment>
         <Menu />
-        <PageTitle title="Add Test" />
+        <PageTitle title="Add Test" ></PageTitle>
+
+        <Link to="/business"><button >Back</button></Link>
         {alertUI}
         < div className="AddTest" >
           <div className="Form BOX">
@@ -228,8 +235,11 @@ class AddTest extends React.Component {
                 value={this.state.test.duration} />
               <h2>ADDED QUESTIONS</h2>
               {this.addedquestions}
-              <button onClick={this.handleSubmit}>SUBMIT</button>
+
+
             </div>
+
+            <button onClick={this.handleSubmit}>SUBMIT</button>
           </div>
           <div className="Questions BOX">
             <h2>Questions</h2>

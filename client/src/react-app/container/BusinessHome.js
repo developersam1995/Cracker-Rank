@@ -11,6 +11,8 @@ class BusinessHome extends React.Component {
     super(props);
     this.state = {
       history: [],
+      isLoaded: false
+      
     };
     this.handledelete = this.handledelete.bind(this);
   }
@@ -33,6 +35,9 @@ class BusinessHome extends React.Component {
       return response.json();
     })
       .then(parsedJSON => {
+        this.setState({isLoaded: true });
+        
+
         console.log('json data', parsedJSON);
         // this.setState({ history: parsedJSON });
       });
@@ -59,10 +64,14 @@ class BusinessHome extends React.Component {
 
 
   render() {
+    if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'business') {
+      return <Redirect to='/' />;
+    }
+   
 
     let histroyList = null;
     if (this.state.history) {
-      console.log(this.state.history);
+      
       histroyList = this.state.history.map((history, index) => {
         // console.log(history._id);
         return (<div className="HistoryCard Hover" key={index}>
@@ -77,6 +86,7 @@ class BusinessHome extends React.Component {
     }
 
     return (
+      
       <React.Fragment>
         <Menu />
         <PageTitle title="Dashboard" />
@@ -93,9 +103,10 @@ class BusinessHome extends React.Component {
 
             {histroyList}
           </div>
+          <Link to="/test"><button> Add a test</button></Link>
         </div>
         <div>
-          <Link to="/test"> <button> Add a test</button></Link>
+         
         </div>
 
       </React.Fragment>
