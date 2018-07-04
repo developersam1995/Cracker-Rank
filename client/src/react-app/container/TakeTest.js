@@ -22,7 +22,7 @@ class TakeTest extends React.Component{
 
   componentDidMount(){
     //let TakeTestId=this.props.test
-    fetch('http://localhost:4001/api/v1/test?id='+this.props.testId,{ 
+    fetch('/api/v1/test?id='+this.props.testId,{ 
       headers:{
         Authorization:this.props.token
       }

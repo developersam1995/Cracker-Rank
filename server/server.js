@@ -16,9 +16,14 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use('/react-app',express.static('public/assets'));
+
 app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
+app.get('/', (req, res) => {
+  res.sendfile('index.html');
+});
 app.use('/api/v1/users', require('./modules/routes/users'));
 app.use('/api/v1/question', require('./modules/routes/question'));
 app.use('/api/v1/test', require('./modules/routes/test'));
@@ -26,9 +31,7 @@ app.use('/api/v1/test', require('./modules/routes/test'));
 app.get('/api/v1/', (req, res) => {
   res.send('Welcome to CrackerRank API');
 });
-app.get('/', (req, res) => {
-  res.redirect('/api/v1/');
-});
+
 
 app.listen(keys.server.port, (err) => {
   if (err) {

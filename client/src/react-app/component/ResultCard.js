@@ -23,7 +23,7 @@ const ResultCard = (props) => {
       {numberPassed} test case(s) passed, <br />
       out of {results.length} test cases</li>);
     if (numberPassed == results.length) {
-      fetch('http://localhost:4001/api/v1/users/profile', {
+      fetch('/api/v1/users/profile', {
         method: 'PUT',
         headers: {
           'content-type': 'application/json',

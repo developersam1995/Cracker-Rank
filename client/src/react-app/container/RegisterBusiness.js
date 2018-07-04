@@ -134,7 +134,7 @@ class RegisterBusiness extends React.Component {
       const company = this.state.company;
       delete company.confirmPassword;
       console.log(company);
-      fetch('http://localhost:4001/api/v1/users/signup', {
+      fetch('/api/v1/users/signup', {
         method: 'POST',
         body: JSON.stringify(company),
         headers: {

@@ -62,7 +62,7 @@ class Question extends React.Component {
 
     console.log(JSON.stringify(question));
 
-    fetch('http://localhost:4001/api/v1/question', {
+    fetch('/api/v1/question', {
       method: 'POST',
       mode: 'cors',
       headers: {

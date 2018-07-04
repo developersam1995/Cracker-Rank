@@ -27,7 +27,7 @@ class Hiring extends React.Component {
     if (!localStorage.getItem('ptok')) {
     }
 
-    fetch('http://localhost:4001/api/v1/test?id=all', {
+    fetch('/api/v1/test?id=all', {
       method: 'get',
       headers: {
         'Authorization': localStorage.getItem('ptok')
@@ -43,7 +43,7 @@ class Hiring extends React.Component {
   }
 
   register(id) {
-    // fetch('http://localhost:4001/api/v1/test', {
+    // fetch('/api/v1/test', {
     //   method: 'post',
     //   headers: {
     //     'Authorization': localStorage.getItem('ptok'),

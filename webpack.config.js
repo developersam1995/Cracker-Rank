@@ -3,7 +3,7 @@ module.exports = {
   mode: 'development',
   entry: path.resolve(__dirname, 'client') + '/src/react-app/index.js',
   output: {
-    path: path.resolve(__dirname, 'client') + '/public/assets',
+    path: path.resolve(__dirname) + '/public/assets',
     filename: 'bundle.js',
     publicPath: '/react-app/'
   },

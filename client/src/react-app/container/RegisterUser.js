@@ -121,7 +121,7 @@ class RegisterUser extends React.Component {
     if (this.isValid()) {
       const user = this.state.user;
       delete user.confirmPassword;
-      fetch('http://localhost:4001/api/v1/users/signup', {
+      fetch('/api/v1/users/signup', {
         method: 'POST',
         body: JSON.stringify(user),
         headers: {

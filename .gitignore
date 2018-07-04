@@ -1,5 +1,5 @@
 node_modules
-client/public/assets
+public/assets
 .vscode
 
 snippets.js

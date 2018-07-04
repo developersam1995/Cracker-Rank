@@ -39,7 +39,7 @@ class Practice extends React.Component {
       this.setState({ isLoggedIn: '1234' });
     }
 
-    fetch('http://localhost:4001/api/v1/question?id=all', {
+    fetch('/api/v1/question?id=all', {
       method: 'get',
       headers: {
         'Authorization': localStorage.getItem('ptok')

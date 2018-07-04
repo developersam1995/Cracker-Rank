@@ -22,7 +22,7 @@ class TestEditor extends React.Component {
   componentDidMount() {
     console.log(this.props);
 
-    fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
+    fetch('/api/v1/question?id=' + this.props.questionId, {
       method: 'get',
       headers: {
         'Authorization': localStorage.getItem('ptok')

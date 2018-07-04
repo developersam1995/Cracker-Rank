@@ -20,7 +20,7 @@ class User extends React.Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/users', {
+    fetch('/api/v1/users', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

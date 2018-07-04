@@ -19,7 +19,7 @@ class Test extends React.Component{
   }
 
   componentDidMount(){
-    fetch('http://localhost:4001/api/v1/test/profile?id='+this.props.testId,{
+    fetch('/api/v1/test/profile?id='+this.props.testId,{
       headers:{
         Authorization:this.props.token
       }

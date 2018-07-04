@@ -23,7 +23,7 @@ class Editor extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps);
-    fetch('http://localhost:4001/api/v1/question?id=' + nextProps.questionId, {
+    fetch('/api/v1/question?id=' + nextProps.questionId, {
       method: 'get',
       headers: {
         'Authorization': localStorage.getItem('ptok')
@@ -37,7 +37,7 @@ class Editor extends React.Component {
 
   componentDidMount() {
     if (this.props.questionId !== 'undefined') {
-      fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
+      fetch('/api/v1/question?id=' + this.props.questionId, {
         method: 'get',
         headers: {
           'Authorization': localStorage.getItem('ptok')
