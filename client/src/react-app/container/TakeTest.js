@@ -9,6 +9,7 @@ import QuestionList from '../component/QuestionList';
 import './Editor.css';
 import './TakeTest.css';
 import Editor from './Editor';
+import PageTitle from '../component/PageTitle';
 
 class TakeTest extends React.Component{
 
@@ -39,7 +40,8 @@ class TakeTest extends React.Component{
     if(this.state.questionIds.length!=0){
       return(
         <Fragment>
-          <Menu timer='00:20:00'/>
+          <Menu/>
+          <PageTitle title="Mountblue"/>
           <div className='Take-Test'>
             <QuestionList questionIds={this.state.questionIds}/>
             <div>

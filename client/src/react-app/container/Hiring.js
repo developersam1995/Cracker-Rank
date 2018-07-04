@@ -35,7 +35,6 @@ class Hiring extends React.Component {
     }).then((response) => {
       return response.json();
     }).then(data => {
-      console.log(data);
       this.setState({ hiring: data, isLoaded: true });
 
     }).catch(error => {
@@ -76,7 +75,7 @@ class Hiring extends React.Component {
     if (hiring) {
       hiringUI = hiring.map((test, index) => {
         return (
-          <div className="Card Hiring" onClick={() => this.register(test._id)}>
+          <div key={index} className="Card Hiring" onClick={() => this.register(test._id)}>
             <p className="h1">{test.companyId.$oid}</p>
             <p className="h2">{test.title}</p>
             <p className="h3">{test.description}</p>
@@ -100,9 +99,6 @@ class Hiring extends React.Component {
 
     if (this.state.isLoaded) {
       content = <React.Fragment>
-        {content}
-        <Menu />
-        <PageTitle title="Current Hiring" />
         {alertSuccess}
         <div className="HiringList">
           {hiringUI}
@@ -114,8 +110,11 @@ class Hiring extends React.Component {
           <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
         </div>;
     }
+
     return (
       <React.Fragment>
+        <Menu />
+        <PageTitle title="Current Hiring"/>
         {content}
       </React.Fragment>
     );

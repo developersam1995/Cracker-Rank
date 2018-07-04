@@ -18,13 +18,13 @@ class User extends React.Component {
       isLoaded: false
     };
   }
-  
+
   componentDidMount() {
     fetch('http://localhost:4001/api/v1/users', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: this.props.token //value from redux
+        Authorization: localStorage.getItem('ptok')
       }
     }).then((res) => res.json())
       .then((parsedJSON) => {
@@ -34,19 +34,19 @@ class User extends React.Component {
           attemptedTest: parsedJSON.allTestList,
           isLoaded: true
         });
-      }).catch((error) => {console.log(error);});
+      }).catch((error) => { console.log(error); });
   }
 
   render() {
     if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'developer') {
       return <Redirect to='/' />;
     }
-    
+
     const { userDetails, practicedQuestions, attemptedTest } = this.state;
-    
+
     let testUI = 'Not Yet Attempted';
     if (attemptedTest) {
-      
+
       testUI = attemptedTest.map((test, index) => {
         return (
           <div key={index} className="Card">
@@ -57,19 +57,18 @@ class User extends React.Component {
         );
       });
     }
-    
+
     let practicedQuestionsUI = 'Not Yet Attempted';
     if (practicedQuestions) {
       practicedQuestionsUI = practicedQuestions.map((question, index) => {
         return (<div className="Card" key={index}>{question.title}</div>);
       });
     }
-    
+
     let content = null;
-    
-    if(this.state.isLoaded) {
-      content = <React.Fragment>    
-        <Menu />
+
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
         <section className="Card Profile">
           <h1><u>Profile</u></h1>
           <h1>{userDetails.name}</h1>
@@ -77,14 +76,14 @@ class User extends React.Component {
           <h3>Mobile: {userDetails.mobile}</h3>
           <h3>Email: </h3>
         </section>
-        
+
         <section className="Profile">
           <h1><u>Attempted Questions</u> ({practicedQuestions.length})</h1>
           <div className="TestGrid">
             {practicedQuestionsUI}
           </div>
         </section>;
-        
+
         <section className="Profile">
           <h1><u>Attempted Test</u> ({attemptedTest.length})</h1>
           <div className="TestGrid">
@@ -93,16 +92,17 @@ class User extends React.Component {
         </section>;
       </React.Fragment>;
     } else {
-      content = 
-      <div className="Loading">
-        <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
-      </div>;
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
     }
     return (
       <React.Fragment>
+        <Menu />
         {content}
       </React.Fragment>
-      
+
     );
   }
 }
