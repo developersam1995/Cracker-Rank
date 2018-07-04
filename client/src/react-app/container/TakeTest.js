@@ -23,19 +23,19 @@ class TakeTest extends React.Component {
     this.submitTest = this.submitTest.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    fetch('/api/v1/question?id=' + nextProps.questionId, {
-      method: 'get',
-      headers: {
-        'Authorization': localStorage.getItem('ptok')
-      }
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({ question: json, isLoaded: true });
-      });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(nextProps);
+  //   fetch('/api/v1/question?id=' + nextProps.questionId, {
+  //     method: 'get',
+  //     headers: {
+  //       'Authorization': localStorage.getItem('ptok')
+  //     }
+  //   })
+  //     .then((res) => res.json())
+  //     .then((json) => {
+  //       this.setState({ question: json, isLoaded: true });
+  //     });
+  // }
 
   submitTest() {
     let results = this.state.results;
@@ -47,7 +47,7 @@ class TakeTest extends React.Component {
       return alert('You already submitted!');
     }
     if (confirm(`Are you sure? Your score is ${normalizedResult}`)) {
-      let body = {results:[normalizedResult], testId:'5b3c996725f57039b9869ace'};
+      let body = {results:[normalizedResult], testId:localStorage.getItem('tid')};
       fetch('/api/v1/test', {
         method: 'POST',
         headers: {
@@ -68,7 +68,7 @@ class TakeTest extends React.Component {
 
   componentDidMount() {
     if (this.props.questionId !== 'undefined') {
-      fetch('/api/v1/question?id=' + this.props.questionId, {
+      fetch('/api/v1/question?id=' + localStorage.getItem('qid'), {
         method: 'get',
         headers: {
           'Authorization': localStorage.getItem('ptok')
@@ -119,14 +119,5 @@ class TakeTest extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    questionId: state.linkEditer.questionId
-  };
-};
 
-function mapStateToDispatch(dispatch) {
-  return bindActionCreators(actionCreators, dispatch);
-};
-
-export default connect(mapStateToProps, mapStateToDispatch)(TakeTest);
+export default TakeTest;

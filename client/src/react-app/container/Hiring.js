@@ -21,6 +21,7 @@ class Hiring extends React.Component {
       isLoaded: false,
     };
     this.register = this.register.bind(this);
+    this.getTestInfo = this.getTestInfo.bind(this);
   }
 
   componentWillMount() {
@@ -40,6 +41,11 @@ class Hiring extends React.Component {
     }).catch(error => {
       console.log('error', error);
     });
+  }
+
+  getTestInfo(id, qid) {
+    localStorage.setItem('tid',id);
+    localStorage.setItem('qid',qid[0]);
   }
 
   register(id) {
@@ -82,7 +88,7 @@ class Hiring extends React.Component {
             {/* <p>{test.quesionId.length}</p> */}
             <p className="h5">{test.startDate} to {test.endDate}</p>
             {/* <p>{test.registeredCandidates.length}</p> */}
-            <button>Continue </button>
+            <button onClick={()=>this.getTestInfo(test._id, test.questionsId)}>Continue </button>
           </div>
         );
       });
