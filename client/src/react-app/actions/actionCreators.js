@@ -8,7 +8,7 @@ export function linkPracticeWithEditor(questionId){
 
 export function setTestId(testId){
   return{
-    type:"SET_TEST",
+    type:'SET_TEST',
     testId
   };
 }
