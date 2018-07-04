@@ -21,20 +21,6 @@ class Editor extends React.Component {
     this.updateResult = this.updateResult.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    fetch('/api/v1/question?id=' + nextProps.questionId, {
-      method: 'get',
-      headers: {
-        'Authorization': localStorage.getItem('ptok')
-      }
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({ question: json, isLoaded: true });
-      });
-  }
-
   componentDidMount() {
     if (this.props.questionId !== 'undefined') {
       fetch('/api/v1/question?id=' + this.props.questionId, {

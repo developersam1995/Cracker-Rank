@@ -1,0 +1,10 @@
+.results-card {
+  list-style: none;
+  background: #f3f3f3;
+  word-wrap: none;
+}
+
+.test-results {
+  margin: 5px;
+  padding: 5px;
+}

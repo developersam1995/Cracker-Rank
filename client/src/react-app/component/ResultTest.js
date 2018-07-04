@@ -1,7 +1,7 @@
 import React from 'react';
-import './ResultsCard.css';
+import './ResultsTest.css';
 
-const ResultCard = (props) => {
+const ResultTest = (props) => {
   const { results } = props;
   let testResults;
   let numberPassed = results.reduce(((n, ele) => {
@@ -21,22 +21,6 @@ const ResultCard = (props) => {
     testResults.push(<li key='res' className='test-results'>
       {numberPassed} test case(s) passed, <br />
       out of {results.length} test cases</li>);
-    if (numberPassed == results.length) {
-      fetch('/api/v1/users/profile', {
-        method: 'PUT',
-        headers: {
-          'content-type': 'application/json',
-          'Authorization':localStorage.getItem('ptok')
-        },
-        body: JSON.stringify({practicedQn:props.qId})
-      }).then(res => {
-        if (res.status == 202) {
-          alert('Successfully Completed');
-        }
-      }).catch(err => {
-        console.log(err);
-      });
-    }
   }
   return (
     <ul className='results-card'>
@@ -45,4 +29,4 @@ const ResultCard = (props) => {
   );
 };
 
-export default ResultCard;
+export default ResultTest;

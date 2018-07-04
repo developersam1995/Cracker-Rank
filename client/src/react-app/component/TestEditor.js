@@ -1,84 +1,89 @@
-import React from 'react';
-import './TestEditor.css';
-import Question from './Question';
-import CodeEditor from './CodeEditor';
-import ResultCard from './ResultCard';
-import ReactLoading from 'react-loading';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actionCreator from '../actions/actionCreators';
+import React, { Component } from 'react';
 
-class TestEditor extends React.Component {
+import codeMirror from 'codemirror';
+import 'codemirror/addon/hint/show-hint';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/lib/codemirror.js';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/addon/hint/css-hint.js';
+import 'codemirror/theme/neo.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/hint/javascript-hint.js';
+import './TestEditor.css';
+
+class TestEditor extends Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      question: null,
-      results: [],
-      isLoaded: false
-    };
-    this.updateResult = this.updateResult.bind(this);
+    this.myRef = React.createRef();
   }
 
   componentDidMount() {
-    console.log(this.props);
+    let textarea = this.myRef.current;
+    this.editor = codeMirror.fromTextArea(textarea, {
+      lineNumbers: true,
+      extraKeys: { 'Ctrl-Space': 'autocomplete' },
+      mode: { name: 'javascript', globalVars: true },
+      theme: 'neo'
 
-    fetch('/api/v1/question?id=' + this.props.questionId, {
-      method: 'get',
-      headers: {
-        'Authorization': localStorage.getItem('ptok')
-      }
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({ question: json, isLoaded: true });
-      });
+    });
+    return this.editor;
   }
 
-  updateResult(results) {
-    this.setState({ results: results });
+  eval(testFn, args, expectedOutput) {
+    let result;
+    let ø = Object.create(null);
+    try {
+      result = testFn.apply(ø, args);
+    }
+    catch (err) {
+      return { error: err, success: false };
+    }
+
+    // if (Array.isArray(expectedOutput)) {
+    //   let areEqual = compareArrays(expectedOutput, result, doesOrderMatter);
+    //   if (areEqual) return { success: true };
+    // }
+
+    if (result === expectedOutput) {
+      return { success: true };
+    }
+
+    return { success: false };
+  }
+
+  update() {
+    let ø = Object.create(null);
+    try {
+      eval.call(ø, this.editor.getValue());
+    } catch (e) {
+      this.props.updateResult(['Syntax Error']);
+      return false;
+    }
+    let definedFn = eval(this.props.fnName);
+    if (!definedFn) this.props.updateResult([false]);
+    else {
+      let testCases = this.props.testCases;
+      let results = testCases.map(testCase => {
+        let expectedOutput = testCase.output;
+        let inputs = testCase.input;
+        let result = this.eval(definedFn, inputs, expectedOutput);
+        return result.success;
+      });
+      this.props.updateResult(results);
+    }
   }
 
   render() {
-    const { question } = this.state;
-
-    let content = null;
-    if (this.state.isLoaded) {
-      content = <React.Fragment>
-        <Question question={question} />
-        <div className='TestEditor'>
-          <div className='code'>
-            <CodeEditor updateResult={this.updateResult}
-              testCases={this.state.question.testCases}
-              fnName={this.state.question.functionName}
-              fnParams={this.state.question.paramNames}
-            />
-          </div>
-          <ResultCard results={this.state.results}
-            qId={this.state.question._id} />
-        </div>
-      </React.Fragment>;
-    } else {
-      content =
-        <div className="Loading">
-          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
-        </div>;
-    }
+    let params = this.props.fnParams.join(', ');
+    let functionName = `function ${this.props.fnName} (${params}) {\n\n}`;
     return (
-      <React.Fragment>
-        {content}
-      </React.Fragment>
+      <div className='code'>
+        <textarea ref={this.myRef} defaultValue={functionName} />
+        <button onClick={this.update.bind(this)} className='submit-button'>Evaluate</button>
+      </div>
     );
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    questionId: state.linkEditer.questionId
-  };
-};
-
-function mapStateToDispatch(dispatch) {
-  return bindActionCreators(actionCreator, dispatch);
-};
-
-export default connect(mapStateToProps, mapStateToDispatch)(TestEditor);
+export default TestEditor;

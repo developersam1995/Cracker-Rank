@@ -1,24 +1,15 @@
 .TestEditor {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-gap: 1fr;
-  word-break: break-all;
-  background: #f3f3f3;
-}
-
-.TestEditor .code {
   margin: 20px;
-  border: 1px solid;
+  padding: 10px;
+  background: #f3f3f3;
   word-break: break-all;
-  box-shadow: 1px 2px 3px rgb(128, 118, 118);
+  box-shadow: 1px 3px 4px  rgb(128, 118, 118);
+  color: #4E5E67;
+  font-size: 14px;
+  line-height: 2;
 }
 
-.TestEditor .code textarea {
-  position: inherit;
-  width: 90%;
-  height: 80%;
-  padding: 10px;
-  border: none;
-  outline: none;
-  resize: none;
+.submit-button {
+  float: right;
+  background: #5e5555;
 }
