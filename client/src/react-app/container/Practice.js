@@ -19,17 +19,14 @@ class Practice extends React.Component {
       isLoggedIn: null,
       isLoaded: false
     };
-
     this.setQuestionID = this.setQuestionID.bind(this);
   }
 
   setQuestionID(id) {
     //get the selected question id
-    //TODO:
-
-    this.props.linkPracticeWithEditor(id);
+    this.props.linkWithEditor(id);
     this.setState({
-      questionId: _id
+      questionId: id
     });
   };
 
@@ -107,15 +104,8 @@ class Practice extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    questionId: state.questionId
-  };
-}
-
 function mapStateToDispatch(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
-export default connect(mapStateToProps, mapStateToDispatch)(Practice);
-//export default Practice;
+export default connect(null, mapStateToDispatch)(Practice);
