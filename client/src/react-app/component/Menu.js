@@ -25,6 +25,13 @@ class Menu extends React.Component {
     if(this.state.redirect) {
       return <Redirect to='/' />;
     }
+
+    let profileURL = null;
+    if (localStorage.getItem('type') === 'developer')
+      profileURL = '/profile';
+    else
+      profileURL = '/business';
+
     return (
       <div className='Menu'>
         <div>
@@ -41,7 +48,7 @@ class Menu extends React.Component {
         </div>
         <div>
           <span>
-            <Link to="/profile" className="Link">{localStorage.getItem('name')}</Link>
+            <Link to={profileURL} className="Link">{localStorage.getItem('name')}</Link>
           </span>
           <span>
             {localStorage.getItem('ptok') ? 

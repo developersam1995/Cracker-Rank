@@ -80,8 +80,7 @@ class Hiring extends React.Component {
             <p className="h2">{test.title}</p>
             <p className="h3">{test.description}</p>
             {/* <p>{test.quesionId.length}</p> */}
-            <p className="h4">{test.startDate}</p>
-            <p className="h4">{test.endDate}</p>
+            <p className="h4">{test.startDate} to {test.endDate}</p>
             {/* <p>{test.registeredCandidates.length}</p> */}
             <button>Continue </button>
           </div>

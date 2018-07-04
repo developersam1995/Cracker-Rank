@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // Routes
 app.get('/', (req, res) => {
-  res.sendfile('index.html');
+  res.sendfile('client/index.html');
 });
 app.use('/api/v1/users', require('./modules/routes/users'));
 app.use('/api/v1/question', require('./modules/routes/question'));
@@ -31,7 +31,9 @@ app.use('/api/v1/test', require('./modules/routes/test'));
 app.get('/api/v1/', (req, res) => {
   res.send('Welcome to CrackerRank API');
 });
-
+app.get('/*',(req,res)=>{
+  res.sendFile('index.html',{root:'client'});
+});
 
 app.listen(keys.server.port, (err) => {
   if (err) {
