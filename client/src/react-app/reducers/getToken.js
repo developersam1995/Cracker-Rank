@@ -3,7 +3,10 @@ function getToken(state=[],action){
     let curToken = localStorage.getItem('ptok');
     return Object.assign({},state,{token:curToken});
   }else{
-    return Object.assign({},state,{token:'unauthorized'});
+    if(!state.token){
+      return Object.assign({},state,{token:'unauthorized'});
+    }
+    return state;
   }
 }
 
