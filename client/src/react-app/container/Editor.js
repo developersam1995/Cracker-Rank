@@ -65,10 +65,10 @@ class Editor extends React.Component {
           <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
         </div>;
     }
-    return (<React.Fragment>
-      {content}
-    </React.Fragment>
-
+    return (
+      <React.Fragment>
+        {content}
+      </React.Fragment>
     );
   }
 }

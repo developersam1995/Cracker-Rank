@@ -79,14 +79,14 @@ class User extends React.Component {
         </section>
         
         <section className="Profile">
-          <h1><u>Attempted Questions</u></h1>
+          <h1><u>Attempted Questions</u> ({practicedQuestions.length})</h1>
           <div className="TestGrid">
             {practicedQuestionsUI}
           </div>
         </section>;
         
         <section className="Profile">
-          <h1><u>Attempted Test</u></h1>
+          <h1><u>Attempted Test</u> ({attemptedTest.length})</h1>
           <div className="TestGrid">
             {testUI}
           </div>
