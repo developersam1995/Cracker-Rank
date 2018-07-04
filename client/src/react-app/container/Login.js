@@ -118,7 +118,15 @@ class Login extends React.Component {
   }
 
   render() {
-
+    let userType = localStorage.getItem('type');
+    if(userType && localStorage.getItem('ptok')){
+      if(userType == 'developer'){
+        return <Redirect to='/profile'/>;
+      }
+      else if(userType == 'business') {
+        return <Redirect to='/business'/>;
+      }
+    }
     const loginForm = <React.Fragment>
       <input
         className='Form-Input'

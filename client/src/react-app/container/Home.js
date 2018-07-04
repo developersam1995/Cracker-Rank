@@ -64,14 +64,14 @@ class Home extends React.Component {
               <h1>DEVELOPERS</h1>
               <p className="Title">Practice coding. Compete. Find jobs</p>
               <p className="Description">The CrackerRank Community is the largest learning and competition community for programmers</p>
-              <Link to="/profile" className="Link"><button>Solve Challenge Now</button></Link>
+              <Link to="/Login"  className="Link"><button>Solve Challenge Now</button></Link>
             </div>
             <div className="Card Center">
               <img src="https://hrcdn.net/hackerrank/assets/home/icons/developers-2ae670f9cb8d4e68c370c222d624b4d4.png" />
               <h1>COMPANIES</h1>
               <p className="Title">Assess, Screen, Interview</p>
               <p className="Description">CrackerRank for Work is the leading end-to-end technical recruiting platform for hiring engineers</p>
-              <Link to="/business" className="Link"><button>Hire Now</button></Link>
+              <Link to="/Login"  className="Link"><button>Hire Now</button></Link>
             </div>
           </section>
           <section className="CompanyTag">
