@@ -2,8 +2,12 @@ import React from 'react';
 import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import './BusinessHome.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ReactLoading from 'react-loading';
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators from '../actions/actionCreators';
 
 class BusinessHome extends React.Component {
 
@@ -11,9 +15,16 @@ class BusinessHome extends React.Component {
     super(props);
     this.state = {
       history: [],
-      isLoaded: false
+      isLoaded: false,
+      testId:''
     };
     this.handledelete = this.handledelete.bind(this);
+    this.handleClickId = this.handleClickId.bind(this);
+  }
+
+  handleClickId(id) {
+    this.props.setTestId(id);
+    this.setState({testId:id});
   }
 
   handledelete(h) {
@@ -57,6 +68,9 @@ class BusinessHome extends React.Component {
 
 
   render() {
+    if(this.state.testId){
+      return <Redirect to='/business/test'/>;
+    }
     if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'business') {
       return <Redirect to='/' />;
     }
@@ -64,13 +78,15 @@ class BusinessHome extends React.Component {
     let histroyList = null;
     if (this.state.history) {
       histroyList = this.state.history.map((history, index) => {
-        return (<div className="HistoryCard Hover" key={index}>
-          <p>{history.startDate}</p>
-          <p>{history.title}</p>
-          <p><span className="center">{history.questionsId.length}</span></p>
-          <p><span className="center">{history.registeredCandidates.length}</span></p>
-          <p><button className="button-circle" onClick={() => this.handledelete(history._id)}>X</button></p>
-        </div>);
+        return (
+          <div className="HistoryCard Hover" key={index}>
+            <p>{history.startDate}</p>
+            <p>{history.title}</p>
+            <p><span className="center">{history.questionsId.length}</span></p>
+            <p><span className="center">{history.registeredCandidates.length}</span></p>
+            <p><button className="button-circle" onClick={() => this.handledelete(history._id)}>X</button></p>
+            <p className="h4" onClick={()=> this.handleClickId(history._id)}>View</p>
+          </div>);
 
       });
     }
@@ -107,4 +123,8 @@ class BusinessHome extends React.Component {
   }
 }
 
-export default BusinessHome;
+function mapStateToDispatch(dispatch){
+  return bindActionCreators(actionCreators,dispatch);
+}
+
+export default connect(null,mapStateToDispatch)(BusinessHome);
