@@ -30,7 +30,7 @@
     padding: 3em;
 }
 
-.QuestionItem {
+/* .QuestionItem {
     display: grid;
     grid-template-columns: 2fr .5fr;
     margin: 0px;
@@ -42,7 +42,7 @@
     font-size: 1.5em;
     word-break: break-all;
     line-break: normal;
-}
+} */
 
 .QuestionItem p:nth-last-child(1) {
     justify-self: end;

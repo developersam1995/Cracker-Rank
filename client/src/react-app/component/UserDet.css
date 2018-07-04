@@ -1,0 +1,19 @@
+.User-Det{
+    
+}
+
+.User-Det-Prof{
+    margin: 10px;
+    width: 141px;
+}
+.User-Type{
+    font-weight: 700;
+    margin: 20px;
+}
+
+.User-Det-Title{
+    padding-left: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    padding-right: 5px;
+}

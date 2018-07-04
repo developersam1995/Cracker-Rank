@@ -1,0 +1,8 @@
+.RegisterBusiness {
+    display: grid;
+    justify-items: center;
+}
+
+.RegisterBusiness p {
+    text-align: center;
+}

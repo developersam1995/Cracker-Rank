@@ -7,10 +7,10 @@ import Menu from '../component/Menu';
 import Question from '../component/Question';
 import QuestionList from '../component/QuestionList';
 import './Editor.css';
-import './BusinessTest.css';
+import './TakeTest.css';
 import Editor from './Editor';
 
-class BusinessTest extends React.Component{
+class TakeTest extends React.Component{
 
   constructor(){
     super();
@@ -20,8 +20,12 @@ class BusinessTest extends React.Component{
   }
 
   componentDidMount(){
-    //let businessTestId=this.props.test
-    fetch('http://localhost:4001/api/v1/test?id=5b33d1993c81884f3b690eb3')
+    //let TakeTestId=this.props.test
+    fetch('http://localhost:4001/api/v1/test?id='+this.props.testId,{
+      headers:{
+        Authorization:this.props.token
+      }
+    })
       .then((res)=>res.json())
       .then((data)=>{
         this.setState({questionIds:data[0].questionID});
@@ -47,8 +51,9 @@ class BusinessTest extends React.Component{
 
 const mapStateToProps=(state)=>{
   return{
-    //businessTestId:state.businessTestId
-    questionId:state.linkEditer.questionId
+    testId:state.getTest.testId,
+    //questionId:state.linkEditer.questionId,
+    token:state.getToken.token
   };
 };
 
@@ -56,4 +61,4 @@ const mapStateToDispatch=(dispatch)=>{
   return bindActionCreators(actionCreators,dispatch);
 };
 
-export default connect(mapStateToProps,mapStateToDispatch)(BusinessTest);
+export default connect(mapStateToProps,mapStateToDispatch)(TakeTest);

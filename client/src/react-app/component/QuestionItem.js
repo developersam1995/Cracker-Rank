@@ -5,9 +5,10 @@ import './QuestionItem.css';
 const QuestionItem = (props) => {
   const question = props.question;
   return (
-    <div className='QuestionItem' key={question.index} onClick={props.method.bind(this,props.question.question.id)} >
+    <div className='QuestionItem' key={question.index} onClick={props.method.bind(this,props.question.question._id)} >
       <p>{question.question.title}</p>
-      <p className='info'> <strong>Difficulty:</strong> <span>{question.question.difficulty}</span> &nbsp;&nbsp; <strong>Max Score:</strong> <span>{question.question.maxScore}</span></p>
+      <p className='info'> <strong>Difficulty:</strong> <span>{question.question.difficulty}</span>
+      </p>
     </div>
   );
 };

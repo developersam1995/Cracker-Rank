@@ -4,7 +4,25 @@
     color: #fff;
     font-size: 1.2em;
     vertical-align: middle;
-    /* box-shadow: 2px 3px 4px rgb(219, 143, 143); */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    
+}
+.Menu span {
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.Menu span:nth-child(1) {
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 300px;
+}
+
+.Menu span:hover {
+    font-weight: bold
 }
 
 .user-icon {

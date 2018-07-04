@@ -1,11 +1,3 @@
-
-
-export function addQuestion(question){
-  return{
-    type:'ADD_QUESTION',
-    question
-  };
-}
   
 export function linkWithEditor(questionId){
   return{
@@ -14,11 +6,10 @@ export function linkWithEditor(questionId){
   };
 }
 
-export function addBusinessTest(businessTestId){
+export function setTestId(testId){
   return{
-    type:'ADD-BUSINESS_TEST',
-    businessTestId
+    type:'SET_TEST',
+    testId
   };
 }
-  
   

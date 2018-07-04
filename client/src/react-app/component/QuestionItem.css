@@ -1,11 +1,13 @@
 .QuestionItem {
-    padding: 20px;
+    padding: 10 20px;
     background: #fff;
-    margin: 0 20px;
+    margin: 0 10px;
     border-bottom: 1px solid rgb(133, 126, 126);
-    font-size: 1.2em;
+    font-size: 1em;
     font-family: sans-serif;
     cursor: pointer;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }
 
 .QuestionItem:hover {
@@ -13,7 +15,10 @@
 }
 
 .QuestionItem p {
+    padding: 0 20px;
+    margin: 20px;
     vertical-align: middle;
+    font-size: 1.3em;
 }
 
 .QuestionItem a {

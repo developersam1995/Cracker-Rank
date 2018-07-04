@@ -4,6 +4,7 @@ import Menu from '../component/Menu';
 import Question from '../component/Question';
 import CodeEditor from '../component/CodeEditor';
 import ResultCard from '../component/ResultCard';
+import ReactLoading from 'react-loading';
 
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -14,26 +15,38 @@ class Editor extends React.Component {
     super(props);
     this.state = {
       question: null,
-      results:[]
+      results: [],
+      isLoaded: false
     };
     this.updateResult = this.updateResult.bind(this);
   }
 
-  componentWillReceiveProps(nextProps){
-    fetch('http://localhost:4001/api/v1/question?query='+nextProps.questionId)
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    fetch('http://localhost:4001/api/v1/question?id=' + nextProps.questionId, {
+      method: 'get',
+      headers: {
+        'Authorization': localStorage.getItem('ptok')
+      }
+    })
       .then((res) => res.json())
       .then((json) => {
-        this.setState({ question: json });
+        this.setState({ question: json, isLoaded: true });
       });
   }
 
   componentDidMount() {
     if(this.props.questionId!=='undefined'){
-      fetch('http://localhost:4001/api/v1/question?query='+this.props.questionId)
-        .then((res) => res.json())
-        .then((json) => {
-          this.setState({ question: json });
-        });
+      fetch('http://localhost:4001/api/v1/question?id=' + this.props.questionId, {
+      method: 'get',
+      headers: {
+        'Authorization': localStorage.getItem('ptok')
+      }
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        this.setState({ question: json, isLoaded: true });
+      });
     }
   }
 
@@ -42,38 +55,47 @@ class Editor extends React.Component {
   }
 
   render() {
-    if (!this.state.question) return <div style={{
-      background: '#eee',
-      padding: '20px',
-      margin: '20px'
-    }}>Loading</div>;
     const { question } = this.state;
-    return (
-      <React.Fragment>
-        {/* <Menu /> */}
+
+    let content = null;
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
+        <Menu />
         <Question question={question} />
         <div className='Editor'>
           <div className='code'>
             <CodeEditor updateResult={this.updateResult}
-              testCases={this.state.question.testCases} 
+              testCases={this.state.question.testCases}
               fnName={this.state.question.functionName}
-              fnParams={this.state.question.paramNames} />
+              fnParams={this.state.question.paramNames}
+            />
           </div>
-          <ResultCard results={this.state.results}/>
+          <ResultCard results={this.state.results}
+            qId={this.state.question._id} />
         </div>
+      </React.Fragment>;
+    } else {
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
+    }
+    return (
+      <React.Fragment>
+        {content}
       </React.Fragment>
     );
   }
 }
 
-const mapStateToProps=(state)=>{
-  return{
-    questionId:state.linkEditer.questionId
+function mapStateToProps(state) {
+  return {
+    questionId: state.linkEditer.questionId
   };
 };
 
-const mapStateToDispatch=(dispatch)=>{
-  return bindActionCreators(actionCreators,dispatch);
+function mapStateToDispatch(dispatch) {
+  return bindActionCreators(actionCreators, dispatch);
 };
 
-export default connect(mapStateToProps,mapStateToDispatch)(Editor);
+export default connect(mapStateToProps, mapStateToDispatch)(Editor);

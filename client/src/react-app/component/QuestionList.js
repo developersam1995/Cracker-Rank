@@ -19,6 +19,10 @@ class QuestionList extends React.Component{
     this.setState({questionIds:nextProps.questionIds});
   }
 
+  componentWillMount(){
+    this.setState({questionIds:this.props.questionIds});
+  }
+
   render(){
     return(
       <div className='Question-List'>

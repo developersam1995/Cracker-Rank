@@ -139,7 +139,7 @@ class AddTest extends React.Component {
                 value={this.state.test.duration} />
               <h2>ADDED QUESTIONS</h2>
               {this.addedquestions}
-              <button onClick={this.handleSubmit}>SUBMIT</button>
+              <button className="Form-Submit" onClick={this.handleSubmit}>SUBMIT</button>
             </div>
           </div>
           <div className="Questions BOX">

@@ -1,0 +1,8 @@
+.RegisterUser {
+    display: grid;
+    justify-items: center;
+}
+
+.RegisterUser p {
+    text-align: center;
+}

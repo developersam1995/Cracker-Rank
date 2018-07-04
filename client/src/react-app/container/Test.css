@@ -1,0 +1,26 @@
+.Test{
+    
+}
+
+.Test{
+    margin: 20px;
+    background: #fff;
+    box-shadow: 2px 3px 4px 1px rgb(190, 135, 135);
+}
+
+.Test-Header{
+    font-weight: 600;
+    padding-top: 12px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.Test-Detail{
+    padding: 30px;
+}
+
+.Test-Title{
+    font-weight: 600;
+    font-size: 15px;
+    padding: 5px;
+}
