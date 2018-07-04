@@ -1,8 +1,9 @@
 .BusinessHome {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 4fr 1fr;
     grid-gap: 2em;
     padding: 20px;
+    min-height: 300px;
 }
 
 .BusinessHome .HistroyList {

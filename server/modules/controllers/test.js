@@ -37,7 +37,7 @@ module.exports = {
         { $addToSet: { 'userProfileRec.tests': result.id } });
 
       // Respond with status
-      return res.status(200).json({ status: 'Successfully Created', id: result.id });
+      return res.status(201).json({ status: 'Successfully Created', id: result.id });
     }
     if (req.user.type == 'developer') {
 

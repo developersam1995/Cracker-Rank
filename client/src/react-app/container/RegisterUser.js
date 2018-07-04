@@ -132,8 +132,6 @@ class RegisterUser extends React.Component {
         const statusCode = response.status;
 
         response.json().then((parsedJSON => {
-          console.log(statusCode);
-          console.log(parsedJSON);
           if (statusCode === 403) {
             this.setState({
               user: {

@@ -1,9 +1,9 @@
 import React from 'react';
 import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
-import HistoryCard from '../component/HistoryCard';
 import './BusinessHome.css';
 import { Link } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 
 class BusinessHome extends React.Component {
 
@@ -12,53 +12,46 @@ class BusinessHome extends React.Component {
     this.state = {
       history: [],
       isLoaded: false
-      
     };
     this.handledelete = this.handledelete.bind(this);
   }
 
   handledelete(h) {
     let statusCode;
-    fetch(`/api/v1/test?id=${h}`,
+    fetch(`http://localhost:4001/api/v1/test?id=${h}`,
       {
         method: 'DELETE',
         headers: {
           'Authorization': localStorage.getItem('ptok'),
         }
-      }).then( (response) => {
-      statusCode = response.status;
-      if(statusCode == 200) {
-        let prevHistory = this.state.history;
-        return this.setState({history: 
-          prevHistory.filter((test) => test._id!=h)});
-      }
-      return response.json();
-    })
-      .then(parsedJSON => {
-        this.setState({isLoaded: true });
-        
-
-        console.log('json data', parsedJSON);
-        // this.setState({ history: parsedJSON });
+      })
+      .then((response) => {
+        statusCode = response.status;
+        if (statusCode == 200) {
+          let prevHistory = this.state.history;
+          return this.setState({
+            history:
+              prevHistory.filter((test) => test._id != h)
+          });
+        }
+        return response.json();
+      }).then(parsedJSON => {
+        this.setState({ isLoaded: true });
       });
   }
-  // alert('your data will be deleted');
-
 
   componentDidMount() {
-    fetch('/api/v1/users/',
-      {
-        method: 'GET',
-        headers: {
-          'Authorization': localStorage.getItem('ptok')
-        }
-      })
+    fetch('http://localhost:4001/api/v1/users/', {
+      method: 'GET',
+      headers: {
+        'Authorization': localStorage.getItem('ptok')
+      }
+    })
       .then(function (response) {
         return response.json();
       })
       .then(parsedJSON => {
-        console.log('json data', parsedJSON);
-        this.setState({ history: parsedJSON });
+        this.setState({ isLoaded: true, history: parsedJSON });
       });
   }
 
@@ -67,13 +60,10 @@ class BusinessHome extends React.Component {
     if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'business') {
       return <Redirect to='/' />;
     }
-   
 
     let histroyList = null;
     if (this.state.history) {
-      
       histroyList = this.state.history.map((history, index) => {
-        // console.log(history._id);
         return (<div className="HistoryCard Hover" key={index}>
           <p>{history.startDate}</p>
           <p>{history.title}</p>
@@ -85,9 +75,9 @@ class BusinessHome extends React.Component {
       });
     }
 
-    return (
-      
-      <React.Fragment>
+    let content = null;
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
         <Menu />
         <PageTitle title="Dashboard" />
         <div className="BusinessHome">
@@ -105,12 +95,15 @@ class BusinessHome extends React.Component {
           </div>
           <Link to="/test"><button> Add a test</button></Link>
         </div>
-        <div>
-         
-        </div>
+      </React.Fragment>;
+    } else {
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
+    }
 
-      </React.Fragment>
-    );
+    return (<React.Fragment>{content}</React.Fragment>);
   }
 }
 

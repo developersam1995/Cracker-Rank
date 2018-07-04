@@ -74,7 +74,7 @@ class User extends React.Component {
           <h1>{userDetails.name}</h1>
           <h3>Role: {userDetails.type}</h3>
           <h3>Mobile: {userDetails.mobile}</h3>
-          <h3>Email: </h3>
+          {/* <h3>Email: </h3> */}
         </section>
 
         <section className="Profile">

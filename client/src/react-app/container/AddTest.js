@@ -1,10 +1,10 @@
 import React from 'react';
 import './AddTest.css';
-import QuestionItem from '../component/QuestionItem';
 import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import Alert from '../component/Alert';
-import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import ReactLoading from 'react-loading';
 class AddTest extends React.Component {
   constructor(props) {
     super(props);
@@ -12,7 +12,6 @@ class AddTest extends React.Component {
     this.state = {
       redirect: null,
       test: {
-        company_id: '1',
         title: '',
         description: '',
         startDate: date,
@@ -23,6 +22,7 @@ class AddTest extends React.Component {
       questions: [],
       addedQuestions: [],
       alertMessage: '',
+      isLoaded: false
     };
     this.isValid = this.isValid.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -32,7 +32,7 @@ class AddTest extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/v1/question?id=all', {
+    fetch('http://localhost:4001/api/v1/question?id=all', {
       method: 'GET',
       headers: {
         'Authorization': localStorage.getItem('ptok')
@@ -41,6 +41,7 @@ class AddTest extends React.Component {
       return response.json();
     }).then(parsedJSON => {
       this.setState({ questions: parsedJSON });
+      this.setState({ isLoaded: true });
     });
   }
 
@@ -78,9 +79,9 @@ class AddTest extends React.Component {
   }
 
   handleSubmit(e) {
+    let statusCode;
     if (this.isValid()) {
-      console.log(JSON.stringify(this.state.test));
-      fetch('/api/v1/test', {
+      fetch('http://localhost:4001/api/v1/test', {
         headers: {
           'Authorization': localStorage.getItem('ptok'),
           'Content-Type': 'application/json'
@@ -88,10 +89,25 @@ class AddTest extends React.Component {
         method: 'POST',
         body: JSON.stringify(this.state.test),
       }).then(response => {
+        statusCode = response.status;
+        let date = new Date().toJSON().slice(0, 10);
+        if (statusCode === 201) {
+          this.setState({
+            alertMessage: 'Successfully Submitted',
+            test: {
+              title: '',
+              description: '',
+              startDate: date,
+              endDate: date,
+              duration: '',
+              questionId: []
+            },
+            addedQuestions: [],
+          });
+        }
         return response.json();
-      }).then(parsedJSON => {
-        alert('your test has been assigned');
       }).catch(err => {
+        this.setState({ alertMessage: 'Unable to save' });
         return (err);
       });
     }
@@ -156,9 +172,11 @@ class AddTest extends React.Component {
   }
 
   render() {
+
     if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'business') {
       return <Redirect to='/' />;
     }
+
     const { questions } = this.state;
     let questionListUI = null;
     if (questions) {
@@ -189,14 +207,14 @@ class AddTest extends React.Component {
       alertUI = <Alert message={this.state.alertMessage} />;
     }
 
-    return (
-      <React.Fragment>
+    let content = null;
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
         <Menu />
         <PageTitle title="Add Test" ></PageTitle>
 
-        <Link to="/business"><button >Back</button></Link>
         {alertUI}
-        < div className="AddTest" >
+        <div className="AddTest" >
           <div className="Form BOX">
             <div>
               <label className="Form-Label" >Title</label>
@@ -204,7 +222,8 @@ class AddTest extends React.Component {
                 className="Form-Field"
                 type="text"
                 name="title"
-                onChange={(event) => this.handleChange(event)} />
+                onChange={(event) => this.handleChange(event)}
+                value={this.state.test.title} />
               <label className="Form-Label">Description</label>
               <textarea
                 className="Form-Field"
@@ -235,10 +254,7 @@ class AddTest extends React.Component {
                 value={this.state.test.duration} />
               <h2>ADDED QUESTIONS</h2>
               {this.addedquestions}
-
-
             </div>
-
             <button onClick={this.handleSubmit}>SUBMIT</button>
           </div>
           <div className="Questions BOX">
@@ -246,6 +262,17 @@ class AddTest extends React.Component {
             <label className="Form-Label" >{questionListUI}</label>
           </div>
         </div >
+      </React.Fragment>;
+    } else {
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
+    }
+
+    return (
+      <React.Fragment>
+        {content}
       </React.Fragment>
     );
   }
