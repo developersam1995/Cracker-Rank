@@ -21,35 +21,49 @@ class TakeTest extends React.Component{
 
   componentDidMount(){
     //let TakeTestId=this.props.test
-    fetch('http://localhost:4001/api/v1/test?id='+this.props.testId,{
+    console.log('take test',this.props.testId);
+    fetch('http://localhost:4001/api/v1/test?id='+this.props.testId,{ //5b3b889364672758e70d36bb
       headers:{
         Authorization:this.props.token
       }
     })
       .then((res)=>res.json())
       .then((data)=>{
-        this.setState({questionIds:data[0].questionID});
-        this.props.linkWithEditor(data[0].questionID[0]);
+        console.log('take test data',data);
+        this.setState({questionIds:data.questionsId});
+        this.props.linkWithEditor(data.questionsId[0]);
       });
   }
 
   render(){
-    return(
-      <Fragment>
-        <Menu timer='00:20:00'/>
-        <div className='Business-Test'>
-          <QuestionList questionIds={this.state.questionIds}/>
-          <div>
-            <Editor/>
+    if(this.state.questionIds.length!=0){
+      return(
+        <Fragment>
+          <Menu timer='00:20:00'/>
+          <div className='Take-Test'>
+            <QuestionList questionIds={this.state.questionIds}/>
+            <div>
+              <Editor/>
+            </div>
           </div>
-        </div>
-      </Fragment>
-    );
+        </Fragment>
+      );
+    }
+    else
+    {
+      return(
+        <Fragment>
+          <Menu/>
+          <div><span>No Questions in Test</span></div>
+        </Fragment>
+      );
+    }
   }
 
 }
 
 const mapStateToProps=(state)=>{
+  console.log('take ',state);
   return{
     testId:state.getTest.testId,
     //questionId:state.linkEditer.questionId,
