@@ -62,4 +62,50 @@ button {
   box-shadow: 2px 2px 3px 1px #a5dbb8;
   cursor: pointer;
   border-radius: 4px;
+  outline: none;
+}
+
+.button-logout {
+  padding: 5px;
+  background: #e9e2e2;
+  color: rgb(107, 77, 77);
+  font-size: .6em;
+  border: none;
+  box-shadow: 2px 2px #a5dbb8;
+  cursor: pointer;
+  border-radius: 20px;
+  outline: none;
+}
+
+.h1 {
+  font-size: 1.5em;
+  color: #5e5555;
+  margin: 10px 0;
+}
+
+.h2 {
+  font-size: 1.4em;
+  color: #5e5555;
+  margin: 10px 0;
+}
+
+.h3 {
+  font-size: 1.3em;
+  color: #5e5555;
+  margin: 10px 0;
+}
+
+.h4 {
+  font-size: .9em;
+  color: #5e5555;
+  margin: 10px 0;
+}
+
+.Loading {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
 }

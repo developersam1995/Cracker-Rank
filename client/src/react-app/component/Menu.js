@@ -1,50 +1,32 @@
 import React from 'react';
 import './Menu.css';
-import { Link, Redirect } from 'react-router-dom';
-import Home from '../container/Home';
+import {Link} from 'react-router-dom';
 // import AccountCircle from '@material-ui/icons/AccountCircle';
 
 class Menu extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state={
-      isLogin: false
-    };
-  }
-
-  logOut() {
-    this.setState({isLogin: false});
-    console.log('called');
-    localStorage.clear();
-  }
-
   render() {
-    let logOutButton = null;
-    if (localStorage.getItem('ptok')) {
-      logOutButton = <button onClick={() => this.logOut()}>Logout</button>;
-    }
-
-    if(this.state.isLogin) {
-      console.log('from islogin');
-      <Home />;
-    }
-
     return (
       <div className='Menu'>
-        <span>
+        <div>
+          <span>
           <Link to="/" className="Link">CrackerRank</Link>
-        </span>
-        {/* <AccountCircle className='user-icon' /> */}
-        <span>
+          </span>
+          {/* <AccountCircle className='user-icon' /> */}
+          <span>
           <Link to="/practice" className="Link">Practice</Link>
-        </span>
-        <span>
+          </span>
+          <span>
+          <Link to="/hiring" className="Link">Hiring</Link>
+          </span>
+        </div>
+        <div>
+          <span>
           <Link to="/profile" className="Link">{localStorage.getItem('name')}</Link>
-        </span>
-        <span>
-          {logOutButton}
-        </span>
+          </span>
+          <span>
+          <button className="button-logout">Logout</button>
+          </span>
+        </div>
       </div>
     );
   }
