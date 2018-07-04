@@ -28,7 +28,7 @@ class Login extends React.Component {
     this.isValid = this.isValid.bind(this);
   }
   handelclick(e) {
-    popuptool.popup('http://localhost:4001/api/v1/users/google', 'google', { width: 800, height: 800 }, function (err, data) {
+    popuptool.popup('/api/v1/users/google', 'google', { width: 800, height: 800 }, function (err, data) {
       if (err) {
         console.log(err);
       } else {
@@ -94,7 +94,7 @@ class Login extends React.Component {
   handleSubmit() {
     let statusCode;
     if (this.isValid()) {
-      fetch('http://localhost:4001/api/v1/users/signin', {
+      fetch('/api/v1/users/signin', {
         method: 'POST',
         body: JSON.stringify(this.state.login),
         headers: {
