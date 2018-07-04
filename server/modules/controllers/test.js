@@ -4,6 +4,16 @@ const UserModel = require('../model/users');
 
 
 module.exports = {
+  delete: async (req, res, next) => {
+    let testId = req.query.id;
+    console.log(typeof (req.query.id));
+    let removeResult = await TestModel.remove({ _id: (testId) });
+    if (removeResult.n)
+      await UserModel.updateOne({ _id: req.user.id },
+        {$pull : {'userProfileRec.tests': testId}});
+    return res.status(200).send({ message: 'deleted' });
+    res.status(400).send({ message: 'Invalid request' });
+  },
 
   insert: async (req, res, next) => {
     if (req.user.type == 'business') {
@@ -82,5 +92,7 @@ module.exports = {
       };
     }
     res.status(404).json({ message: 'You cannot register' });
-  }
+  },
+
+
 };

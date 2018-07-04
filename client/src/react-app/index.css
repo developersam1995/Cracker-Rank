@@ -63,3 +63,14 @@ button {
   cursor: pointer;
   border-radius: 4px;
 }
+
+.button-circle {
+  padding: 5px;
+  background: #5e5555;
+  color: #fff;
+  font-size: .9em;
+  border: none;
+  box-shadow: 2px 2px 3px 1px #a5dbb8;
+  cursor: pointer;
+  border-radius: 2px;
+}
