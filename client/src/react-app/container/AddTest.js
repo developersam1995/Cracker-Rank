@@ -58,7 +58,7 @@ class AddTest extends React.Component {
       body: JSON.stringify(this.state.test),
       headers: {
         'Content-Type': 'application/json',
-        'charset': 'utf-8'
+        Authorization: localStorage.getItem('ptok')
       }
     }).then(result => {
       return result.json();
@@ -69,10 +69,15 @@ class AddTest extends React.Component {
   };
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?query=questionlist')
-      .then(function (response) {
-        return response.json();
-      })
+    fetch('http://localhost:4001/api/v1/question?id=all', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('ptok')
+      }
+    }).then(function (response) {
+      return response.json();
+    })
       .then(parsedJSON => {
         this.setState({ questions: parsedJSON });
       });
@@ -98,8 +103,8 @@ class AddTest extends React.Component {
 
     return (
       <React.Fragment>
-        <Menu/>
-        <PageTitle title="Add Test"/>
+        <Menu />
+        <PageTitle title="Add Test" />
         < div className="AddTest" >
           <div className="Form BOX">
             <div>
