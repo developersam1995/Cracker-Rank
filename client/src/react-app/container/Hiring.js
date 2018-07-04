@@ -76,7 +76,7 @@ class Hiring extends React.Component {
       hiringUI = hiring.map((test, index) => {
         return (
           <div key={index} className="Card Hiring" onClick={() => this.register(test._id)}>
-            <p className="h1">{test.companyId.$oid}</p>
+            {/* <p className="h1">{test.companyId.$oid}</p> */}
             <p className="h2">{test.title}</p>
             <p className="h3">{test.description}</p>
             {/* <p>{test.quesionId.length}</p> */}
