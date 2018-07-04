@@ -12,6 +12,8 @@ import Practice from './container/Practice';
 import BusinessHome from './container/BusinessHome';
 import AddTest from './container/AddTest';
 import User from './container/User';
+import Test from './container/Test';
+import Hiring from './container/Hiring';
 
 export default () => {
   return (
@@ -20,11 +22,13 @@ export default () => {
         <Switch>
           <Route exact path="/Login" component={Login} />
           <Route exact path="/" component={Home} />
+          <Route exact path="/hiring" component={Hiring}/>
           <Route exact path="/profile" component={User} />
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
           <Route exact path="/editor" component={Editor} />
           <Route exact path="/business" component={BusinessHome} />
+          <Route exact path="/business/test" component={Test} />
           <Route exact path="/test" component={AddTest} />
           <Route exact path="/signup/user" component={RegisterUser} />
           <Route exact path="/signup/business" component={RegisterBusiness} />

@@ -1,7 +1,7 @@
 const QuestionModel = require('../model/question');
 const TestModel = require('../model/test');
 const UserModel = require('../model/users');
-
+const ObjectId = require('mongodb').ObjectId;
 
 module.exports = {
   delete: async (req, res, next) => {
@@ -74,6 +74,59 @@ module.exports = {
     } else {
       res.status(404).json({ message: 'Not found' });
     };
+
+  },
+
+  getTestProfile: async (req,res,next)=>{
+    let {id}=req.query;
+    TestModel.aggregate([
+      {
+        $match:{
+          _id:ObjectId(id)
+        }
+      }
+    ],function(err,TestData){
+
+      let arrQuestionIds=TestData[0].questionsId.map((quesId)=>ObjectId(quesId));
+      let arrRegisteredCandidateIds=TestData[0].registeredCandidates.map((canId)=>ObjectId(canId));
+
+      UserModel.aggregate([
+        {
+          $project:{
+            name:1,
+            mobile:1,
+            'has_ids':{
+              $in:['$_id',arrRegisteredCandidateIds]
+            }
+          }
+        },
+        {
+          $match:{
+            has_ids:true
+          }
+        }
+      ],function(err,candidateDetails){
+        QuestionModel.aggregate([
+          {
+            $project:{
+              title:1,
+              problemDescription:1,
+              difficulty:1,
+              'has_ids':{
+                $in:['$_id',arrQuestionIds]
+              }
+            }
+          },
+          {
+            $match:{
+              has_ids:true
+            }
+          }
+        ],function(err,questionsInTest){
+          res.status(200).json({test_Detail:TestData,candidates: candidateDetails,questions:questionsInTest});
+        });
+      });
+    });
 
   },
 

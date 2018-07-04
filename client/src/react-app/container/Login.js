@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css';
+const popuptool = require('popup-tools');
 import Menu from '../component/Menu';
 import Home from '../container/Home';
 import Business from '../container/BusinessHome';
@@ -26,6 +27,20 @@ class Login extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.isValid = this.isValid.bind(this);
   }
+  handelclick(e) {
+    popuptool.popup('http://localhost:4001/api/v1/users/google', 'google', { width: 800, height: 800 }, function (err, data) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(data);
+      }
+
+    });
+
+  };
+
+
+
 
   handleChange(event) {
     const { name, value } = event.target;
@@ -126,12 +141,10 @@ class Login extends React.Component {
       <p>OR</p>
       <div>
         <BrowserRouter >
-          <Link to="/auth/login">
-            <button
-              className='btn-google ripple'>
-              <SocialIcon network="google" color='#fff' style={{ height: 30, width: 30 }} className='social-icon' />
-              &nbsp;Continue with Google</button>
-          </Link>
+          <button onClick={this.handelclick}
+            className='btn-google ripple'>
+            <SocialIcon network="google" color='#fff' style={{ height: 30, width: 30 }} className='social-icon' />
+            &nbsp;Continue with Google</button>
         </BrowserRouter>
       </div>
     </React.Fragment>;

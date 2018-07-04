@@ -9,6 +9,7 @@ router.route('/').post(passportJWT, TestsController.insert);
 router.route('/').get(passportJWT, TestsController.get);
 router.route('/').delete(passportJWT,TestsController.delete);
 
+router.route('/profile').get(passportJWT,TestsController.getTestProfile);
 router.route('/register/:testId').post(passportJWT, TestsController.register);
     
 module.exports = router;

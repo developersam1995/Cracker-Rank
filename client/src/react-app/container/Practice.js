@@ -3,11 +3,11 @@ import Menu from '../component/Menu';
 import PageTitle from '../component/PageTitle';
 import './Practice.css';
 import QuestionItem from '../component/QuestionItem';
-import Editor from './Editor';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/actionCreators';
+import ReactLoading from 'react-loading';
 
 
 class Practice extends React.Component {
@@ -15,7 +15,9 @@ class Practice extends React.Component {
     super(props);
     this.state = {
       questions: null,
-      questionId: null
+      questionId: null,
+      isLoggedIn: null,
+      isLoaded: false
     };
 
     this.setQuestionID = this.setQuestionID.bind(this);
@@ -32,6 +34,11 @@ class Practice extends React.Component {
   };
 
   componentDidMount() {
+    if (!localStorage.getItem('ptok')) {
+
+      this.setState({ isLoggedIn: '1234' });
+    }
+
     fetch('http://localhost:4001/api/v1/question?id=all', {
       method: 'get',
       headers: {
@@ -40,13 +47,18 @@ class Practice extends React.Component {
     }
     ).then((response) => {
       return response.json();
-    }).then((data) => {
-      this.setState({ questions: data });
+    }).then(data => {
+      this.setState({ questions: data, isLoaded: true });
+    }).catch(error => {
+      console.log('error', error);
     });
   }
 
 
   render() {
+    if (this.state.isLoggedIn) {
+      return <Redirect to='/' />;
+    }
     if (this.state.questionId) {
       return <Redirect to='/editor' />;
     }
@@ -62,7 +74,6 @@ class Practice extends React.Component {
     // if (this.state.questions) {
     displayUI =
       <div className='Practice'>
-        <PageTitle title='Practice' />
         <h2>Show your skills</h2>
         <div>
           {questionItems}
@@ -74,10 +85,23 @@ class Practice extends React.Component {
     //   questionsUI = <Editor data={this.state.QuestionID}/>;
     // }
 
+    let content = null;
+
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
+        {displayUI}
+      </React.Fragment>;
+    } else {
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
+    }
     return (
       <React.Fragment>
         <Menu />
-        {displayUI}
+        <PageTitle title='Practice' />
+        {content}
       </React.Fragment>
     );
   }

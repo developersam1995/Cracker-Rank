@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Redirect } from 'react-router-dom';
-
+import ReactLoading from 'react-loading';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../actions/actionCreators';
@@ -14,7 +14,8 @@ class User extends React.Component {
     this.state = {
       userDetails: {},
       practicedQuestions: [],
-      attemptedTest: [] //with Developer User test took parsedJSON appended 
+      attemptedTest: [], //with Developer User test took parsedJSON appended 
+      isLoaded: false
     };
   };
 
@@ -22,22 +23,19 @@ class User extends React.Component {
     fetch('http://localhost:4001/api/v1/users', {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: this.props.token //value from redux
       }
-    })
-      .then((res) => res.json())
+    }).then((res) => res.json())
       .then((parsedJSON) => {
-
         this.setState({
           userDetails: parsedJSON.userDetails[0],
           practicedQuestions: parsedJSON.PracticeQuestionList,
-          attemptedTest: parsedJSON.allTestList
+          attemptedTest: parsedJSON.allTestList,
+          isLoaded: true
         });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      }).catch((error) => { console.log(error); });
+  }
 
   render() {
     if (!localStorage.getItem('ptok') || !localStorage.getItem('type') == 'developer') {
@@ -67,10 +65,10 @@ class User extends React.Component {
       });
     }
 
-    return (
-      <Fragment>
+    let content = null;
 
-        <Menu />
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
         <section className="Card Profile">
           <h1><u>Profile</u></h1>
           <h1>{userDetails.name}</h1>
@@ -80,19 +78,31 @@ class User extends React.Component {
         </section>
 
         <section className="Profile">
-          <h1><u>Attempted Questions</u></h1>
+          <h1><u>Attempted Questions</u> ({practicedQuestions.length})</h1>
           <div className="TestGrid">
             {practicedQuestionsUI}
           </div>
         </section>;
 
         <section className="Profile">
-          <h1><u>Attempted Test</u></h1>
+          <h1><u>Attempted Test</u> ({attemptedTest.length})</h1>
           <div className="TestGrid">
             {testUI}
           </div>
         </section>;
-      </Fragment>
+      </React.Fragment>;
+    } else {
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
+    }
+    return (
+      <React.Fragment>
+        <Menu />
+        {content}
+      </React.Fragment>
+
     );
   }
 }

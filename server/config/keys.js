@@ -1,7 +1,7 @@
 module.exports = {
   google: {
-    clientID: '57489754379-vi1ahd7spbsankjsr9j4ojog2c0f3fb6.apps.googleusercontent.com',
-    clientSecret: 'TmZVvftpYNq6OMq8XkQ8RqnA'
+    clientID: '97466869703-1am3ra88qejj8uksu0fg605rbj4smbiq.apps.googleusercontent.com',
+    clientSecret: 'zMkte4VsFRvaS2CIiPuxbxNF'
   },
 
   mongoURI: 'mongodb://crackerrank:crackerrank123@ds261570.mlab.com:61570/crackerrank',
