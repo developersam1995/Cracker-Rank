@@ -33,7 +33,7 @@ class Practice extends React.Component {
   componentDidMount() {
     if (!localStorage.getItem('ptok')) {
       console.log('hey u are here');
-      this.setState({isLoggedIn: '1234'});
+      this.setState({ isLoggedIn: '1234' });
     }
 
     fetch('http://localhost:4001/api/v1/question?id=all', {
@@ -44,15 +44,15 @@ class Practice extends React.Component {
     }).then((response) => {
       return response.json();
     }).then(data => {
-      this.setState({ questions: data, isLoaded: true});
+      this.setState({ questions: data, isLoaded: true });
     }).catch(error => {
       console.log('error', error);
     });
   }
 
   render() {
-    if(this.state.isLoggedIn) {
-      return <Redirect to='/' />;     
+    if (this.state.isLoggedIn) {
+      return <Redirect to='/' />;
     }
     if (this.state.questionId) {
       return <Redirect to='/editor' />;
@@ -69,28 +69,29 @@ class Practice extends React.Component {
     // if (this.state.questions) {
     displayUI =
       <div className='Practice'>
-        <PageTitle title='Practice' />
         <h2>Show your skills</h2>
         <div>
           {questionItems}
         </div>
       </div>;
 
-let content = null;
-  
-  if(this.state.isLoaded) {
-    content = <React.Fragment>  <Menu />
-    {displayUI}
-    </React.Fragment>
-  } else {
-    content = 
-    <div className="Loading">
-    <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
-    </div>
-  }
+    let content = null;
+
+    if (this.state.isLoaded) {
+      content = <React.Fragment>
+        {displayUI}
+      </React.Fragment>;
+    } else {
+      content =
+        <div className="Loading">
+          <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
+        </div>;
+    }
     return (
       <React.Fragment>
-      {content}
+        <Menu />
+        <PageTitle title='Practice' />
+        {content}
       </React.Fragment>
     );
   }
