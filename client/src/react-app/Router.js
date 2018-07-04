@@ -14,6 +14,7 @@ import AddTest from './container/AddTest';
 import User from './container/User';
 import Test from './container/Test';
 import Hiring from './container/Hiring';
+import TakeTest from './container/TakeTest';
 
 export default () => {
   return (
@@ -26,6 +27,7 @@ export default () => {
           <Route exact path="/profile" component={User} />
           <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
+          <Route exact path="/takeTest" component={TakeTest} />
           <Route exact path="/editor" component={Editor} />
           <Route exact path="/business" component={BusinessHome} />
           <Route exact path="/business/test" component={Test} />

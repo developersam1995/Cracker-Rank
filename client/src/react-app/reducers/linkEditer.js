@@ -1,11 +1,14 @@
 
-function linkEditor(state = [], action) {
-  switch (action.type) {
+function linkEditor(state=[],action){
+  switch(action.type){
   case 'LINK_EDITOR':
-    state = Object.assign({}, state, { questionId: action.questionId });
-    break;
+    return Object.assign({},state,{questionId: action.questionId});
+  default:
+    if(!state.questionId){
+      return Object.assign({},state,{questionId: 'undefined'});
+    }
+    return state;
   }
-  return state;
 }
 
 export default linkEditor;

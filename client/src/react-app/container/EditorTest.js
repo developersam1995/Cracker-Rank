@@ -56,11 +56,10 @@ class Editor extends React.Component {
 
   render() {
     const { question } = this.state;
-
+    console.log(question);
     let content = null;
     if (this.state.isLoaded) {
       content = <React.Fragment>
-        <Menu />
         <Question question={question} />
         <div className='Editor'>
           <div className='code'>

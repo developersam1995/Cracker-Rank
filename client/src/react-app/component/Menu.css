@@ -32,3 +32,8 @@
     right: 0;
     cursor: pointer;
 }
+
+
+.Timer {
+    float: right;
+}

@@ -5,7 +5,7 @@ import './Question.css';
 const Question = (props) => {
   
   const question = props.question;
-  
+
   return (
     <div>
       <PageTitle title={question.title} />
