@@ -77,10 +77,10 @@ class Hiring extends React.Component {
         return (
           <div key={index} className="Card Hiring" onClick={() => this.register(test._id)}>
             {/* <p className="h1">{test.companyId.$oid}</p> */}
-            <p className="h2">{test.title}</p>
+            <p className="h1">{test.title}</p>
             <p className="h3">{test.description}</p>
             {/* <p>{test.quesionId.length}</p> */}
-            <p className="h4">{test.startDate} to {test.endDate}</p>
+            <p className="h5">{test.startDate} to {test.endDate}</p>
             {/* <p>{test.registeredCandidates.length}</p> */}
             <button>Continue </button>
           </div>
