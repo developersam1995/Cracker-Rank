@@ -38,7 +38,7 @@ class Test extends React.Component {
 
   render() {
     let content = null;
-
+    let candidateDetails = this.testDet
     if (this.state.isLoaded) {
       content = <Fragment>
         <div className='Test-Main'>
