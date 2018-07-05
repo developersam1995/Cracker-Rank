@@ -32,7 +32,7 @@ class AddTest extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/question?id=all', {
+    fetch('/api/v1/question?id=all', {
       method: 'GET',
       headers: {
         'Authorization': localStorage.getItem('ptok')
@@ -81,7 +81,7 @@ class AddTest extends React.Component {
   handleSubmit(e) {
     let statusCode;
     if (this.isValid()) {
-      fetch('http://localhost:4001/api/v1/test', {
+      fetch('/api/v1/test', {
         headers: {
           'Authorization': localStorage.getItem('ptok'),
           'Content-Type': 'application/json'
