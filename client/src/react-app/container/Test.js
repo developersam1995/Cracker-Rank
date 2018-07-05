@@ -35,8 +35,6 @@ class Test extends React.Component {
       });
   }
 
-
-
   render() {
     let content = null;
 
@@ -48,7 +46,7 @@ class Test extends React.Component {
             <div className='Test-Detail'>
               <div><span className='Test-Title'>Title:</span><span>{this.state.testDet.title}</span></div>
               <div><span className='Test-Title'>Description:</span><span>{this.state.testDet.description}</span></div>
-              <div><span className='Test-Title'>Duration:</span><span>{this.state.testDet.duration}</span></div>
+              <div><span className='Test-Title'>Duration:</span><span>{this.state.testDet.duration}</span> (in min)</div>
               <div><span className='Test-Title'>Date:</span><span>{this.state.testDet.startDate}(start date)-{this.state.testDet.endDate}(end date)</span></div>
             </div>
           </div>
