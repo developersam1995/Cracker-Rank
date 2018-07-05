@@ -95,7 +95,9 @@ module.exports = {
     ], function (err, TestData) {
 
       let arrQuestionIds = TestData[0].questionsId.map((quesId) => ObjectId(quesId));
-      let arrRegisteredCandidateIds = TestData[0].registeredCandidates.map((canId) => ObjectId(canId));
+      let arrRegisteredCandidateIds = TestData[0].candidates.map((canDet) => ObjectId(canDet.id));
+
+      console.log(arrRegisteredCandidateIds);
 
       UserModel.aggregate([
         {

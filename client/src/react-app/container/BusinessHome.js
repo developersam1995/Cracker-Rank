@@ -29,7 +29,7 @@ class BusinessHome extends React.Component {
 
   handledelete(h) {
     let statusCode;
-    fetch(`http://localhost:4001/api/v1/test?id=${h}`,
+    fetch(`/api/v1/test?id=${h}`,
       {
         method: 'DELETE',
         headers: {
@@ -52,7 +52,7 @@ class BusinessHome extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/users/', {
+    fetch('/api/v1/users/', {
       method: 'GET',
       headers: {
         'Authorization': localStorage.getItem('ptok')
@@ -83,7 +83,7 @@ class BusinessHome extends React.Component {
             <p>{history.startDate}</p>
             <p>{history.title}</p>
             <p><span className="center">{history.questionsId.length}</span></p>
-            <p><span className="center">{history.registeredCandidates.length}</span></p>
+            <p><span className="center">{history.candidates.length}</span></p>
             <p><button className="button-circle" onClick={() => this.handledelete(history._id)}>X</button></p>
             <p className="h4" onClick={()=> this.handleClickId(history._id)}>View</p>
           </div>);

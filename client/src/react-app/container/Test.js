@@ -26,6 +26,7 @@ class Test extends React.Component {
     })
       .then((res) => res.json())
       .then((testDetails) => {
+        console.log(testDetails);
         this.setState({
           testDet: testDetails.test_Detail[0],
           questions: testDetails.questions,
@@ -37,7 +38,7 @@ class Test extends React.Component {
 
   render() {
     let content = null;
-
+    let candidateDetails = this.testDet
     if (this.state.isLoaded) {
       content = <Fragment>
         <div className='Test-Main'>
