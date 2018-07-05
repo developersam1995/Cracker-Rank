@@ -29,7 +29,7 @@ class BusinessHome extends React.Component {
 
   handledelete(h) {
     let statusCode;
-    fetch(`http://localhost:4001/api/v1/test?id=${h}`,
+    fetch(`/api/v1/test?id=${h}`,
       {
         method: 'DELETE',
         headers: {
@@ -52,7 +52,7 @@ class BusinessHome extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4001/api/v1/users/', {
+    fetch('/api/v1/users/', {
       method: 'GET',
       headers: {
         'Authorization': localStorage.getItem('ptok')
