@@ -45,11 +45,16 @@ module.exports = {
       console.log('geting response', results);
       const testId = req.body.testId;
       const result = { id: req.user.id, result: results };
-      let update = await TestModel.updateOne({ _id: testId },
-        { $push: { 'candidates': result } });
-      await UserModel.updateOne({ _id: req.user.id },
-        {$addToSet: { 'userProfileDev.tests': testId }});
-      return res.status(200).json({ status: 'submitted' });
+      let addTestResult = await UserModel.updateOne({ _id: req.user.id },
+        { $addToSet: { 'userProfileDev.tests': testId } });
+
+      if (addTestResult.nModified) {
+        await TestModel.updateOne({ _id: testId },
+          { $push: { 'candidates': result } });
+        return res.status(200).json({ status: 'submitted' });
+      }
+
+      return res.status(400).json({ status: 'Test already taken' });
     }
     res.status(400).send('unauthorized');
   },
