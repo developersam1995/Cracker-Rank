@@ -60,6 +60,10 @@ class TakeTest extends React.Component {
           alert('Successfully Submitted');
           this.setState({submitted:true});
         }
+        if(res.status == 400) {
+          alert('You have already taken this test');
+          this.setState({submitted:true});
+        }
       }).catch(err => {
         console.log(err);
       });
