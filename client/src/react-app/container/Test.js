@@ -38,7 +38,16 @@ class Test extends React.Component {
 
   render() {
     let content = null;
+<<<<<<< HEAD
     let candidateDetails = this.testDet
+=======
+    let canDets = {};
+    if(this.state.testDet.candidates && this.state.testDet.candidates.length!=0){
+      this.state.testDet.candidates.forEach((val)=>{
+        canDets[val.id]=val.result[0];
+      });
+    }
+>>>>>>> 21393be5f5114ed4ec16c124b7b20f7cae838b97
     if (this.state.isLoaded) {
       content = <Fragment>
         <div className='Test-Main'>
@@ -73,6 +82,7 @@ class Test extends React.Component {
                   <div className='Test-Detail' key={index}>
                     <div><span className='Test-Title'>Name:</span><span>{val.name}</span></div>
                     <div><span className='Test-Title'>Mobile:</span><span>{val.mobile}</span></div>
+                    <div><span className='Test-Title'>Score:</span><span>{canDets[val._id]}</span></div>
                   </div>
                 );
               })

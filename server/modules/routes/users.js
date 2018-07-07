@@ -24,7 +24,6 @@ router.route('/google').get( passport.authenticate('google', {
 }));
 
 router.route('/google/redirect').get(passport.authenticate('google'),(req,res)=>{
-  console.log('inside callback', req, res);
   res.set({ 'content-type': 'text/html; charset=utf-8' });
   res.end(popupTools.popupResponse(req.user));
 });

@@ -60,13 +60,11 @@ class Question extends React.Component {
       testCases: this.state.testCases
     };
 
-    console.log(JSON.stringify(question));
-
     fetch('/api/v1/question', {
       method: 'POST',
-      mode: 'cors',
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'Authorization': localStorage.getItem('ptok')
       },
       body: JSON.stringify(question)
     }).then(res => {
@@ -75,6 +73,9 @@ class Question extends React.Component {
         alert('Created');
       }
       else alert('Error');
+      return res.json();
+    }).then(resJson=>{
+      console.log(resJson);
     }).catch(err => {
       console.log(err);
     });

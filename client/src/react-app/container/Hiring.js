@@ -43,9 +43,10 @@ class Hiring extends React.Component {
     });
   }
 
-  getTestInfo(id, qid) {
+  getTestInfo(id, qid,timeDuration) {
     localStorage.setItem('tid',id);
     localStorage.setItem('qid',qid[0]);
+    localStorage.setItem('timer','00:'+timeDuration+':00');
   }
 
   register(id) {
@@ -86,9 +87,10 @@ class Hiring extends React.Component {
             <p className="h1">{test.title}</p>
             <p className="h3">{test.description}</p>
             {/* <p>{test.quesionId.length}</p> */}
+            <p className="h3">Test time:{test.duration}(minutes)</p>
             <p className="h5">{test.startDate} to {test.endDate}</p>
             {/* <p>{test.registeredCandidates.length}</p> */}
-            <button onClick={()=>this.getTestInfo(test._id, test.questionsId)}>Continue </button>
+            <button onClick={()=>this.getTestInfo(test._id, test.questionsId,test.duration)}>Continue </button>
           </div>
         );
       });

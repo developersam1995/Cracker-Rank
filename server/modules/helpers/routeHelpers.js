@@ -57,7 +57,7 @@ module.exports = {
       exampleOutput: Joi.string().required(),
       testCases: Joi.array().required(),
       functionName: Joi.string().required(),
-      paramNames: Joi.string().required()
+      paramNames: Joi.array().items(Joi.string())
     }),
   }
 };

@@ -8,7 +8,6 @@ function compareArrays(a, b, doesOrderMatter = true) {
   }
 
   for (let i = 0; i < a.length; ++i) {
-    console.log(i);
     if (a[i] !== b[i] || typeof b[i] == 'object') return false;
   }
   return true;

@@ -6,7 +6,6 @@ const ObjectId = require('mongodb').ObjectId;
 module.exports = {
   delete: async (req, res, next) => {
     let testId = req.query.id;
-    console.log(typeof (req.query.id));
     let removeResult = await TestModel.remove({ _id: (testId) });
     if (removeResult.n)
       await UserModel.updateOne({ _id: req.user.id },
@@ -18,7 +17,6 @@ module.exports = {
   insert: async (req, res, next) => {
     if (req.user.type == 'business') {
       const test = req.body;
-      console.log(req.body.questionId);
 
       const newTest = new TestModel({
         // companyId: req.user.id,
@@ -42,7 +40,6 @@ module.exports = {
     if (req.user.type == 'developer') {
 
       const results = req.body.results;
-      console.log('geting response', results);
       const testId = req.body.testId;
       const result = { id: req.user.id, result: results };
       let addTestResult = await UserModel.updateOne({ _id: req.user.id },
@@ -63,7 +60,6 @@ module.exports = {
 
     const id = req.query.id;
 
-    console.log('datas', req.query.id);
     let tests = null;
     if (id === 'all') {
       tests = await TestModel.find();
@@ -96,8 +92,11 @@ module.exports = {
 
       let arrQuestionIds = TestData[0].questionsId.map((quesId) => ObjectId(quesId));
       let arrRegisteredCandidateIds = TestData[0].candidates.map((canDet) => ObjectId(canDet.id));
+<<<<<<< HEAD
 
       console.log(arrRegisteredCandidateIds);
+=======
+>>>>>>> 21393be5f5114ed4ec16c124b7b20f7cae838b97
 
       UserModel.aggregate([
         {

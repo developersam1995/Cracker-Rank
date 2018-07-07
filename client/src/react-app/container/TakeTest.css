@@ -1,10 +1,16 @@
-.TakeTest {
+.Take-Test{
+  display:grid;
+  grid-template-columns: 15% 85%;
+}
+
+
+/* .TakeTest {
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-gap: 1fr;
   word-break: break-all;
   background: #f3f3f3;
-}
+} */
 
 .TakeTest .code {
   margin: 20px;

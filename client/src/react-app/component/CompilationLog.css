@@ -1,0 +1,16 @@
+.Compilation-Log{
+    margin: 20px;
+  }
+  
+  .Compilation-Log-Header{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 550;
+    font-size: 15px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .Compilation-Log-det{
+    margin-left: 30px;
+  }
+  

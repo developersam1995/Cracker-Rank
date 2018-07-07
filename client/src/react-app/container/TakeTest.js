@@ -1,127 +1,97 @@
-import React from 'react';
-import './TakeTest.css';
-import Menu from '../component/Menu';
-import Question from '../component/Question';
-import TestEditor from '../component/TestEditor';
-import ResultTest from '../component/ResultTest';
+import React, { Fragment } from 'react';
 import ReactLoading from 'react-loading';
 
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import * as actionCreators from '../actions/actionCreators';
 
-class TakeTest extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      question: null,
-      results: [],
-      isLoaded: false,
-      submitted: false
+import Menu from '../component/Menu';
+import Question from '../component/Question';
+import QuestionList from '../component/QuestionList';
+import './TakeTest.css';
+import Editor from '../component/Editor';
+import PageTitle from '../component/PageTitle';
+import Timer from '../component/Timer';
+
+class TakeTest extends React.Component{
+
+  constructor(){
+    super();
+    this.state={
+      questionIds:[],
+      isLoaded: false
     };
-    this.updateResult = this.updateResult.bind(this);
-    this.submitTest = this.submitTest.bind(this);
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   console.log(nextProps);
-  //   fetch('/api/v1/question?id=' + nextProps.questionId, {
-  //     method: 'get',
-  //     headers: {
-  //       'Authorization': localStorage.getItem('ptok')
-  //     }
-  //   })
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       this.setState({ question: json, isLoaded: true });
-  //     });
-  // }
-
-  submitTest() {
-    let results = this.state.results;
-    let numberPassed = results.reduce(((n, ele) => {
-      return n + ele;
-    }), 0);
-    let normalizedResult = numberPassed / results.length;
-    if(this.state.submitted){
-      return alert('You already submitted!');
-    }
-    if (confirm(`Are you sure? Your score is ${normalizedResult}`)) {
-      let body = {results:[normalizedResult], testId:localStorage.getItem('tid')};
-      fetch('/api/v1/test', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-          'Authorization':localStorage.getItem('ptok')
-        },
-        body: JSON.stringify(body)
-      }).then(res => {
-        if (res.status == 200) {
-          alert('Successfully Submitted');
-          this.setState({submitted:true});
-        }
-        if(res.status == 400) {
-          alert('You have already taken this test');
-          this.setState({submitted:true});
-        }
-      }).catch(err => {
-        console.log(err);
+  componentWillReceiveProps(nextProps){
+    fetch('/api/v1/test?id='+nextProps.testId,{ 
+      headers:{
+        Authorization:localStorage.getItem('ptok')
+      }
+    })
+      .then((res)=>res.json())
+      .then((data)=>{
+        this.setState({questionIds:data.questionsId, isLoaded: true });
+        this.props.linkWithEditor(data.questionsId[0],'editorForTest');
       });
-    }
   }
 
-  componentDidMount() {
-    if (this.props.questionId !== 'undefined') {
-      fetch('/api/v1/question?id=' + localStorage.getItem('qid'), {
-        method: 'get',
-        headers: {
-          'Authorization': localStorage.getItem('ptok')
-        }
-      })
-        .then((res) => res.json())
-        .then((json) => {
-          this.setState({ question: json, isLoaded: true });
-        });
-    }
+  componentDidMount(){
+    fetch('/api/v1/test?id='+this.props.testId,{ 
+      headers:{
+        Authorization:localStorage.getItem('ptok')
+      }
+    })
+      .then((res)=>res.json())
+      .then((data)=>{
+        this.setState({questionIds:data.questionsId, isLoaded: true });
+        this.props.linkWithEditor(data.questionsId[0],'editorForTest');
+        this.props.setQuestionIds(data.questionsId);
+      });
   }
 
-  updateResult(results) {
-    this.setState({ results: results });
-  }
-
-  render() {
-    const { question } = this.state;
+  render(){
     let content = null;
     if (this.state.isLoaded) {
-      content = <React.Fragment>
-        <Menu />
-        <Question question={question} />
-        <div className='TakeTest'>
-          <div className='code-editor'>
-            <TestEditor updateResult={this.updateResult}
-              testCases={this.state.question.testCases}
-              fnName={this.state.question.functionName}
-              fnParams={this.state.question.paramNames}
-            />
-          </div>
-          <ResultTest results={this.state.results}
-            qId={this.state.question._id} />
-          <button className='submit-button' onClick={this.submitTest}>Submit</button>
-        </div>
-      </React.Fragment>;
+      if(this.state.questionIds.length!=0){
+        content=
+          <Fragment>
+            <Menu/>
+            <div className='Take-Test'>
+              <QuestionList questionIds={this.state.questionIds}/>
+              <div>
+                <Timer/>
+                <Editor/>
+              </div>
+            </div>
+          </Fragment>;
+      }
+      else
+      {
+        content=
+          <Fragment>
+            <Menu/>
+            <div><span>No Questions in Test</span></div>
+          </Fragment>;
+      }
     } else {
       content =
         <div className="Loading">
           <ReactLoading type={'spinningBubbles'} color={'#5c7183'} height={200} width={100} />
         </div>;
     }
-    return (
-      <React.Fragment>
-        {content}
-      </React.Fragment>
-    );
+    return (<Fragment>{content}</Fragment>);
   }
 }
 
+const mapStateToProps=(state)=>{
+  return{
+    testId:state.getTest.testId,
+  };
+};
 
-export default TakeTest;
+const mapStateToDispatch=(dispatch)=>{
+  return bindActionCreators(actionCreators,dispatch);
+};
+
+export default connect(mapStateToProps,mapStateToDispatch)(TakeTest);

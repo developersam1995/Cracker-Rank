@@ -1,4 +1,14 @@
 
+.Language-Selector{
+  float: right;
+  height: 33px;
+  width:135px;
+  margin-top: 9px;
+  margin-right: 9px;
+  text-align-last: center;
+}
+
+
 .CodeEditor {
   margin: 20px;
   padding: 10px;
@@ -10,7 +20,21 @@
   line-height: 2;
 }
 
+.CodeMirror {
+  height: 558px;
+}
+
+/* .submit-button {
+  float: right;
+  margin: 10px;
+  width: 100px;
+  height: 30px;
+  background: #f3f3f3;
+} */
+
 .submit-button {
   float: right;
   background: #5e5555;
+  width:122px;
+  padding-bottom: 24px;
 }

@@ -24,7 +24,7 @@ class Practice extends React.Component {
 
   setQuestionID(id) {
     //get the selected question id
-    this.props.linkWithEditor(id);
+    this.props.linkWithEditor(id,'editorForPractice');
     this.setState({
       questionId: id
     });

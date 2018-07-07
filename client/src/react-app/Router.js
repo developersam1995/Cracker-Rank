@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './container/Login';
 import Home from './container/Home';
 import Question from './container/QuestionAdd';
-import Editor from './container/Editor';
+import PracticeTake from './container/PracticeTake';
 import RegisterUser from './container/RegisterUser';
 import RegisterBusiness from './container/RegisterBusiness';
 import NotFound from './container/NotFound';
@@ -23,15 +23,15 @@ export default () => {
         <Switch>
           <Route exact path="/Login" component={Login} />
           <Route exact path="/" component={Home} />
-          <Route exact path="/hiring" component={Hiring}/>
           <Route exact path="/profile" component={User} />
-          <Route exact path="/question" component={Question} />
           <Route exact path="/practice" component={Practice} />
+          <Route exact path="/editor" component={PracticeTake} />
+          <Route exact path="/hiring" component={Hiring}/>
           <Route exact path="/takeTest" component={TakeTest} />
-          <Route exact path="/editor" component={Editor} />
           <Route exact path="/business" component={BusinessHome} />
           <Route exact path="/business/test" component={Test} />
           <Route exact path="/test" component={AddTest} />
+          <Route exact path="/question" component={Question} />
           <Route exact path="/signup/user" component={RegisterUser} />
           <Route exact path="/signup/business" component={RegisterBusiness} />
           <Route exact path="/*" component={NotFound}/>

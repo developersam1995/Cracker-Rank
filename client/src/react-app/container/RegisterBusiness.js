@@ -133,7 +133,6 @@ class RegisterBusiness extends React.Component {
     if (this.isValid()) {
       const company = this.state.company;
       delete company.confirmPassword;
-      console.log(company);
       fetch('/api/v1/users/signup', {
         method: 'POST',
         body: JSON.stringify(company),
@@ -145,8 +144,6 @@ class RegisterBusiness extends React.Component {
         const statusCode = response.status;
 
         response.json().then((parsedJSON => {
-          console.log(statusCode);
-          console.log(parsedJSON);
           if (statusCode === 403) {
             this.setState({
               company: {

@@ -30,7 +30,7 @@ class QuestionList extends React.Component{
         <ul className='Question-List-ul'>
           {
             this.state.questionIds.map((val,index)=>{
-              return (<li className='Question-List-li' key={index} onClick={()=>this.props.linkWithEditor(val)}>question {index+1} </li>);
+              return (<li className='Question-List-li' key={index} onClick={()=>this.props.linkWithEditor(val,'editorForTest')}>question {index+1} </li>);
             })
           }
         </ul>
@@ -41,7 +41,7 @@ class QuestionList extends React.Component{
 
 const mapStateToProps = (state) =>{
   return{
-    questionId:state.linkEditer.questionId
+    questionId:state.linkEditor.questionId
   };
 };
 
