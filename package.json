@@ -18,7 +18,7 @@
     "@material-ui/core": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "codemirror": "^5.39.0",
+    "codemirror": "^5.58.2",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-beta.3",
     "cookies": "^0.7.1",
